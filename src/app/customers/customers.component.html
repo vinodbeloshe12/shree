@@ -1,0 +1,362 @@
+ <div class="container-fluid customerContainerHead">
+   <h3 class="float-left">Customers List</h3>
+   <button class="add-new-button float-right" (click)="toggleDisplay()"> <i class="fa fa-plus"></i> New
+     Customer</button>
+   <div class="searchContainer float-right">
+     <input type="text" name="" placeholder="Name, Mobile, PAN, Aadhar" id="">
+     <button>Search</button>
+   </div>
+
+
+ </div>
+ <div class="container-fluid customerTable">
+   <div class="row">
+     <div class="col-12 customerHeaderList">
+       <div class="row">
+         <div class="col-1">SR No.</div>
+         <div class="col-2">Customer Name</div>
+         <div class="col-2">Contact No.</div>
+         <div class="col-2">Email</div>
+         <div class="col-2">PAN Number</div>
+         <div class="col-3">AADHAR Number</div>
+       </div>
+     </div>
+     <div *ngFor="let data of customers" class="col-12 customerContentList">
+       <div class="row" routerLink="/customerdetails">
+         <div class="col-1">{{data.id}}</div>
+         <div class="col-2">{{data.name}}</div>
+         <div class="col-2">{{data.mobile}}</div>
+         <div class="col-2">{{data.email}}</div>
+         <div class="col-2">PAN123NUMBER</div>
+         <div class="col-3">AADHAR-1234-2343-1223</div>
+         <!-- <div class="col-1 text-center rowActions"><a routerLink="/customerdetails"><i class="fa fa-pencil"></i></a> <i
+             class="fa fa-times" aria-hidden="true"></i>
+         </div> -->
+       </div>
+     </div>
+
+   </div>
+ </div>
+ <div class="new-customer-popup overlay-popupbox" *ngIf="isShow">
+   <div class="container-popupbox">
+     <div class="title-popupbox">
+       <h2>Add New Customer</h2>
+       <a href="javascript:;" (click)="toggleDisplay()"><i class="fa fa-times"></i></a>
+     </div>
+     <div class="body-popupbox">
+       <section class="customer-details-section">
+         <div class="customer-details-data container">
+
+           <!-- <mat-tab-group>
+             <mat-tab label="First"> Content 1 </mat-tab>
+             <mat-tab label="Second"> Content 2 </mat-tab>
+             <mat-tab label="Third"> Content 3 </mat-tab>
+           </mat-tab-group>
+
+
+           <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+             {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+           </button> -->
+           <!-- <mat-horizontal-stepper [linear]="isLinear" #stepper>
+             <mat-step [stepControl]="firstFormGroup">
+               <form [formGroup]="firstFormGroup">
+                 <ng-template matStepLabel>Fill out your name</ng-template>
+                 <mat-form-field>
+                   <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                 </mat-form-field>
+                 <div>
+                   <button mat-button matStepperNext>Next</button>
+                 </div>
+               </form>
+             </mat-step>
+             <mat-step [stepControl]="secondFormGroup">
+               <form [formGroup]="secondFormGroup">
+                 <ng-template matStepLabel>Fill out your address</ng-template>
+                 <mat-form-field>
+                   <input matInput placeholder="Address" formControlName="secondCtrl" required>
+                 </mat-form-field>
+                 <div>
+                   <button mat-button matStepperPrevious>Back</button>
+                   <button mat-button matStepperNext>Next</button>
+                 </div>
+               </form>
+             </mat-step>
+             <mat-step>
+               <ng-template matStepLabel>Done</ng-template>
+               You are now done.
+               <div>
+                 <button mat-button matStepperPrevious>Back</button>
+                 <button mat-button (click)="stepper.reset()">Reset</button>
+               </div>
+             </mat-step>
+           </mat-horizontal-stepper> -->
+
+           <form #custForm="ngForm" (ngSubmit)="registerUser(customerData)">
+             <div class="row">
+               <h3 class="col-md-12">Personal Details</h3>
+               <div class="form-group col-md-3">
+
+                 <input type="text" #firstname="ngModel" minlength="3" name="fname" required
+                   [(ngModel)]="customerData.fname" id="" class="form-control" placeholder="First Name">
+                 <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error">
+                   <div *ngIf="firstname.errors.required">
+                     First Name is required.
+                   </div>
+                   <div *ngIf="firstname.errors.minlength">
+                     First Name must be at least 3 characters long.
+                   </div>
+                 </div>
+
+               </div>
+               <div class="form-group col-md-3">
+
+                 <input type="text" required #lastname="ngModel" minlength="3" name="lname"
+                   [(ngModel)]="customerData.lname" id="" class="form-control" placeholder="Last Name">
+
+                 <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error">
+                   <div *ngIf="lastname.errors.required">
+                     Last Name is required.
+                   </div>
+                   <div *ngIf="lastname.errors.minlength">
+                     Last Name must be at least 3 characters long.
+                   </div>
+                 </div>
+               </div>
+               <div class="form-group col-md-3">
+
+                 <input type="tel" (keypress)="onlyNumbers($event)" #phone="ngModel" minlength="10" maxlength="10"
+                   name="mobile" required [(ngModel)]="customerData.mobile" id="" class="form-control"
+                   placeholder="Mobile">
+
+                 <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                   <div *ngIf="phone.errors.required">
+                     Mobile Number is required.
+                   </div>
+                   <div *ngIf="phone.errors.minlength">
+                     Mobile Number must be at least 10 characters long.
+                   </div>
+                 </div>
+
+               </div>
+               <div class="form-group col-md-3">
+
+                 <input type="tel" name="alternate_mobile" (keypress)="onlyNumbers($event)" #alternatephone="ngModel"
+                   minlength="10" maxlength="10" [(ngModel)]="customerData.alternate_mobile" id="" class="form-control"
+                   placeholder="Alternate Mobile">
+                 <div *ngIf="alternatephone.invalid && (alternatephone.dirty || alternatephone.touched)" class="error">
+                   <div *ngIf="alternatephone.errors.required">
+                     Alternate Mobile Number is required.
+                   </div>
+                   <div *ngIf="alternatephone.errors.minlength">
+                     Alternate Mobile Number must be at least 10 characters long.
+                   </div>
+                 </div>
+
+               </div>
+               <div class="form-group col-md-3">
+
+                 <input type="email" required #email="ngModel" (keyup)="validateEmail(customerData.email)" name="email"
+                   [(ngModel)]="customerData.email" id="" class="form-control" placeholder="Email">
+
+                 <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+                   <h6 *ngIf="email.errors.required">Email Address is required.</h6>
+                 </div>
+                 <h6 class="error" *ngIf="emailValidate && customerData.email.length>0">Email address is not valid</h6>
+               </div>
+
+               <div class="form-group col-md-3">
+                 <input type="date" name="dob" [(ngModel)]="customerData.dob" id="" class="form-control"
+                   placeholder="DOB">
+               </div>
+
+               <div class="form-group col-md-3">
+
+                 <input type="text" required #username="ngModel" minlength="3" name="username"
+                   [(ngModel)]="customerData.username" id="" class="form-control" placeholder="Username">
+
+                 <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error">
+                   <div *ngIf="username.errors.required">
+                     Username is required.
+                   </div>
+                   <div *ngIf="username.errors.minlength">
+                     Username must be at least 3 characters long.
+                   </div>
+                 </div>
+               </div>
+               <button class="btn btn-primary" [disabled]="!custForm.form.valid" type="Sumbit">Sumbit</button>
+             </div>
+           </form>
+
+
+           <div class="row" [ngClass]="isDisabled?'custdisabled':''">
+             <div class="w-100"></div>
+             <h3 class="col-md-12">KYC Documents</h3>
+             <div class="form-group col-md-4">
+               <!-- <input type="text" name="" id="" class="form-control" value="Aadhar Card" placeholder="Document Name"> -->
+
+               <select (ngModelChange)="selectId($event)" name="idname" [ngModel]="idproof.name" id="">
+                 <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
+
+               </select> </div>
+             <div class="form-group col-md-4">
+               {{idproof.name}}
+               <input type="text" name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''"
+                 [pattern]="selectedId.pattern" [ngModel]="idproof.number" #idno="ngModel" id="" class="form-control"
+                 placeholder="Number">
+               <div class="error" *ngIf="idno.errors?.pattern">
+                 {{selectedId.name}} number is not valid.
+               </div>
+             </div>
+             <div class="form-group col-md-4">
+               <input type="file" multiple class="form-control" required (change)="onFileChange($event)" name="image">
+               <small id="helpId" class="form-text text-muted">Upload Multiple docs </small>
+               <ul *ngIf="imageName">
+                 <li *ngFor="let name of imageName">{{name}}</li>
+               </ul>
+             </div>
+
+
+
+             <div class="w-100"></div>
+             <h3 class="col-md-12">Family Contact Details</h3>
+             <h5 class="col-md-12">Father Details</h5>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="First Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Last Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mobile Number">
+             </div>
+             <div class="w-100"></div>
+             <h5 class="col-md-12">Mother Details</h5>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="First Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Last Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mobile Number">
+             </div>
+             <div class="w-100"></div>
+             <h5 class="col-md-12">Brother Details</h5>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="First Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Last Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mobile Number">
+             </div>
+             <div class="w-100"></div>
+             <h5 class="col-md-12">Sister Details</h5>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="First Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Last Name">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mobile Number">
+             </div>
+             <div class="w-100"></div>
+             <h3 class="col-md-12">Finance Details</h3>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Finance">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Card Number">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mobile Number">
+             </div>
+             <div class="w-100"></div>
+             <h3 class="col-md-12">Transaction Details</h3>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Brand">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Model">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Color">
+             </div>
+             <div class="w-100"></div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="IMEI">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Confirm IMEI">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Price">
+             </div>
+             <div class="form-group col-md-4">
+               <div class="radio-btn">
+                 <input type="radio" name="radio-btn" id="radio-btn-two" checked>
+                 <label for="radio-btn-two">Loan</label>
+               </div>
+               <div class="radio-btn">
+                 <input type="radio" name="radio-btn" id="radio-btn-one">
+                 <label for="radio-btn-one">Cash</label>
+               </div>
+             </div>
+             <div class="form-group col-md-4">
+               <input type="text" name="" id="" class="form-control" placeholder="Mode of Payment">
+             </div>
+             <div class="form-group col-md-4">
+               <input type="file" name="" id="" multiple class="form-control"
+                 placeholder="PAN - input & multi Doc upload">
+               <small id="helpId" class="form-text text-muted">Upload scan copy of Bill</small>
+             </div>
+             <div class="loan-data-container col-12">
+               <div class="row">
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="Loan Number">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="Finance Name">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="EMI Amount">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="EMI Start Date">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="EMI End Date">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="Tenuar">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="Loan Amount">
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="text" name="" id="" class="form-control" placeholder="Down Payment">
+                 </div>
+               </div>
+             </div>
+             <div class="w-100"></div>
+             <div class="form-group col-md-6">
+               <textarea rows="5" name="" id="" class="form-control" placeholder="Comment"></textarea>
+             </div>
+             <div class="form-group col-md-6">
+               <textarea rows="5" name="" id="" class="form-control" placeholder="Feedback"></textarea>
+             </div>
+
+             <div class="btnBlock-popupbox col-md-12 text-right"> <button class="btn btn-cancel">Cancle</button>
+               <button class="btn btn-danger" type="reset">Reset</button>
+               <button class="btn btn-primary" type="Sumbit">Sumbit</button></div>
+
+
+
+           </div>
+         </div>
+       </section>
+     </div>
+   </div>
+ </div>

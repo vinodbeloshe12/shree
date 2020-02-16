@@ -1,0 +1,41 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* You can add global styles to this file, and also import other style files */
+// Width variables (appears count calculates by raw css)
+@width3: 100%; // Appears 11 times
+
+// Height variables (appears count calculates by raw css)
+@height1: 100%; // Appears 4 times
+@height2: 2px; // Appears 2 times
+
+html {
+  left: 0;
+  min-height: @height1;
+  position: absolute;
+  top: 0;
+  width: @width3;
+}
+
+body {
+  font-family: 'Saira', sans-serif;
+  left: 0;
+  background-size: 300px;
+  background-image: url('assets/images/loginBg.jpg');
+  margin: 0;
+  min-height: @height1;
+  padding-bottom: 30px;
+  padding: 0 0 41px 0 !important;
+  position: absolute;
+  top: 0;
+  width: @width3;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

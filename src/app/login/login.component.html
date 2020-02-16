@@ -1,0 +1,29 @@
+<!-- <form [formGroup]="myForm" class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Username" value="Sanchit">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Password" value="Sanchit">
+
+  </mat-form-field>
+</form> -->
+
+
+<form id="loginform" #loginForm="ngForm" (ngSubmit)="login(userData)">
+
+  <div class="input-group">
+    <label>Username</label>
+    <input [(ngModel)]="userData.username" type="text" name="username">
+  </div>
+
+  <div class="input-group">
+
+    <label>Password</label>
+    <input [(ngModel)]="userData.password" type="password" name="password">
+  </div>
+  <div class="input-group">
+    <!-- <button routerLink="/dashboard" class="btn">Login</button> -->
+    <input type="submit" class="btn" value="Login">
+  </div>
+</form>
