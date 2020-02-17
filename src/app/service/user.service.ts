@@ -12,6 +12,10 @@ export class UserService {
     return this.http.get(apiUrl + "getAllUsers", httpOptionsGet);
   }
 
+  getIdProofDetails(id) {
+    return this.http.get(apiUrl + "getIdProofDetails?id=" + id, httpOptionsGet);
+  }
+
   createUser(data) {
     return this.http.post(apiUrl + "registerUser", JSON.stringify(data), httpOptionsPost);
   }

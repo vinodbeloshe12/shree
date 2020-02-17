@@ -32,6 +32,7 @@ export class CustomersComponent implements OnInit {
   emailValidate: boolean;
   id = idproof;
   idproof = {};
+  idproofData: any = [];
   selectedId = {};
   imageName: any = [];
   image;
@@ -60,8 +61,16 @@ export class CustomersComponent implements OnInit {
 
   }
 
+  getIdProofDetails(id) {
+    this.userService.getIdProofDetails(id).subscribe((res: any) => {
+      if (res.value) {
+        this.idproofData = res.data;
+      }
+    }, err => console.log(err));
+
+  }
+
   registerUser(data) {
-    console.log("data", console.log(JSON.stringify(data)));
     this.userService.createUser(data).subscribe((res: any) => {
       if (res.value) {
         this.isDisabled = false;

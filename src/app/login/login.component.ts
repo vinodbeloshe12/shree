@@ -15,9 +15,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(data) {
-    console.log("data", data);
     this.loginService.login(data).subscribe((res: any) => {
       if (res.value) {
+        localStorage.setItem("userData", JSON.stringify(res.data));
+        localStorage.setItem("loggedIn", 'true');
         this.router.navigate(['dashboard']);
       } else {
         alert("please enter valid Username/Passowrd");
