@@ -29,6 +29,7 @@ export class CustomersComponent implements OnInit {
   isShow = false;
   isEditShow = false;
   isDisabled = false;
+  addKYC = false;
   emailValidate: boolean;
   id = idproof;
   idproof = {};
@@ -68,6 +69,10 @@ export class CustomersComponent implements OnInit {
       }
     }, err => console.log(err));
 
+  }
+
+  showKYC() {
+    this.addKYC = !this.addKYC;
   }
 
   registerUser(data) {

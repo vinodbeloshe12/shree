@@ -3,6 +3,8 @@ import { HttpHeaders } from "@angular/common/http";
 
 export const apiUrl = "http://localhost/ShreeBackend/index.php/API/";
 export const imgUrl = "http://localhost/ShreeBackend/";
+// export const apiUrl = "http://localhost/ShreeBackend/index.php/API/";
+// export const imgUrl = "http://localhost/ShreeBackend/";
 export const idproof = [{
     "name": "Pancard",
     "value": "pancard",

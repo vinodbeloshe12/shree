@@ -191,28 +191,60 @@
            <div class="row" [ngClass]="isDisabled?'custdisabled':''">
              <div class="w-100"></div>
              <h3 class="col-md-12">KYC Documents</h3>
-             <div class="form-group col-md-4">
-               <!-- <input type="text" name="" id="" class="form-control" value="Aadhar Card" placeholder="Document Name"> -->
 
-               <select (ngModelChange)="selectId($event)" name="idname" [ngModel]="idproof.name" id="">
-                 <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
+             <button (click)="showKYC()" class="btn btn-add new-transaction"><i class="fa"
+                 [ngClass]="addKYC?'fa-minus':'fa-plus'"></i>{{addKYC?'close':'Add'}}</button>
+             <div class="row" *ngIf="addKYC">
 
-               </select> </div>
-             <div class="form-group col-md-4">
-               {{idproof.name}}
-               <input type="text" name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''"
-                 [pattern]="selectedId.pattern" [ngModel]="idproof.number" #idno="ngModel" id="" class="form-control"
-                 placeholder="Number">
-               <div class="error" *ngIf="idno.errors?.pattern">
-                 {{selectedId.name}} number is not valid.
-               </div>
+               <form #kycForm="ngForm" (ngSubmit)="addKYC(kycData)">
+                 <div class="form-group col-md-4">
+                   <select (ngModelChange)="selectId($event)" name="idname" [ngModel]="idproof.name" id="">
+                     <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
+
+                   </select> </div>
+                 <div class="form-group col-md-4">
+                   {{idproof.name}}
+                   <input type="text" name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''"
+                     [pattern]="selectedId.pattern" [ngModel]="idproof.number" #idno="ngModel" id=""
+                     class="form-control" placeholder="Number">
+                   <div class="error" *ngIf="idno.errors?.pattern">
+                     {{selectedId.name}} number is not valid.
+                   </div>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <input type="file" multiple class="form-control" required (change)="onFileChange($event)"
+                     name="image">
+                   <small id="helpId" class="form-text text-muted">Upload Multiple docs </small>
+                   <ul *ngIf="imageName">
+                     <li *ngFor="let name of imageName">{{name}}</li>
+                   </ul>
+                 </div>
+                 <button class="btn btn-primary" [disabled]="!kycForm.form.valid" type="Sumbit">Sumbit</button>
+               </form>
              </div>
-             <div class="form-group col-md-4">
-               <input type="file" multiple class="form-control" required (change)="onFileChange($event)" name="image">
-               <small id="helpId" class="form-text text-muted">Upload Multiple docs </small>
-               <ul *ngIf="imageName">
-                 <li *ngFor="let name of imageName">{{name}}</li>
-               </ul>
+
+             <div class="row" style="width: 100%;">
+               <div class="col-12">
+                 <table>
+                   <tr>
+                     <th>Sr No</th>
+                     <th>Document Name</th>
+                     <th>Number</th>
+                     <th>Image</th>
+                   </tr>
+                   <tbody *ngIf="idproofData && idproofData.length>0">
+                     <tr *ngFor="let data of idproofData">
+                       <td>1</td>
+                       <td>s</td>
+                       <td>d</td>
+                       <td>f</td>
+                     </tr>
+                   </tbody>
+                   <tbody *ngIf="idproofData && idproofData.length==0">
+                     <p>KYC details not found</p>
+                   </tbody>
+                 </table>
+               </div>
              </div>
 
 
