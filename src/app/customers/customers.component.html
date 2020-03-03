@@ -22,7 +22,7 @@
        </div>
      </div>
      <div *ngFor="let data of customers" class="col-12 customerContentList">
-       <div class="row" routerLink="/customerdetails">
+       <div class="row" (click)="navigateToCustomer(data.id)">
          <div class="col-1">{{data.id}}</div>
          <div class="col-2">{{data.name}}</div>
          <div class="col-2">{{data.mobile}}</div>
@@ -188,15 +188,15 @@
            </form>
 
 
-           <div class="row" [ngClass]="isDisabled?'custdisabled':''">
+           <!-- <div class="row" [ngClass]="isDisabled?'custdisabled':''">
              <div class="w-100"></div>
              <h3 class="col-md-12">KYC Documents</h3>
-
-             <button (click)="showKYC()" class="btn btn-add new-transaction"><i class="fa"
-                 [ngClass]="addKYC?'fa-minus':'fa-plus'"></i>{{addKYC?'close':'Add'}}</button>
+             <div class="row" style="width: 100%;">
+               <button (click)="showKYC()" class="btn btn-add new-transaction"><i class="fa"
+                   [ngClass]="addKYC?'fa-minus':'fa-plus'"></i>{{addKYC?'close':'Add'}}</button>
+             </div>
              <div class="row" *ngIf="addKYC">
-
-               <form #kycForm="ngForm" (ngSubmit)="addKYC(kycData)">
+               <form #kycForm="ngForm" (ngSubmit)="submitKYC(idproof)">
                  <div class="form-group col-md-4">
                    <select (ngModelChange)="selectId($event)" name="idname" [ngModel]="idproof.name" id="">
                      <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
@@ -386,7 +386,7 @@
 
 
 
-           </div>
+           </div> -->
          </div>
        </section>
      </div>

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-
+  userData = JSON.parse(localStorage.getItem('userData'));
   constructor(private router: Router) { }
 
   ngOnInit() {

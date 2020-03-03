@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from "@angular/animations";
 import { UserService } from '../service/user.service';
 import { idproof } from '../app.constants';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CustomersComponent implements OnInit {
   imageName: any = [];
   image;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.getAllCustomers();
@@ -75,10 +76,17 @@ export class CustomersComponent implements OnInit {
     this.addKYC = !this.addKYC;
   }
 
+  submitKYC(data) {
+    console.log("data", data)
+  }
+
   registerUser(data) {
     this.userService.createUser(data).subscribe((res: any) => {
       if (res.value) {
         this.isDisabled = false;
+        this.getAllCustomers();
+        this.isShow = false;
+        this.customerData = {};
       } else {
         alert(res.message);
       }
@@ -125,6 +133,10 @@ export class CustomersComponent implements OnInit {
       this.imageName.push(files[i]);
     }
     this.image = files;
+  }
+
+  navigateToCustomer(id) {
+    this.router.navigate(['customerdetails', id])
   }
 }
 

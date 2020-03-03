@@ -11,7 +11,7 @@
             <li><a routerLink="/customers">Customers</a></li>
             <li><a href="javascript:;">Change Password</a></li>
             <li class="login-customer">
-              <span> Welcome, Sanchit</span>
+              <span> Welcome, {{userData.first_name}}</span>
               <a href="javascript:;" (click)="logout()">logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
 
             </li>
