@@ -19,7 +19,7 @@ export class CustomerdetailsComponent implements OnInit {
   emailValidate: boolean;
   id = idproof;
   idproofData: any = [];
-  selectedId = {};
+  selectedId: any = {};
   imageName: any = [];
 
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService) { }
