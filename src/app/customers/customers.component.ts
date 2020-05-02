@@ -4,7 +4,6 @@ import { UserService } from '../service/user.service';
 import { idproof } from '../app.constants';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
@@ -38,17 +37,14 @@ export class CustomersComponent implements OnInit {
   selectedId = {};
   imageName: any = [];
   image;
-
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.getAllCustomers();
   }
 
-
   toggleDisplay() {
     this.isShow = !this.isShow;
-    this.isDisabled = false;
   }
   toggleEditDisplay() {
     this.isEditShow = !this.isEditShow;
@@ -61,78 +57,6 @@ export class CustomersComponent implements OnInit {
       }
     }, err => console.log(err));
 
-  }
-
-  getIdProofDetails(id) {
-    this.userService.getIdProofDetails(id).subscribe((res: any) => {
-      if (res.value) {
-        this.idproofData = res.data;
-      }
-    }, err => console.log(err));
-
-  }
-
-  showKYC() {
-    this.addKYC = !this.addKYC;
-  }
-
-  submitKYC(data) {
-    console.log("data", data)
-  }
-
-  registerUser(data) {
-    this.userService.createUser(data).subscribe((res: any) => {
-      if (res.value) {
-        this.isDisabled = false;
-        this.getAllCustomers();
-        this.isShow = false;
-        this.customerData = {};
-      } else {
-        alert(res.message);
-      }
-    })
-  }
-
-
-  onlyNumbers(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    // console.log(inputChar, e.charCode);
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
-      event.preventDefault();
-    }
-  }
-
-
-  validateEmail(email) {
-    if (email) {
-      let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-      if (reg.test(email) == false) {
-        this.emailValidate = true;
-        return false;
-      }
-      else {
-        this.emailValidate = false;
-      }
-    }
-  }
-
-  selectId(sid) {
-    let findex = this.id.findIndex(i => i.value == sid);
-    if (findex != -1) {
-      this.selectedId = this.id[findex];
-      console.log("this.selectedId", this.selectedId)
-    }
-  }
-
-  onFileChange(fileInput: any) {
-    this.imageName = [];
-    let files = fileInput.srcElement.files;
-    for (let i = 0; i < files.length; i++) {
-      this.imageName.push(files[i]);
-    }
-    this.image = files;
   }
 
   navigateToCustomer(id) {

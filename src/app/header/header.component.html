@@ -9,10 +9,10 @@
           <ul>
             <li> <a routerLink="/dashboard" href="">Dashboard</a></li>
             <li><a routerLink="/customers">Customers</a></li>
-            <li><a href="javascript:;">Change Password</a></li>
+            <li><a routerLink="/brandstock">Stock</a></li>
             <li class="login-customer">
-              <span> Welcome, {{userData.first_name}}</span>
-              <a href="javascript:;" (click)="logout()">logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
+              <span> Welcome, Sanchit</span>
+              <a href="javascript:;" routerLink="/login">logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
 
             </li>
           </ul>

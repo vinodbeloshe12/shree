@@ -1,7 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+
+// the scanner!
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+// Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -9,12 +15,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { CustomersComponent } from './customers/customers.component';
 import { CustomerdetailsComponent } from './customerdetails/customerdetails.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatStepperModule } from '@angular/material/stepper';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
+import { BrandstockComponent } from './brandstock/brandstock.component';
 
 @NgModule({
   declarations: [
@@ -24,18 +26,19 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     LoginComponent,
     CustomersComponent,
-    CustomerdetailsComponent
+    CustomerdetailsComponent,
+    BrandstockComponent
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatTabsModule,
-    MatStepperModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
-    MatInputModule
+    FormsModule,
+    ZXingScannerModule,
+    AppRoutingModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [],
   bootstrap: [AppComponent]

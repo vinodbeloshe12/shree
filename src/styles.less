@@ -1,5 +1,3 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 /* You can add global styles to this file, and also import other style files */
 // Width variables (appears count calculates by raw css)
 @width3: 100%; // Appears 11 times
@@ -19,7 +17,7 @@ html {
 body {
   font-family: 'Saira', sans-serif;
   left: 0;
-  background-size: 300px;
+  background-size: 500px;
   background-image: url('assets/images/loginBg.jpg');
   margin: 0;
   min-height: @height1;
@@ -28,14 +26,24 @@ body {
   position: absolute;
   top: 0;
   width: @width3;
+  background-attachment: fixed;
+  animation: mymove 60000s infinite;
 }
 
-html,
-body {
-  height: 100%;
+@keyframes mymove {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: 0 -2000000%;
+  }
+
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+:host zxing-scanner::ng-deep {
+  max-height: 200px;
+  width: 100vw;
+  object-fit: contain;
 }

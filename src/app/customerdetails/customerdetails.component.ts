@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { idproof } from '../app.constants';
 
-
 @Component({
   selector: 'app-customerdetails',
   templateUrl: './customerdetails.component.html',
@@ -15,6 +14,7 @@ export class CustomerdetailsComponent implements OnInit {
   idprooFormData: any = {};
   transactionFormData: any = {};
   addKYC: boolean = false;
+  transactionPop: boolean = false;
   addContacts: boolean = false;
   emailValidate: boolean;
   id = idproof;
@@ -36,42 +36,17 @@ export class CustomerdetailsComponent implements OnInit {
       }
     }, err => console.log(err));
   }
-  transactionPop = false;
-
   newTransaction() {
     this.transactionPop = !this.transactionPop;
   }
 
-  showKYC() {
-    this.addKYC = !this.addKYC;
-  }
-  showContacts() {
-    this.addContacts = !this.addContacts;
-  }
-
-  onlyNumbers(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    // console.log(inputChar, e.charCode);
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
-      event.preventDefault();
-    }
+  updateUser(data) {
+    this.userService.updateUser(data).subscribe((res: any) => {
+      this.getUserDetails(this.activatedRoute.snapshot.params.id);
+      alert("user data updated");
+    }, err => console.log(err));
   }
 
-
-  validateEmail(email) {
-    if (email) {
-      let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-      if (reg.test(email) == false) {
-        this.emailValidate = true;
-        return false;
-      }
-      else {
-        this.emailValidate = false;
-      }
-    }
-  }
 
   selectId(sid) {
     let findex = this.id.findIndex(i => i.value == sid);
@@ -106,58 +81,42 @@ export class CustomerdetailsComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  removeIdProof(id, type, custid) {
+  }
+
+
   submitContact(data) {
     data.cust_id = this.activatedRoute.snapshot.params.id;
     this.userService.createContact(data).subscribe((res: any) => {
       this.addContacts = false;
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
       this.contactFormData = {};
+      alert("new contact added");
     }, err => console.log(err));
   }
 
-  updateUser(data) {
-    this.userService.updateUser(data).subscribe((res: any) => {
-      this.getUserDetails(this.activatedRoute.snapshot.params.id);
-    }, err => console.log(err));
+  onlyNumbers(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    // console.log(inputChar, e.charCode);
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
-  showIDImage(type, id) {
-    console.log(type, id)
-  }
 
-  removeIdProof(id, type, custid) {
-  }
-
-  submitTransaction(data) {
-    data.cust_id = this.activatedRoute.snapshot.params.id;
-    this.userService.createTransaction(data).subscribe((res: any) => {
-      this.getUserDetails(this.activatedRoute.snapshot.params.id);
-      this.transactionPop = false;
-      this.transactionFormData = {};
-    }, err => console.log(err));
-  }
-
-  calculateLoanAmount(dowonpayment) {
-    this.transactionFormData.loan_amount = this.transactionFormData.price - dowonpayment;
-  }
-
-  calculateEmiAmount(tenure) {
-    let intesrAmount = this.transactionFormData.loan_amount * (this.transactionFormData.intrest / 100);
-    this.transactionFormData.emi_amount = (this.transactionFormData.loan_amount + intesrAmount) / tenure;
-  }
-
-  checkPaymentStatus(data) {
-    if (data.payment_mode == "Cash") {
-      return 'Paid';
-    } else {
-      let cdate = new Date();
-      if (data.emi_end_date < cdate) {
-        return 'Paid';
-      } else {
-        return "EMI pending";
+  validateEmail(email) {
+    if (email) {
+      let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      if (reg.test(email) == false) {
+        this.emailValidate = true;
+        return false;
+      }
+      else {
+        this.emailValidate = false;
       }
     }
-
   }
 
 }

@@ -1,6 +1,12 @@
 .customerContainerHead {
   overflow: hidden;
-  padding: 40px 15px 10px 15px;
+  padding: 10px 0px 15px 0px;
+  margin: 0 -15px;
+  border-bottom: thin solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  color: #0c9aa9;
+  text-shadow: 3px 3px #ececec;
 
   .add-new-button {
     display: inline-block;
@@ -8,7 +14,7 @@
     outline: none;
     height: 30px;
     font-size: 12px;
-    background: #2b80e8;
+    background: #0C9AA9;
     border: none;
     padding: 0px 14px;
     color: #fff;
@@ -37,7 +43,7 @@
       vertical-align: top;
       height: 30px;
       font-size: 12px;
-      background: #2b80e8;
+      background: #0C9AA9;
       border: none;
       padding: 0 15px;
       color: #fff;
@@ -47,15 +53,26 @@
 
 }
 
+section.customer-data {
+  padding: 20px 30px 30px 30px;
+  border: thin solid #ddd;
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  background: #fbfbfb;
+  border-radius: 5px;
+  box-shadow: 8px 8px 0px #00000017;
+}
+
 .customerTable {
   font-size: 12px;
-  border: thin solid #bbb;
+  // border: thin solid #bbb;
   margin: 0px 15px 30px 15px;
   width: auto;
-  box-shadow: -6px 6px 5px 0px #00000047;
+  // box-shadow: -6px 6px 5px 0px #00000047;
 
   .customerHeaderList {
-    background: #2b80e8;
+    background: #0C9AA9;
     color: #fff;
     text-transform: uppercase;
 
@@ -96,7 +113,7 @@
 
     &:hover {
       background: #ddecff !important;
-      box-shadow: inset 0px 0px 2px #2b80e8;
+      box-shadow: inset 0px 0px 2px #0C9AA9;
     }
 
   }
@@ -203,24 +220,302 @@ section.customer-details-section {
   }
 }
 
+section.customer-details-section {
 
-.custdisabled {
-  pointer-events: none;
-  opacity: .5;
+  h3 {
+    border-top: thin solid #ddd;
+    margin-top: 20px;
+    padding: 10px 0 10px 20px;
+
+    &:first-child {
+      border: none;
+    }
+  }
 }
 
-.error {
-  color: red;
-
+button.btn.btn-primary.update-btn,
+button.btn.btn-primary.save-btn {
+  border-radius: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-
-.uppercase {
-  text-transform: uppercase;
+button.btn.btn-primary.save-btn {
+  background: #0c9aa9;
+  border-color: #0c9aa9;
 }
 
+.new-entry .btn.btn-primary {
+  margin-top: 30px;
+}
 
-table {
+.body-popupbox {
+  padding: 30px 40px;
+}
+
+.customer-details-data section h3 {
+  border-bottom: thin solid #ddd;
+  padding-bottom: 15px;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 20px;
+  color: #0c9aa9;
+  text-shadow: 3px 3px #ececec;
+}
+
+.btnBlock-customerDetails {
+  margin-bottom: 30px;
+  border-top: thin solid #ddd;
+  padding: 25px 15px;
+  margin-top: 20px;
+
+  .btn {
+    margin-left: 10px;
+  }
+}
+
+.customer-details-data section {
+  padding: 20px 30px 30px 30px;
+  border: thin solid #ddd;
   width: 100%;
-  border: 1px solid #ccc;
+  margin-bottom: 30px;
+  background: #fbfbfb;
+  border-radius: 5px;
+  box-shadow: 8px 8px 0px #00000017
+}
+
+.body-popupbox .customerTable {
+  margin: 0;
+  box-shadow: none;
+  border-top: 0;
+}
+
+.noresize {
+  resize: none;
+}
+
+.radio-btn {
+  display: inline-block;
+  position: relative;
+  margin-right: 15px;
+  border: thin solid #ddd;
+  padding: 6px 20px 6px 40px;
+  border-radius: 21px;
+
+  input {
+    position: absolute;
+    left: 11px;
+    top: 8px;
+    height: 20px;
+    width: 18px;
+  }
+
+  label {
+    margin: 0;
+  }
+}
+
+button.btn.btn-add {
+  position: absolute;
+  right: 15px;
+  padding: 5px 14px;
+  border-radius: 15px;
+  font-size: 12px;
+  background: #efbb00;
+  font-weight: 100 !important;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.btn:hover {
+  background: #333333 !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+label.custom-checkbox {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  font-size: 12px;
+
+  input {
+    margin: 0px 6px 0 0;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.form-group>label {
+  font-size: 14px;
+  color: #737373;
+}
+
+input[type="file"] {
+  font-size: 12px;
+}
+
+
+
+.modalpopup-overlay {
+  position: fixed;
+  z-index: 9999;
+  background: #000000dd;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  .modalpopup-heading h4 {
+    border-bottom: thin solid #ddd;
+    padding: 0 0 20px 0;
+    margin-bottom: 20px;
+  }
+
+  .modalpopup-content {
+    background: #fff;
+    padding: 30px 30px;
+    position: fixed;
+    left: 20px;
+    top: 40px;
+    bottom: 20px;
+    right: 20px;
+    overflow: auto;
+  }
+
+  span.modalpopup-times {
+    position: fixed;
+    right: 20px;
+    background: #fff;
+    top: 8px;
+    padding: 5px 10px;
+  }
+}
+
+
+ul.documents-Thumbs {
+  margin: 0;
+  list-style: none;
+}
+
+ul.documents-Thumbs li {
+  top: 0;
+  right: 0;
+  vertical-align: top;
+  width: 180px;
+  display: inline-block;
+  background: #fff;
+  position: relative;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: thin solid #ddd;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+
+  &:hover {
+    border: thin solid #b9b9b9;
+    top: -3px;
+    right: -3px;
+    box-shadow: 3px 3px 0 0 #ddd;
+  }
+
+  img {
+    max-width: 150px;
+    max-height: 90px;
+  }
+
+  strong,
+  span {
+    width: 100%;
+    display: inline-block;
+    font-size: 13px;
+  }
+
+  a.removeImg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #fff;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    display: inline-block;
+    border-radius: 60px;
+    text-align: center;
+
+    i {
+      color: #b11919;
+    }
+  }
+}
+
+button.btn.btn-primary {
+  background: #0c9aa9;
+  border-color: #0c9aa9;
+}
+
+.detailstable-list {
+  font-size: 12px;
+  margin: 0px 15px 30px 15px;
+  width: auto;
+  border-top: solid thin #ddd;
+}
+
+.list-table-parent {
+  font-size: 12px;
+}
+
+.customerHeaderList {
+  background: #0C9AA9;
+  color: #fff;
+  text-transform: uppercase;
+
+  .row {
+    >div {
+      border-right: thin solid #fff;
+      padding: 8px 15px;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+
+  }
+}
+
+.customerContentList {
+  background: #efefef;
+
+  .row {
+    cursor: pointer;
+
+    >div {
+      border-right: thin solid #ddd;
+      padding: 8px 15px;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .rowActions i {
+      width: 49%;
+      text-align: center;
+    }
+  }
+
+  &:hover {
+    background: #ddecff !important;
+    box-shadow: inset 0px 0px 2px #0C9AA9;
+  }
+
+}
+
+.customerContentList:nth-child(odd) {
+  background: #fff;
 }

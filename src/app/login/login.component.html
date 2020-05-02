@@ -1,16 +1,6 @@
-<!-- <form [formGroup]="myForm" class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Username" value="Sanchit">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Password" value="Sanchit">
-
-  </mat-form-field>
-</form> -->
-
-
 <form id="loginform" #loginForm="ngForm" (ngSubmit)="login(userData)">
+
+  <div class="logo-box"><img src="../../assets/images/logo.png"></div>
 
   <div class="input-group">
     <label>Username</label>
@@ -39,7 +29,6 @@
     </div>
   </div>
   <div class="input-group">
-    <button class="btn btn-primary" [disabled]="!loginForm.form.valid" type="Sumbit">Login</button>
-
+    <button class="btn" [disabled]="!loginForm.form.valid" type="Sumbit">Login</button>
   </div>
 </form>

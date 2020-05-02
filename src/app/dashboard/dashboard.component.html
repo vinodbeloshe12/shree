@@ -1,1 +1,131 @@
-<p>dashboard works!</p>
+<div class="container-fluid customerTable">
+    <section class="customer-data">
+        <div class="w-100 customerContainerHead">
+            <h3 class="float-left dashboardHeading">Today's Dashboard</h3>
+            <!-- <a class="float-right"> <strong><i class="fa fa-calendar"></i> 22-4-2020 <i
+                        class="fa fa-caret-down"></i></strong></a> -->
+        </div>
+        <div class="row">
+
+            <div class="col-xl-6 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-danger">Closing Stock</h5>
+                                        </div>
+                                    </div>
+                                    <h1 class="display-5 mt-1 mb-3">230</h1>
+
+                                    <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 300
+                                        </span>
+                                        <span class="text-muted"> - Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Total Sale</h5>
+                                        </div>
+                                    </div>
+                                    <h1 class="display-5 mt-1 mb-3">89,500</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 78,621
+                                        </span>
+                                        <span class="text-muted"> - Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-success">Purchase Stock</h5>
+                                        </div>
+                                    </div>
+                                    <h1 class="display-5 mt-1 mb-3">486</h1>
+                                    <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 150
+                                        </span>
+                                        <span class="text-muted"> - Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-muted">Customers</h5>
+                                        </div>
+                                    </div>
+                                    <h1 class="display-5 mt-1 mb-3">64</h1>
+                                    <div class="mb-0">
+                                        <span class="text-success"> <i
+                                                class="mdi mdi-arrow-bottom-right fa fa-plus"></i> 22
+                                        </span>
+                                        <span class="text-muted"> - Today</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-xxl-7">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <div class="card-actions float-right">
+                            <!-- <button mat-button mat-raised-button color="primary" class="btn btn-primary"
+                                (click)="randomize()">Update</button> -->
+                        </div>
+                        <h5 class="card-title mb-0">Purchase & Sales Chart</h5>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="chart chart-sm">
+                            <div style="display: block">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                    [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col-xl-12 brandStockDetails">
+                <div class="w-100 customerContainerHead">
+                    <h3 class="dashboardHeading">Current Brand Stock</h3>
+                </div>
+                <ul class="brandStocklist">
+                    <li class="brandStock">Vivo <span>95</span></li>
+                    <li class="brandStock">Oppo <span>65</span></li>
+                    <li class="brandStock">Mi <span>40</span></li>
+                    <li class="brandStock">OnePlus <span>15</span></li>
+                    <li class="brandStock">Honor <span>55</span></li>
+                    <li class="brandStock">HTC <span>30</span></li>
+                    <li class="brandStock">Vivo <span>95</span></li>
+                    <li class="brandStock">Oppo <span>65</span></li>
+                    <li class="brandStock">Mi <span>40</span></li>
+                    <li class="brandStock">OnePlus <span>15</span></li>
+                    <li class="brandStock">Honor <span>55</span></li>
+                    <li class="brandStock">HTC <span>30</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+
+    </section>
+</div>

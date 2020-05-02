@@ -1,3 +1,9 @@
-<app-header *ngIf="localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') == 'true'"></app-header>
+<app-header *ngIf="showHead"></app-header>
+
+<!-- <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled">
+</zxing-scanner>
+
+<button (click)='scan()'>scan</button>
+{{qrResultString}} -->
 <router-outlet></router-outlet>
-<!-- <app-footer *ngIf="localStorage.getItem('loggedIn') && localStorage.getItem('loggedIn') == 'true'"></app-footer> -->
+<app-footer *ngIf="showHead"></app-footer>
