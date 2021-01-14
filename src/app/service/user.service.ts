@@ -20,6 +20,9 @@ export class UserService {
   getAllStock() {
     return this.http.get(apiUrl + "getAllStock", httpOptionsGet);
   }
+  getAllSales() {
+    return this.http.get(apiUrl + "getAllSales", httpOptionsGet);
+  }
 
   getUserDetailsById(id) {
     return this.http.get(apiUrl + "getUserDetailsById?id=" + id, httpOptionsGet);
@@ -59,6 +62,9 @@ export class UserService {
 
   createContact(data) {
     return this.http.post(apiUrl + "createContact", JSON.stringify(data), httpOptionsPost);
+  }
+  getEMIDetails(data) {
+    return this.http.post(apiUrl + "getEMIDetails", JSON.stringify(data), httpOptionsPost);
   }
   getChartData(data) {
     return this.http.post(apiUrl + "getChartData", JSON.stringify(data), httpOptionsPost);

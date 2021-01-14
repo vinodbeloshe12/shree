@@ -190,66 +190,19 @@
                     <div class="col-2">IMEI 2</div>
                 </div>
             </div>
-            <div class="col-12 customerContentList">
+            <div class="col-12 customerContentList" *ngFor="let data of salesList | paginate: { itemsPerPage: 5, currentPage: p }">
                 <div class="row">
-                    <div class="col-2">SAMSON..DSILVA</div>
-                    <div class="col-1">Realme</div>
-                    <div class="col-1">C15 4GB 64GB</div>
-                    <div class="col-1">Dec 28, 2020</div>
-                    <div class="col-1">Cash</div>
-                    <div class="col-2">₹10,500.00</div>
-                    <div class="col-2">866718050826635</div>
-                    <div class="col-2">866718050826635</div>
-                </div>
-            </div>
-            <div class="col-12 customerContentList">
-                <div class="row">
-                    <div class="col-2">SAMSON..DSILVA</div>
-                    <div class="col-1">TECHNO</div>
-                    <div class="col-1">SPARK GO 2020 KE5</div>
-                    <div class="col-1">Dec 28, 2020</div>
-                    <div class="col-1">Cash</div>
-                    <div class="col-2">₹7,500.00</div>
-                    <div class="col-2">359966600406309</div>
-                    <div class="col-2">359966600406309</div>
-                </div>
-            </div>
-            <div class="col-12 customerContentList">
-                <div class="row">
-                    <div class="col-2">SHAILESH..GAWDE</div>
-                    <div class="col-1">MICROMAX</div>
-                    <div class="col-1">BASAIC X419</div>
-                    <div class="col-1">Dec 28, 2020</div>
-                    <div class="col-1">Cash</div>
-                    <div class="col-2">₹1,200.00</div>
-                    <div class="col-2">352001112932217</div>
-                    <div class="col-2">352001112932217</div>
-                </div>
-            </div>
-            <div class="col-12 customerContentList">
-                <div class="row">
-                    <div class="col-2">SACHIN..PAWAR</div>
-                    <div class="col-1">MICROMAX</div>
-                    <div class="col-1">BASIC X381</div>
-                    <div class="col-1">Dec 28, 2020</div>
-                    <div class="col-1">Cash</div>
-                    <div class="col-2">₹1,100.00</div>
-                    <div class="col-2">352324113143810</div>
-                    <div class="col-2">352324113143816</div>
-                </div>
-            </div>
-            <div class="col-12 customerContentList">
-                <div class="row">
-                    <div class="col-2">SEETA..GAUD</div>
-                    <div class="col-1">Oppo</div>
-                    <div class="col-1">F17 6GB 128GB</div>
-                    <div class="col-1">Dec 28, 2020</div>
-                    <div class="col-1">Loan</div>
-                    <div class="col-2">₹1,690.00</div>
-                    <div class="col-2">866450051394195</div>
-                    <div class="col-2">866450051394195</div>
+                    <div class="col-2">{{data.name}}</div>
+                    <div class="col-1">{{data.brand}}</div>
+                    <div class="col-1">{{data.model}}</div>
+                    <div class="col-1">{{data.purchase_date}}</div>
+                    <div class="col-1">{{data.payment_mode}}</div>
+                    <div class="col-2">₹{{data.price}}</div>
+                    <div class="col-2">{{data.imei1}}</div>
+                    <div class="col-2">{{data.imei2}}</div>
                 </div>
             </div>
         </div>
+        <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
     </section>
 </div>

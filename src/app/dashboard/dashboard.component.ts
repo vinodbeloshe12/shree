@@ -36,7 +36,10 @@ export class DashboardComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   dashboardData:any;
+  emidue:any;
   stockList:any=[];
+  salesList:any=[];
+  
 
   public barChartData: ChartDataSets[] = [
     { data: [], label: 'Purchase', backgroundColor: '#0c9aa9', borderColor: '#fff', hoverBackgroundColor: '#29c9da', hoverBorderColor: '#0c9aa9', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
@@ -53,13 +56,24 @@ this.barChartLabels.push(moment().format('YYYY-MM-DD'));
 
   ngOnInit() {
   this.getDashboardDetails();
+  this.getEMIDetails(this.emidue);
   this.getChartData(this.barChartLabels);
+  this.getAllSales();
   }
 
   getDashboardDetails(){
     this.userService.getDashboardDetails().subscribe((res:any)=>{
       this.dashboardData = res.data;
-      console.log("asdasd", this.dashboardData)
+      // console.log("asdasd", this.dashboardData)
+    })
+  }
+
+  getEMIDetails(days){
+    this.userService.getEMIDetails(days).subscribe((res:any)=>{
+      if(res.value == true){
+        // console.log("in")
+      }
+      // console.log("out",res)
     })
   }
 
@@ -74,6 +88,7 @@ this.barChartLabels.push(moment().format('YYYY-MM-DD'));
       console.log("chartdata", res)
     })
   }
+
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
@@ -84,6 +99,11 @@ this.barChartLabels.push(moment().format('YYYY-MM-DD'));
 
   }
 
+  getAllSales(){
+    this.userService.getAllSales().subscribe((res:any)=>{
+      this.salesList=res.data;
+    })
+  }
   // public randomize(): void {
   //   // Only Change 3 values
   //   const data = [
