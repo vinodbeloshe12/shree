@@ -1,41 +1,110 @@
 <div class="container-fluid brandstocklist">
-  <section class="customer-data">
-    <div class="w-100 customerContainerHead">
-      <h3 class="dashboardHeading float-left">Brands Stock</h3>
-      <button class="btn btn-add float-right"><i class="fa fa-plus"></i> Add</button>
-    </div>
+    <section class="customer-data">
+        <div class="w-100 customerContainerHead">
+            <h3 class="dashboardHeading float-left">Add New Stock</h3>
+            <!-- <button class="btn btn-add float-right"><i class="fa fa-plus"></i> Add</button> -->
+        </div>
+        
+        <form #stockForm="ngForm" (ngSubmit)="addStock(stock)">
+        <div class="new-entry col-md-12">
+            <div class="row">
+                <div class="form-group col-md-3"><label>Brand</label>
+                    <!-- <select name="brand" id="" class="form-control">
+                        <option value={{data.id}} *ngFor="let data of brands">{{data.name}}</option>
+                    </select> -->
+
+                    <div class="form-group">
+ <tag-input required [secondaryPlaceholder]="'Select Brand'" class="form-control p-0" name="brand" (onAdd)="onBrandAdd($event)" (onRemove)="onBrandRemoved($event)" (onSelect)="onSelectedBrand($event)" [maxItems]='1' [ngModel]="brand">
+    <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="brands">
+        <ng-template let-item="item" let-index="index">
+         {{ item.name }}
+        </ng-template>
+    </tag-input-dropdown>
+</tag-input>
+</div>
+                    <!-- <tag-input >  <tag-input-dropdown [showDropdownIfEmpty]="true"
+                        [autocompleteItems]="brands">
+                        <ng-template let-item="item" let-index="index">
+                            {{ index }}: {{ item.name }}
+                        </ng-template>
+    </tag-input-dropdown></tag-input> -->
+                </div>
+                <div class="form-group col-md-3"><label>Model No.</label>
+                       <div class="form-group">
+                    <tag-input required [secondaryPlaceholder]="'Select Model'"  class="form-control p-0" name="model" (onAdd)="onModelAdd($event)"  [maxItems]='1' [ngModel]="model">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="models">
+                            <ng-template let-item="item" let-index="index">
+                             {{ item.name }}
+                            </ng-template>
+                        </tag-input-dropdown>
+                    </tag-input>
+                </div>
+                </div>
+                <div class="form-group col-md-3"><label>Color</label>
+                    <input type="text" required [(ngModel)]="stock.color" name="color" id="" class="form-control">
+                </div>
+                <div class="form-group col-md-3"><label>Price</label>
+                    <input type="text" required name="price" [(ngModel)]="stock.price" id="" class="form-control">
+                </div>
+                <div class="form-group col-md-3" hidden><label>Quantity</label>
+                    <input type="hidden"  value="1" name="quantity" [(ngModel)]="stock.quantity" id="" class="form-control">
+                </div>
+                <div class="form-group col-md-3"><label>Date Of Purchase</label>
+                       <input type="date" required class="form-control" id="myDate" [ngModel]="stock.purchase_date | date:'y-MM-dd'" (ngModelChange)="myDate = $event" name="date">
+                </div>
+                <div class="form-group col-md-3 barcodeScan">
+                    <!-- <button><i class="fa fa-qrcode" aria-hidden="true"></i> Scan</button> -->
+                    <label>IMEI 1</label>
+                    <input type="text" required [(ngModel)]="stock.imei1" name="imei1" class="form-control">
+                </div>
+                <div class="form-group col-md-3 barcodeScan">
+                    <!-- <button><i class="fa fa-qrcode" aria-hidden="true"></i> Scan</button> -->
+                    <label>IMEI 2</label>
+                    <input type="text" required [(ngModel)]="stock.imei2" name="imei2" id="" class="form-control">
+                </div>
+
+                <div class="form-group text-right col-md-3 float-right">
+                    <button [disabled]="!stockForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i class="fa fa-plus"></i> Add Stock</button>
+                </div>
+            </div>
+        </div>
+    </form>
+        <div class="tabsStockNBrands">
+            <div class="w-100 customerContainerHead">
+                <h3 class="dashboardHeading float-left">Stock Details</h3>
+                <!-- <button class="btn btn-add float-right"><i class="fa fa-plus"></i> Add</button> -->
+            </div>
+
+            <table class="stocktable table">
+                <tr >
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Color</th>
+                    <th title="Purchase Price">P/Price</th>
+                    <th>Purchase Date</th>
+                    <th>Status</th>
+                    <th>IMEI 1</th>
+                    <th>IMEI 2</th>
+                </tr>
+                <tr *ngFor="let data of stockList | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <td>{{data.brand}}</td>
+                    <td>{{data.model}}</td>
+                    <td>{{data.color}}</td>
+                    <td>{{data.price}}</td>
+                    <td>{{data.purchase_date  | date:'mediumDate'}}</td>
+                    <td>
+                        <span *ngIf="data.soldstatus=='0'" class="badge badge-success">In Stock</span>
+                        <span *ngIf="data.soldstatus=='1'" class="badge badge-danger">Sold</span>
+                    </td>
+                    <td>{{data.imei1}}</td>
+                    <td>{{data.imei2}}</td>
+                </tr>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
+           
+        </div>
 
 
-    <div class="new-entry col-md-12">
-      <div class="row">
-        <div class="form-group col-md-3"><label>Brand</label>
-          <select name="" id="" class="form-control"></select>
-        </div>
-        <div class="form-group col-md-3"><label>Model No.</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-2"><label>Color</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-2"><label>Quantity</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-2"><label>Price</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4"><label>IMEI 1</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4"><label>IMEI 2</label>
-          <input type="text" name="" id="" class="form-control">
-        </div>
-        <div class="form-group text-right col-md-1 float-right">
-          <button [disabled]="!custForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
-              class="fa fa-save"></i> Save</button>
-        </div>
-      </div>
-    </div>
+    </section>
 
-
-  </section>
 </div>

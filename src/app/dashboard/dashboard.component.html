@@ -2,48 +2,51 @@
     <section class="customer-data">
         <div class="w-100 customerContainerHead">
             <h3 class="float-left dashboardHeading">Today's Dashboard</h3>
-            <!-- <a class="float-right"> <strong><i class="fa fa-calendar"></i> 22-4-2020 <i
-                        class="fa fa-caret-down"></i></strong></a> -->
+            <a class="float-right"> <strong><i class="fa fa-calendar"></i> 22-4-2020 <i
+                        class="fa fa-caret-down"></i></strong></a>
         </div>
         <div class="row">
 
-            <div class="col-xl-6 col-xxl-5 d-flex">
+            <div *ngIf="dashboardData && dashboardData.stock" class="col-xl-12 d-flex">
                 <div class="w-100">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title text-danger">Closing Stock</h5>
+                                            <h5 class="card-title text-danger">Opening Stock</h5>
                                         </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">230</h1>
+                                    <h1 class="display-5 mt-1 mb-3">{{dashboardData.stock.opening_stock}}</h1>
 
-                                    <div class="mb-0">
+                                    <!-- <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 300
                                         </span>
                                         <span class="text-muted"> - Yesterday</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-3">
+
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Total Sale</h5>
+                                            <h5 class="card-title">Sale Stock</h5>
                                         </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">89,500</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 78,621
+                                    <h1 class="display-5 mt-1 mb-3">{{dashboardData.stock.sale_stock}}</h1>
+                                    <!-- <div class="mb-0">
+                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 78,621
                                         </span>
                                         <span class="text-muted"> - Yesterday</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -51,28 +54,30 @@
                                             <h5 class="card-title text-success">Purchase Stock</h5>
                                         </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">486</h1>
-                                    <div class="mb-0">
+                                    <h1 class="display-5 mt-1 mb-3">{{dashboardData.stock.purchase_stock}}</h1>
+                                    <!-- <div class="mb-0">
                                         <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> 150
                                         </span>
                                         <span class="text-muted"> - Yesterday</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title text-muted">Customers</h5>
+                                            <h5 class="card-title text-muted">Closing Stock</h5>
                                         </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">64</h1>
-                                    <div class="mb-0">
+                                    <h1 class="display-5 mt-1 mb-3">{{dashboardData.stock.closing_stock}}</h1>
+                                    <!-- <div class="mb-0">
                                         <span class="text-success"> <i
                                                 class="mdi mdi-arrow-bottom-right fa fa-plus"></i> 22
                                         </span>
                                         <span class="text-muted"> - Today</span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -101,31 +106,150 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-6 col-xxl-7" *ngIf="dashboardData && dashboardData.brands">
+                <div class="card flex-fill w-100 ">
+                    <div class="card-header">
+                        <div class="card-actions float-right">
+                            <!-- <button mat-button mat-raised-button color="primary" class="btn btn-primary"
+                                (click)="randomize()">Update</button> -->
+                        </div>
+                        <h5 class="card-title mb-0">Current Brand Stock</h5>
+                    </div>
+                    <div class="card-body py-3">
+                        <ul class="brandStocklist">
+                            <li *ngFor="let data of dashboardData.brands" class="brandStock">{{data.name}}
+                                <span>{{data.count}}</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <div class="w-100"></div>
 
-            <div class="col-xl-12 brandStockDetails">
+            <!-- <div *ngIf="dashboardData && dashboardData.brands" class="col-xl-12 brandStockDetails">
                 <div class="w-100 customerContainerHead">
                     <h3 class="dashboardHeading">Current Brand Stock</h3>
                 </div>
-                <ul class="brandStocklist">
-                    <li class="brandStock">Vivo <span>95</span></li>
-                    <li class="brandStock">Oppo <span>65</span></li>
-                    <li class="brandStock">Mi <span>40</span></li>
-                    <li class="brandStock">OnePlus <span>15</span></li>
-                    <li class="brandStock">Honor <span>55</span></li>
-                    <li class="brandStock">HTC <span>30</span></li>
-                    <li class="brandStock">Vivo <span>95</span></li>
-                    <li class="brandStock">Oppo <span>65</span></li>
-                    <li class="brandStock">Mi <span>40</span></li>
-                    <li class="brandStock">OnePlus <span>15</span></li>
-                    <li class="brandStock">Honor <span>55</span></li>
-                    <li class="brandStock">HTC <span>30</span></li>
-                </ul>
-            </div>
+                
+            </div> -->
 
         </div>
 
 
+    </section>
+    <section class="customer-data">
+        <div class="customerContainerHead">
+            <h3 class="float-left">EMI Dues</h3>
+        </div>
+        <div class="row m-0">
+            <div class="col-12 customerHeaderList">
+                <div class="row">
+                    <div class="col-2">Customer Name</div>
+                    <div class="col-2">Contact No.</div>
+                    <div class="col-2">Finance</div>
+                    <div class="col-2">Due on Every Month</div>
+                    <div class="col-2">Start date / End Date</div>
+                    <div class="col-2">Product Details</div>
+                </div>
+            </div>
+            <!--bindings={
+        "ng-reflect-ng-for-of": "[object Object],[object Object"
+      }-->
+            
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SANJAY..AMBEKAR</div>
+                    <div class="col-2">8097447065</div>
+                    <div class="col-2">BAJAJ FINANCE</div>
+                    <div class="col-2">20</div>
+                    <div class="col-2">Dec 2, 2020 /Jun 2, 2021</div>
+                    <div class="col-2">Vivo - Y20 4GB 64GB</div>
+                </div>
+            </div>
+        </div><br>
+    </section>
+    <section class="customer-data">
+        <div class="customerContainerHead">
+            <h3 class="float-left">Sales List</h3>
+            <div class="searchContainer float-right"><input
+                    name="search" placeholder="Customer Name or Number/ Brand / Model" type="text"
+                    class="ng-untouched ng-pristine ng-valid"></div>
+        </div>
+        <div class="row m-0">
+            <div class="col-12 customerHeaderList">
+                <div class="row">
+                    <div class="col-2">Customer Name</div>
+                    <div class="col-1">Brand</div>
+                    <div class="col-1">Model</div>
+                    <div class="col-1">Date</div>
+                    <div class="col-1">Payment</div>
+                    <div class="col-2">Price</div>
+                    <div class="col-2">IMEI 1</div>
+                    <div class="col-2">IMEI 2</div>
+                </div>
+            </div>
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SAMSON..DSILVA</div>
+                    <div class="col-1">Realme</div>
+                    <div class="col-1">C15 4GB 64GB</div>
+                    <div class="col-1">Dec 28, 2020</div>
+                    <div class="col-1">Cash</div>
+                    <div class="col-2">₹10,500.00</div>
+                    <div class="col-2">866718050826635</div>
+                    <div class="col-2">866718050826635</div>
+                </div>
+            </div>
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SAMSON..DSILVA</div>
+                    <div class="col-1">TECHNO</div>
+                    <div class="col-1">SPARK GO 2020 KE5</div>
+                    <div class="col-1">Dec 28, 2020</div>
+                    <div class="col-1">Cash</div>
+                    <div class="col-2">₹7,500.00</div>
+                    <div class="col-2">359966600406309</div>
+                    <div class="col-2">359966600406309</div>
+                </div>
+            </div>
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SHAILESH..GAWDE</div>
+                    <div class="col-1">MICROMAX</div>
+                    <div class="col-1">BASAIC X419</div>
+                    <div class="col-1">Dec 28, 2020</div>
+                    <div class="col-1">Cash</div>
+                    <div class="col-2">₹1,200.00</div>
+                    <div class="col-2">352001112932217</div>
+                    <div class="col-2">352001112932217</div>
+                </div>
+            </div>
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SACHIN..PAWAR</div>
+                    <div class="col-1">MICROMAX</div>
+                    <div class="col-1">BASIC X381</div>
+                    <div class="col-1">Dec 28, 2020</div>
+                    <div class="col-1">Cash</div>
+                    <div class="col-2">₹1,100.00</div>
+                    <div class="col-2">352324113143810</div>
+                    <div class="col-2">352324113143816</div>
+                </div>
+            </div>
+            <div class="col-12 customerContentList">
+                <div class="row">
+                    <div class="col-2">SEETA..GAUD</div>
+                    <div class="col-1">Oppo</div>
+                    <div class="col-1">F17 6GB 128GB</div>
+                    <div class="col-1">Dec 28, 2020</div>
+                    <div class="col-1">Loan</div>
+                    <div class="col-2">₹1,690.00</div>
+                    <div class="col-2">866450051394195</div>
+                    <div class="col-2">866450051394195</div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>

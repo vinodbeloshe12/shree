@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
-import { idproof } from '../app.constants';
-
+import { idproof,imgUrl } from '../app.constants';
 @Component({
   selector: 'app-customerdetails',
   templateUrl: './customerdetails.component.html',
@@ -18,14 +17,23 @@ export class CustomerdetailsComponent implements OnInit {
   addContacts: boolean = false;
   emailValidate: boolean;
   id = idproof;
+  imageURL = imgUrl;
   idproofData: any = [];
   selectedId: any = {};
   imageName: any = [];
+buttonLabel:string="Update";
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute,private router:Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.getUserDetails(this.activatedRoute.snapshot.params.id);
+    
+    if(this.activatedRoute.snapshot.params.id=='add'){
+      this.customerData ={};
+      this.customerData.details ={};
+      this.buttonLabel="Save";
+    }else{
+      this.getUserDetails(this.activatedRoute.snapshot.params.id);
+    }
   }
 
   getUserDetails(id) {
@@ -38,12 +46,32 @@ export class CustomerdetailsComponent implements OnInit {
   }
   newTransaction() {
     this.transactionPop = !this.transactionPop;
+    this.transactionFormData={};
+    this.transactionFormData.purchase_date = new Date();
   }
 
+  createUser(data) {
+    this.userService.createUser(data).subscribe((res: any) => {
+      alert("user saved");
+      console.log("response", res);
+      this.customerData ={};
+      this.router.navigate(['customerdetails', res.userId]);
+      this.getUserDetails(res.userId);
+    }, err => console.log(err));
+  }
   updateUser(data) {
     this.userService.updateUser(data).subscribe((res: any) => {
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
       alert("user data updated");
+    }, err => console.log(err));
+  }
+
+  getMobileDetailsByImei(id) {
+    this.userService.getMobileDetailsByImei(id).subscribe((res: any) => {
+      this.transactionFormData =res.data;
+      this.transactionFormData.price = "";
+      this.transactionFormData.purchase_date = new Date();
+      // alert("mobile data found");
     }, err => console.log(err));
   }
 
@@ -53,6 +81,17 @@ export class CustomerdetailsComponent implements OnInit {
     if (findex != -1) {
       this.selectedId = this.id[findex];
       console.log("this.selectedId", this.selectedId)
+    }
+  }
+
+  sameAddress(value){
+    if(value){
+      if(this.customerData.details && this.customerData.details.current_address){
+        this.customerData.details.permanent_address = this.customerData.details.current_address;
+      }
+    }
+    else{
+      this.customerData.details.permanent_address ="";
     }
   }
 
@@ -117,6 +156,28 @@ export class CustomerdetailsComponent implements OnInit {
         this.emailValidate = false;
       }
     }
+  }
+
+  addTransaction(data){
+    data.cust_id=this.activatedRoute.snapshot.params.id;
+    console.log(data,"transaction data");
+    this.userService.createTransaction(data).subscribe((res: any) => {
+      alert("Transaction added");
+      this.transactionPop = false;
+      this.getUserDetails(this.activatedRoute.snapshot.params.id);
+      this.transactionFormData = {};
+    }, err => console.log(err));
+    
+  }
+
+
+  getTransactionDetails(id){
+    this.transactionPop=true;
+    this.userService.getTransactionDetails(id).subscribe((res: any) => {
+      this.transactionFormData = res.data;
+      console.log("id",this.transactionFormData);
+      
+    }, err => console.log(err));
   }
 
 }

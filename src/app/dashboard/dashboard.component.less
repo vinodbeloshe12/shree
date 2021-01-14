@@ -29,7 +29,13 @@ section.customer-data {
 
 .customerContainerHead {
   overflow: hidden;
-  margin-bottom: 9px;
+  padding: 10px 0px 15px 0px;
+  margin: 0 0px;
+  border-bottom: thin solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  color: #0c9aa9;
+  text-shadow: 3px 3px #ececec;
 }
 
 .customer-data .col-xl-6.col-xxl-5.d-flex h5.card-title {
@@ -62,23 +68,120 @@ section.customer-data .card-header {
 
 ul.brandStocklist {
   padding: 0;
-  margin: 0 0px 0 -5px;
+  margin: 0;
   list-style: none;
+  height: 260px;
+  overflow: auto;
 }
 
 ul.brandStocklist li {
   display: inline-block;
-  width: 24%;
+  width: 31.9%;
+  position: relative;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  background: #f3f3f3;
+  font-weight: 700;
+  box-sizing: border-box;
+  border: thin solid #dfdfdf;
+  margin: 3px 0px 6px 5px;
+}
+
+
+ul.brandStocklist li span {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  right: 13px;
+  padding: 0 9px;
+  color: #fff;
+  background: #333333;
+  line-height: 22px;
+  border-radius: 30px;
+}
+
+section.customer-data {
+  padding: 30px 30px 30px 30px;
+  border: thin solid #ddd;
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  background: #fbfbfb;
+  border-radius: 5px;
+  box-shadow: 8px 8px 0px #00000017;
+}
+.customer-data .card-body {
+  padding-top: 14px;
+}
+.customer-data .card {
+  margin-bottom: 30px;
+}
+.dashboardHeading {
+  font-size: 25px;
+  overflow: hidden;
+  padding: 0px 0px 10px 0;
+  margin: 0;
+  color: #0c9aa9;
+  text-shadow: 2px 2px #ececec;
+}
+.customerContainerHead {
+  overflow: hidden;
+  margin-bottom: 9px;
+}
+.customer-data .col-xl-6.col-xxl-5.d-flex h5.card-title {
+  font-size: 22px;
+  overflow: hidden;
+  padding: 3px 0px 10px 0;
+  margin: 2px 0 0 0;
+  border-bottom: thin solid #ddd;
+  color: #0c9aa9;
+  text-shadow: 2px 2px #ececec;
+}
+.customer-data .col-xl-6.col-xxl-7 h5.card-title {
+  font-size: 20px;
+  overflow: hidden;
+  padding: 0px 0px 0px 0;
+  margin: 0;
+  color: #0c9aa9;
+  text-shadow: 2px 2px #ececec;
+}
+section.customer-data .card-header {
+  background: #ffffff;
+}
+.brandStockDetails {
+  padding-top: 0px;
+  background: white;
+  border-radius: 3px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+ul.brandStocklist {
+  padding: 0;
+  margin: 0 15px 30px 15px;
+  list-style: none;
+  height: 260px;
+  overflow: auto;
+}
+.brandStockDetails .customerContainerHead .dashboardHeading {
+  font-size: 20px;
+  overflow: hidden;
+  padding: 0px 0px 8px 20px;
+  margin: 0 1px;
+  color: #0c9aa9;
+  text-shadow: 2px 2px #ececec;
+}
+ul.brandStocklist li {
+  display: inline-block;
+  width: 31.9%;
   position: relative;
   padding: 8px 15px;
   border-radius: 30px;
   background: #fff;
   box-sizing: border-box;
   border: thin solid #dfdfdf;
-  margin: 6px;
+  margin: 3px 0px 6px 5px;
 }
-
-
 ul.brandStocklist li span {
   position: absolute;
   right: 0;
@@ -90,4 +193,104 @@ ul.brandStocklist li span {
   background: #333333;
   line-height: 22px;
   border-radius: 30px;
+}
+.customerContainerHead {
+  overflow: hidden;
+  padding: 10px 0px 15px 0px;
+  margin: 0 0px;
+  border-bottom: thin solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  color: #0c9aa9;
+  text-shadow: 3px 3px #ececec;
+}
+.customerContainerHead .add-new-button {
+  display: inline-block;
+  vertical-align: top;
+  outline: none;
+  height: 30px;
+  font-size: 12px;
+  background: #0C9AA9;
+  border: none;
+  padding: 0px 14px;
+  color: #fff;
+  border-radius: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.customerContainerHead .searchContainer {
+  width: 40%;
+  text-align: right;
+}
+.customerContainerHead .searchContainer input {
+  padding: 2px 17px;
+  height: 30px;
+  width: 80%;
+  font-size: 13px;
+  vertical-align: top;
+  border-radius: 15px 0px 0px 15px;
+  border: thin solid #ddd;
+  outline: none !important;
+}
+.customerContainerHead .searchContainer button {
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+  font-size: 12px;
+  background: #0C9AA9;
+  border: none;
+  padding: 0 15px;
+  color: #fff;
+  border-radius: 0 15px 15px 0px;
+}
+section.customer-data {
+  padding: 20px 30px 30px 30px;
+  border: thin solid #ddd;
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  background: #fbfbfb;
+  border-radius: 5px;
+  box-shadow: 8px 8px 0px #00000017;
+}
+.customerTable {
+  font-size: 12px;
+  margin: 0px 15px 30px 15px;
+  width: auto;
+}
+.customerTable .customerHeaderList {
+  background: #0C9AA9;
+  color: #fff;
+  text-transform: uppercase;
+}
+.customerTable .customerHeaderList .row  > div {
+  border-right: thin solid #fff;
+  padding: 8px 15px;
+}
+.customerTable .customerHeaderList .row  > div:last-child {
+  border-right: none;
+}
+.customerTable .customerContentList {
+  background: #efefef;
+}
+.customerTable .customerContentList .row {
+  cursor: pointer;
+}
+.customerTable .customerContentList .row  > div {
+  border-right: thin solid #ddd;
+  padding: 8px 15px;
+}
+.customerTable .customerContentList .row  > div:last-child {
+  border-right: none;
+}
+.customerTable .customerContentList .row .rowActions i {
+  width: 49%;
+  text-align: center;
+}
+.customerTable .customerContentList:hover {
+  background: #ddecff !important;
+  box-shadow: inset 0px 0px 2px #0C9AA9;
+}
+.customerTable .customerContentList:nth-child(odd) {
+  background: #fbfbfb;
 }

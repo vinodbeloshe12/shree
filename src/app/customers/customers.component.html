@@ -2,11 +2,11 @@
   <section class="customer-data">
     <div class="customerContainerHead">
       <h3 class="float-left">Customers List</h3>
-      <button class="add-new-button float-right" routerLink="/customerdetails"> <i class="fa fa-plus"></i> New
+      <button class="add-new-button float-right" routerLink="/customerdetails/add"> <i class="fa fa-plus"></i> New
         Customer</button>
       <div class="searchContainer float-right">
-        <input type="text" name="" placeholder="Name, Mobile, PAN, Aadhar" id="">
-        <button>Search</button>
+        <input type="text" name="search" [(ngModel)]="searchVal" placeholder="Name, Mobile, PAN, Aadhar" id="">
+        <!-- <button>Search</button> -->
       </div>
 
     </div>
@@ -21,8 +21,8 @@
           <div class="col-3">AADHAR Number</div>
         </div>
       </div>
-      <div class="col-12 customerContentList">
-        <div *ngFor="let data of customers" class="row" (click)="navigateToCustomer(data.id)">
+      <div *ngFor="let data of customers | customerFilter:searchVal |  paginate: { itemsPerPage: 10, currentPage: p }" class="col-12 customerContentList">
+        <div class="row" (click)="navigateToCustomer(data.id)">
           <div class="col-1">{{data.id}}</div>
           <div class="col-2">{{data.name}}</div>
           <div class="col-2">{{data.mobile}}</div>
@@ -34,7 +34,8 @@
          </div> -->
         </div>
       </div>
-
     </div>
+    <br>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </section>
 </div>

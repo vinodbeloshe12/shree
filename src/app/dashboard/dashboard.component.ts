@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-
+import { UserService } from '../service/user.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,18 +32,47 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  public barChartLabels: Label[] = ['18-4-2020', '19-4-2020', '20-4-2020', '21-4-2020', '22-4-2020', 'Yesterday', 'Today'];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  dashboardData:any;
+  stockList:any=[];
 
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 81, 70, 56, 55, 40], label: 'Purchase', backgroundColor: '#0c9aa9', borderColor: '#fff', hoverBackgroundColor: '#29c9da', hoverBorderColor: '#0c9aa9', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
-    { data: [28, 48, 40, 66, 50, 44, 38], label: 'Sales', backgroundColor: '#333333', borderColor: '#fff', hoverBackgroundColor: '#666666', hoverBorderColor: '#333333', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
+    { data: [], label: 'Purchase', backgroundColor: '#0c9aa9', borderColor: '#fff', hoverBackgroundColor: '#29c9da', hoverBorderColor: '#0c9aa9', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
+    { data: [], label: 'Sales', backgroundColor: '#333333', borderColor: '#fff', hoverBackgroundColor: '#666666', hoverBorderColor: '#333333', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
 
   ];
-  constructor() { }
+  constructor(private userService:UserService) {
+    const today = moment();
+this.barChartLabels = Array(6).fill(today,0,6).map(
+  () => today.subtract(1, 'd').format('YYYY-MM-DD')
+).reverse();
+this.barChartLabels.push(moment().format('YYYY-MM-DD'));
+   }
 
   ngOnInit() {
+  this.getDashboardDetails();
+  this.getChartData(this.barChartLabels);
+  }
+
+  getDashboardDetails(){
+    this.userService.getDashboardDetails().subscribe((res:any)=>{
+      this.dashboardData = res.data;
+      console.log("asdasd", this.dashboardData)
+    })
+  }
+
+  getChartData(dates){
+    console.log("dates",dates);
+    this.userService.getChartData(dates).subscribe((res:any)=>{
+      // this.dashboardData = res.data;
+      if(res.value){
+        this.barChartData[0].data =res.purchase;
+        this.barChartData[1].data =res.sale;
+      }
+      console.log("chartdata", res)
+    })
   }
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -54,16 +84,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  public randomize(): void {
-    // Only Change 3 values
-    const data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    this.barChartData[0].data = data;
-  }
+  // public randomize(): void {
+  //   // Only Change 3 values
+  //   const data = [
+  //     Math.round(Math.random() * 100),
+  //     59,
+  //     80,
+  //     (Math.random() * 100),
+  //     56,
+  //     (Math.random() * 100),
+  //     40];
+  //   this.barChartData[0].data = data;
+  // }
 }
