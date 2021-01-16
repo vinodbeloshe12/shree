@@ -91,7 +91,7 @@
                     <td>{{data.model}}</td>
                     <td>{{data.color}}</td>
                     <td>{{data.price}}</td>
-                    <td>{{data.purchase_date  | date:'mediumDate'}}</td>
+                    <td>{{data.purchase_date == "0000-00-00 00:00:00" ? 'Null' : data.purchase_date  | date:'mediumDate'}}</td>
                     <td>
                         <span *ngIf="data.soldstatus=='0'" class="badge badge-success">In Stock</span>
                         <span *ngIf="data.soldstatus=='1'" class="badge badge-danger">Sold</span>

@@ -25,6 +25,10 @@ export class BrandstockComponent implements OnInit {
   public myDate = Date.now();    //date 
   brand:any=[];
   model:any=[];
+  color:any=[];
+  price:any=[];
+  imei1:any[];
+  imei2:any[];
   brands:any=[];
   stockList:any=[];
   models:any=[];
@@ -118,7 +122,11 @@ export class BrandstockComponent implements OnInit {
       this.stock={};
       this.brand=[];
       this.model=[];
+      this.color=[];
       this.stock.purchase_date =new Date();
+      this.price=[];
+      this.imei1=[];
+      this.imei2=[];
       this.getAllStock();
     })
   }
