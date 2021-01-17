@@ -22,7 +22,9 @@ TagInputModule.withDefaults({
 export class BrandstockComponent implements OnInit {
   public Brandtab = true;
   public Stocktab = false;
+  public Skmodel = false;
   public myDate = Date.now();    //date 
+  stock:any={};
   brand:any=[];
   model:any=[];
   color:any=[];
@@ -32,7 +34,6 @@ export class BrandstockComponent implements OnInit {
   brands:any=[];
   stockList:any=[];
   models:any=[];
-  stock:any={};
 
   BrandToggle() {
     this.Brandtab = true;
@@ -108,6 +109,7 @@ export class BrandstockComponent implements OnInit {
     this.userService.getAllModels(brand).subscribe((res:any)=>{
       this.models=res.data;
       console.log("this.models",this.models)
+      this.Skmodel= true;
     })
   }
 

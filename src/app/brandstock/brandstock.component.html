@@ -29,9 +29,10 @@
                         </ng-template>
     </tag-input-dropdown></tag-input> -->
                 </div>
-                <div class="form-group col-md-3"><label>Model No.</label>
+                <div class="form-group col-md-3 {{Skmodel ? '' : 'ModelDis'}} "><label>Model No.</label>
                        <div class="form-group">
-                    <tag-input required [secondaryPlaceholder]="'Select Model'"  class="form-control p-0" name="model" (onAdd)="onModelAdd($event)"  [maxItems]='1' [ngModel]="model">
+                        
+                    <tag-input required [secondaryPlaceholder]="'Select Model'" class="form-control p-0" name="model" (onAdd)="onModelAdd($event)"  [maxItems]='1' [ngModel]="model">
                         <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="models">
                             <ng-template let-item="item" let-index="index">
                              {{ item.name }}
