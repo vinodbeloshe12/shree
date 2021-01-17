@@ -223,6 +223,33 @@ ul.documents-Thumbs li {
   }
 }
 
+a.downloadImg {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  background: #f7e613;
+  line-height: 24px;
+  /* width: 30px; */
+  padding: 0 6px 0 9px;
+  font-size: 10px;
+  border-radius: 6px 0 0 0;
+  text-align: center;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.5s;
+  pointer-events: none;
+}
+
+
+ul.documents-Thumbs li:hover .downloadImg {
+  opacity: 1;
+  pointer-events: all;
+}
+
+ul.documents-Thumbs li .downloadImg:hover {
+  background: #333 !important;
+  color: #fff !important;
+}
 button.btn.btn-primary {
   background: #0c9aa9;
   border-color: #0c9aa9;

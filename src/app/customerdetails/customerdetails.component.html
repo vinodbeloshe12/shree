@@ -50,7 +50,7 @@
                 <div class="form-group col-md-3">
                   <label>Alternate Mobile</label>
                   <input type="tel" (keypress)="onlyNumbers($event)" #alternatephone="ngModel" minlength="10"
-                    maxlength="10" required [(ngModel)]="customerData.details.alternate_mobile" name="alternate_mobile"
+                    maxlength="10" [(ngModel)]="customerData.details.alternate_mobile" name="alternate_mobile"
                     class="form-control">
                   <div *ngIf="alternatephone.invalid && (alternatephone.dirty || alternatephone.touched)" class="error">
                     <div *ngIf="alternatephone.errors.required" class="error_msg">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-group col-md-3">
                   <label>Email</label>
-                  <input type="email" required #email="ngModel" (keyup)="validateEmail(customerData.email)"
+                  <input type="email" #email="ngModel" (keyup)="validateEmail(customerData.email)"
                     [(ngModel)]="customerData.details.email" name="email" class="form-control">
                   <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
                     <h6 *ngIf="email.errors.required" class="error_msg">
@@ -87,6 +87,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label>Permanent Address</label>
+                  <label class="custom-checkbox ng-star-inserted" for="sameCaddress"><input id="sameCaddress" name="sameCaddress" type="checkbox" value="checkedValue" class="ng-untouched ng-pristine ng-valid"><span class="custom-control-indicator">Same as Current</span></label>
                   <label *ngIf="buttonLabel=='Save'" class="custom-checkbox" for="sameCaddress">
                     <input (change)="sameAddress(address)" [(ngModel)]="address" type="checkbox" name="sameCaddress" id="sameCaddress" value="checkedValue">
                     <span class="custom-control-indicator">Same as Current</span>
@@ -142,6 +143,7 @@
                   <!-- <strong>Pancard Front</strong> -->
                   <!-- <span>CAIP4387SD</span> -->
                   <a class="removeImg"><i class="fa fa-times"></i></a>
+                  <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                 </li>
               </ul>
               <div class="list-table-parent col-md-12">
@@ -176,6 +178,7 @@
                       <strong style="text-transform: uppercase;">{{data.id_type=='adharcard'?'Aadhar Card':data.id_type}}</strong>
                       <span>{{data.number}}</span>
                       <a class="removeImg"><i class="fa fa-times"></i></a>
+                      <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                     </li>
                   </ul>
                 </div>
@@ -262,7 +265,8 @@
                         <div class="col-2">Relation</div>
                         <div class="col-3">First Name</div>
                         <div class="col-3">Last Name</div>
-                        <div class="col-3">Contact No.</div>
+                        <div class="col-2">Contact No.</div>
+                        <div class="col-1">Action</div>
                       </div>
                     </div>
 
@@ -272,7 +276,8 @@
                         <div class="col-2">{{data.relation}}</div>
                         <div class="col-3">{{data.first_name}}</div>
                         <div class="col-3">{{data.last_name}}</div>
-                        <div class="col-3">{{data.contact}}</div>
+                        <div class="col-2">{{data.contact}}</div>
+                        <div class="col-1"><i class="fa fa-pencil"></i></div>
                       </div>
                     </div>
                   </div>
@@ -342,12 +347,14 @@
                       </div>
                     </div>
 
-                    <div *ngIf="customerData && customerData.transaction && customerData.transaction.length==0"
-                      class="container-fluid customerTable">
-                      <p style="text-align:center">Purchase history not found</p>
-                    </div>
                   </div>
+                  
                 </div>
+                
+              </div>
+              <div *ngIf="customerData && customerData.transaction && customerData.transaction.length==0"
+                class="container-fluid customerTable">
+                <small class="text-center w-100 d-block">Purchase history not found</small>
               </div>
             </div>
           </section>

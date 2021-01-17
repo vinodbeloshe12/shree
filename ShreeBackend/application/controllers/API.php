@@ -21,12 +21,12 @@ require APPPATH . 'libraries/Format.php';
 use Restserver\Libraries\REST_Controller;
 
 class Api extends REST_Controller{
-    var $serverIp = 'http://localhost/ShreeBackend/';
+    var $serverIp = 'http://localhost/Shree/ShreeBackend/';
   
     public function __construct()
     {
         parent::__construct();
-        $imageServer = 'http://localhost/ShreeBackend/uploads/';
+        $imageServer = 'http://localhost/Shree/ShreeBackend/uploads/';
         $this->config->set_item('imageServer', $imageServer);
          // $this->load->library('session');
     }
@@ -177,14 +177,10 @@ public function updateUser_post(){
     function getAllUsers_get(){
         $obj = new stdClass();
         if($this->session->userData){
-        $status=  $this->get('status');            
+        // $status=  $this->get('status');            
         $role=  $this->get('role'); 
-        $result = $this->user_model->getAllUsers($role,$status);
+        $result = $this->user_model->getAllUsers($role);
          $this->response($result, 200); 
-        }else{
-        $obj->value=false;
-        $obj->message="User Not Logged in";
-        $this->response($obj, 200); 
         }
     }
 
