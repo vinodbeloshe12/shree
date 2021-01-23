@@ -21,8 +21,17 @@ export class CustomerdetailsComponent implements OnInit {
   idproofData: any = [];
   selectedId: any = {};
   imageName: any = [];
-buttonLabel:string="Update";
-
+  buttonLabel:string="Update";
+  url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
+  selectFile(event){
+    if(event.target.files){
+      var reader = new FileReader()
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (event: any)=> {
+        this.url = event.target.result
+      }
+    }
+  }
   constructor(private activatedRoute: ActivatedRoute,private router:Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -50,6 +59,7 @@ buttonLabel:string="Update";
     this.transactionFormData.purchase_date = new Date();
   }
 
+
   createUser(data) {
     this.userService.createUser(data).subscribe((res: any) => {
       alert("user saved");
@@ -74,6 +84,7 @@ buttonLabel:string="Update";
       // alert("mobile data found");
     }, err => console.log(err));
   }
+
 
 
   selectId(sid) {
@@ -119,7 +130,7 @@ buttonLabel:string="Update";
       this.imageName = [];
     }, err => console.log(err));
   }
-
+ 
   removeIdProof(id, type, custid) {
   }
 

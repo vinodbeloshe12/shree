@@ -78,14 +78,14 @@ this.barChartLabels.push(moment().format('YYYY-MM-DD'));
   }
 
   getChartData(dates){
-    console.log("dates",dates);
+    // console.log("dates",dates);
     this.userService.getChartData(dates).subscribe((res:any)=>{
       // this.dashboardData = res.data;
       if(res.value){
         this.barChartData[0].data =res.purchase;
         this.barChartData[1].data =res.sale;
       }
-      console.log("chartdata", res)
+      // console.log("chartdata", res)
     })
   }
 
@@ -104,6 +104,7 @@ this.barChartLabels.push(moment().format('YYYY-MM-DD'));
       this.salesList=res.data;
     })
   }
+
   // public randomize(): void {
   //   // Only Change 3 values
   //   const data = [

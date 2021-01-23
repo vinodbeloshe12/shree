@@ -8,9 +8,10 @@ import { apiUrl, httpOptionsPost, httpOptionsGet, httpOptionsAdmin } from '../ap
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getAllCustomers() {
-    return this.http.get(apiUrl + "getAllUsers", httpOptionsGet);
-  }
+  // getAllCustomers() {
+  //   return this.http.get(apiUrl + "getAllUsers", httpOptionsGet);
+  // }
+  
   getAllBrands() {
     return this.http.get(apiUrl + "getAllBrands", httpOptionsGet);
   }
@@ -22,6 +23,9 @@ export class UserService {
   }
   getAllSales() {
     return this.http.get(apiUrl + "getAllSales", httpOptionsGet);
+  }
+  getAllUserData() {
+    return this.http.get(apiUrl + "getAllUserData", httpOptionsGet);
   }
 
   getUserDetailsById(id) {

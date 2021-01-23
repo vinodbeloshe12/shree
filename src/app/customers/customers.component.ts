@@ -3,7 +3,7 @@ import { trigger, style, animate, transition } from "@angular/animations";
 import { UserService } from '../service/user.service';
 import { idproof } from '../app.constants';
 import { Router } from '@angular/router';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
@@ -36,11 +36,11 @@ export class CustomersComponent implements OnInit {
   idproofData: any = [];
   selectedId = {};
   imageName: any = [];
-  image;
+  image: any;
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.getAllCustomers();
+    this.getAllUserData();
   }
 
   toggleDisplay() {
@@ -50,13 +50,10 @@ export class CustomersComponent implements OnInit {
     this.isEditShow = !this.isEditShow;
   }
 
-  getAllCustomers() {
-    this.userService.getAllCustomers().subscribe((res: any) => {
-      if (res.value) {
-        this.customers = res.data;
-      }
-    }, err => console.log(err));
-
+  getAllUserData(){
+    this.userService.getAllUserData().subscribe((res:any)=>{
+      this.customers=res.data;
+    })
   }
 
   navigateToCustomer(id) {

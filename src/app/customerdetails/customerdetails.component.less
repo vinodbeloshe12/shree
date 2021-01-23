@@ -178,6 +178,7 @@ ul.documents-Thumbs li {
   display: inline-block;
   background: #fff;
   position: relative;
+  margin-bottom: 15px;
   padding: 10px 10px;
   border-radius: 5px;
   border: thin solid #ddd;
@@ -223,6 +224,48 @@ ul.documents-Thumbs li {
   }
 }
 
+.image_uploader input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  opacity: 0;
+  font-size: 0 !important;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.image_uploader{
+  cursor: pointer;
+  &:hover{
+    &:after {
+      background: #333333;
+   }
+  }
+ &:after {
+      content: "Upload Profile";
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all 0.5s;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    color: #fff;
+    background: #0c9aa9;
+    font-size: 13px;
+    line-height: 27px;
+    width: 100%;
+    border-radius: 4px;
+}
+ img {
+  margin-bottom: 10px;
+  max-height: 150px;
+}
+}
 a.downloadImg {
   position: absolute;
   right: -1px;

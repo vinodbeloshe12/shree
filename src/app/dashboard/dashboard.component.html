@@ -97,9 +97,7 @@
                     <div class="card-body py-3">
                         <div class="chart chart-sm">
                             <div style="display: block">
-                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
-                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
-                                    [chartType]="barChartType">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
                                 </canvas>
                             </div>
                         </div>
@@ -141,7 +139,7 @@
     </section>
     <section class="customer-data">
         <div class="customerContainerHead">
-            <h3 class="float-left">EMI Dues</h3>
+            <h3 class="float-left">EMI Reminder</h3>
         </div>
         <div class="row m-0">
             <div class="col-12 customerHeaderList">
@@ -157,7 +155,7 @@
             <!--bindings={
         "ng-reflect-ng-for-of": "[object Object],[object Object"
       }-->
-            
+
             <div class="col-12 customerContentList">
                 <div class="row">
                     <div class="col-2">SANJAY..AMBEKAR</div>
@@ -173,9 +171,7 @@
     <section class="customer-data">
         <div class="customerContainerHead">
             <h3 class="float-left">Sales List</h3>
-            <div class="searchContainer float-right"><input
-                    name="search" placeholder="Customer Name or Number/ Brand / Model" type="text"
-                    class="ng-untouched ng-pristine ng-valid"></div>
+            <div class="searchContainer float-right"><input name="search" placeholder="Customer Name or Number/ Brand / Model" type="text" class="ng-untouched ng-pristine ng-valid"></div>
         </div>
         <div class="row m-0">
             <div class="col-12 customerHeaderList">
@@ -205,4 +201,5 @@
         </div>
         <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
     </section>
+
 </div>

@@ -14,14 +14,14 @@ export class HeaderComponent implements OnInit {
   
 
   ngOnInit() {
-    this.getAllCustomers();
+    // this.getAllCustomers();
   }
 
-  getAllCustomers() {
-    this.userService.getAllCustomers().subscribe((res: any) => {
-      this.customers = res.data;
-    });
+  // getAllCustomers() {
+  //   this.userService.getAllCustomers().subscribe((res: any) => {
+  //     this.customers = res.data;
+  //   });
 
-  }
+  // }
 
 }

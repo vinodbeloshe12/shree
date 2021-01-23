@@ -163,7 +163,7 @@ public function updateUser_post(){
     function getUserDetails_get(){
         $obj = new stdClass();
         if($this->session->userData){
-        //  $result = $this->session->userData;
+         $result = $this->session->userData;
         $id=$this->session->userData->data['id'];   
         $result = $this->user_model->getUserDetails($id);
          $this->response($result, 200); 
@@ -174,15 +174,15 @@ public function updateUser_post(){
         }
     }
 
-    function getAllUsers_get(){
-        $obj = new stdClass();
-        if($this->session->userData){
-        // $status=  $this->get('status');            
-        $role=  $this->get('role'); 
-        $result = $this->user_model->getAllUsers($role);
-         $this->response($result, 200); 
-        }
-    }
+    // function getAllUsers_get(){
+    //     $obj = new stdClass();
+    //     if($this->session->userData){
+    //     // $status=  $this->get('status');            
+    //     $role=  $this->get('role'); 
+    //     $result = $this->user_model->getAllUsers($role);
+    //      $this->response($result, 200); 
+    //     }
+    // }
 
     function logout_get(){
         $this->session->sess_destroy();
@@ -697,6 +697,10 @@ public function createModel_post(){
 }
  function getAllSales_get(){
     $result = $this->user_model->getAllSales();
+    $this->response($result, 200);  
+}
+ function getAllUserData_get(){
+    $result = $this->user_model->getAllUserData();
     $this->response($result, 200);  
 }
  //create stock

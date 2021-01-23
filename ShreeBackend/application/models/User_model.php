@@ -4,20 +4,20 @@ class User_model extends CI_model{
         $this->load->database();
        }
 
-public function getAllUsers($role,$status){
-    $query = $this->db->query("SELECT u.`id`, u.`name`, u.`first_name`, u.`last_name`, u.`mobile`, u.`role`, u.`email`, u.`date`, u.`dob`, u.`status`, u.`username`, u.`password`,(select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard',(select number from idproof where id_type='adharcard' and u.id=idproof.cust_id LIMIT 1) as 'adharcard' FROM `user` u WHERE u.`role`=$role and u.status=$status ORDER BY u.id DESC");
-    $obj = new stdClass();
-   if($query->num_rows() > 0){
-     $obj->value = true;
-     $obj->data = $query->result_array();
-     return $obj ;
-   }else{
-     $obj->value = false;
-     $obj->data = [];
-     $obj->message ="Records not found" ;
-     return $obj ;
-   }
-}
+// public function getAllUsers($role,$status){
+//     $query = $this->db->query("SELECT u.`id`, u.`name`, u.`first_name`, u.`last_name`, u.`mobile`, u.`role`, u.`email`, u.`date`, u.`dob`, u.`status`, u.`username`, u.`password`,(select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard',(select number from idproof where id_type='adharcard' and u.id=idproof.cust_id LIMIT 1) as 'adharcard' FROM `user` u WHERE u.`role`=$role and u.status=$status ORDER BY u.id DESC");
+//     $obj = new stdClass();
+//    if($query->num_rows() > 0){
+//      $obj->value = true;
+//      $obj->data = $query->result_array();
+//      return $obj ;
+//    }else{
+//      $obj->value = false;
+//      $obj->data = [];
+//      $obj->message ="Records not found" ;
+//      return $obj ;
+//    }
+// }
 public function getSubscribe(){
     $query = $this->db->query('select * FROM `newsletter` order by id desc');
     $obj = new stdClass();
@@ -348,6 +348,19 @@ public function getTransactionDetails($id){
 }
 public function getAllSales(){
   $query = $this->db->query("SELECT s.`id`, s.`cust_id`,u.name, s.`brand`, s.`model`, s.`color`, s.`imei1`, s.`imei2`, s.`purchase_date`, s.`price`, s.`payment_mode`, s.`user` FROM `sale` s LEFT JOIN user u ON s.cust_id=u.id ORDER BY s.purchase_date DESC")->result_array();
+  if($query){
+    $obj->value = true;
+    $obj->data =$query ;
+    return $obj ;
+  }else{
+    $obj->value = false;
+    $obj->data = [];
+    $obj->message ="Data not found" ;
+    return $obj ;
+  }
+}
+public function getAllUserData(){
+  $query = $this->db->query("SELECT * FROM `user`")->result_array();
   if($query){
     $obj->value = true;
     $obj->data =$query ;
