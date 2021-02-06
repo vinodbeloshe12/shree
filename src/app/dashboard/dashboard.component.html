@@ -156,14 +156,14 @@
         "ng-reflect-ng-for-of": "[object Object],[object Object"
       }-->
 
-            <div class="col-12 customerContentList">
-                <div class="row">
-                    <div class="col-2">SANJAY..AMBEKAR</div>
-                    <div class="col-2">8097447065</div>
-                    <div class="col-2">BAJAJ FINANCE</div>
-                    <div class="col-2">20</div>
-                    <div class="col-2">Dec 2, 2020 /Jun 2, 2021</div>
-                    <div class="col-2">Vivo - Y20 4GB 64GB</div>
+            <div *ngFor="let data of emiList" class="col-12 customerContentList">
+                <div class="row" >
+                    <div class="col-2">{{data.name}}</div>
+                    <div class="col-2">{{data.mobile}}</div>
+                    <div class="col-2">{{data.finance_name}}</div>
+                    <div class="col-2">{{data.emi_due_date| date:'mediumDate'}}</div>
+                    <div class="col-2">{{data.emi_start_date | date:'mediumDate'}} / {{data.emi_end_date| date:'mediumDate'}}</div>
+                    <div class="col-2">{{data.brand}} - {{data.model}}</div>
                 </div>
             </div>
         </div><br>

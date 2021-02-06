@@ -5,7 +5,7 @@ class User_model extends CI_model{
        }
 
 // public function getAllUsers($role,$status){
-//     $query = $this->db->query("SELECT u.`id`, u.`name`, u.`first_name`, u.`last_name`, u.`mobile`, u.`role`, u.`email`, u.`date`, u.`dob`, u.`status`, u.`username`, u.`password`,(select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard',(select number from idproof where id_type='adharcard' and u.id=idproof.cust_id LIMIT 1) as 'adharcard' FROM `user` u WHERE u.`role`=$role and u.status=$status ORDER BY u.id DESC");
+//     $query = $this->db->query("SELECT u.`id`, u.`name`, u.`first_name`, u.`last_name`, u.`mobile`, u.`role`, u.`email`, u.`date`, u.`dob`, u.`status`, u.`username`, u.`password`,(select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard',(select number from idproof where id_type='aadharcard' and u.id=idproof.cust_id LIMIT 1) as 'aadharcard' FROM `user` u WHERE u.`role`=$role and u.status=$status ORDER BY u.id DESC");
 //     $obj = new stdClass();
 //    if($query->num_rows() > 0){
 //      $obj->value = true;
@@ -360,7 +360,7 @@ public function getAllSales(){
   }
 }
 public function getAllUserData(){
-  $query = $this->db->query("SELECT u.id, u.name, u.mobile, u.email, i.number, (select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard' ,(select number from idproof where id_type='adharcard' and u.id=idproof.cust_id LIMIT 1) as 'adharcard' FROM `user` u LEFT JOIN idproof i ON u.id=i.user")->result_array();
+  $query = $this->db->query("SELECT u.id, u.name, u.mobile, u.email, i.number, (select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard' ,(select number from idproof where id_type='aadharcard' and u.id=idproof.cust_id LIMIT 1) as 'aadharcard' FROM `user` u LEFT JOIN idproof i ON u.id=i.user")->result_array();
   if($query){
     $obj->value = true;
     $obj->data =$query ;

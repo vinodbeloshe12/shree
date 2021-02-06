@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
-import { idproof,imgUrl } from '../app.constants';
+import { idproof, imgUrl } from '../app.constants';
 @Component({
   selector: 'app-customerdetails',
   templateUrl: './customerdetails.component.html',
@@ -22,27 +22,28 @@ export class CustomerdetailsComponent implements OnInit {
   idproofData: any = [];
   selectedId: any = {};
   imageName: any = [];
-  buttonLabel:string="Update";
+  profileImage: any = [];
+  buttonLabel: string = "Update";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
-  selectFile(event){
-    if(event.target.files){
+  selectFile(event) {
+    if (event.target.files) {
       var reader = new FileReader()
       reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any)=> {
+      reader.onload = (event: any) => {
         this.url = event.target.result
         this.photoIdSave = true
       }
     }
   }
-  constructor(private activatedRoute: ActivatedRoute,private router:Router, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    
-    if(this.activatedRoute.snapshot.params.id=='add'){
-      this.customerData ={};
-      this.customerData.details ={};
-      this.buttonLabel="Save";
-    }else{
+
+    if (this.activatedRoute.snapshot.params.id == 'add') {
+      this.customerData = {};
+      this.customerData.details = {};
+      this.buttonLabel = "Save";
+    } else {
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
     }
   }
@@ -57,7 +58,7 @@ export class CustomerdetailsComponent implements OnInit {
   }
   newTransaction() {
     this.transactionPop = !this.transactionPop;
-    this.transactionFormData={};
+    this.transactionFormData = {};
     this.transactionFormData.purchase_date = new Date();
   }
 
@@ -66,7 +67,7 @@ export class CustomerdetailsComponent implements OnInit {
     this.userService.createUser(data).subscribe((res: any) => {
       alert("user saved");
       console.log("response", res);
-      this.customerData ={};
+      this.customerData = {};
       this.router.navigate(['customerdetails', res.userId]);
       this.getUserDetails(res.userId);
     }, err => console.log(err));
@@ -80,18 +81,19 @@ export class CustomerdetailsComponent implements OnInit {
 
   getMobileDetailsByImei(id) {
     this.userService.getMobileDetailsByImei(id).subscribe((res: any) => {
-      this.transactionFormData =res.data;
+      this.transactionFormData = res.data;
       this.transactionFormData.price = "";
       this.transactionFormData.purchase_date = new Date();
       // alert("mobile data found");
     }, err => console.log(err));
   }
 
-  deleteIdProofImage(data) {  
+  deleteIdProofImage(data) {
     this.userService.deleteIdProofImage(data).subscribe((res: any) => {
       console.log("res", data)
+      this.getUserDetails(this.activatedRoute.snapshot.params.id);
     }, err => console.log(err));
-}
+  }
 
 
 
@@ -103,21 +105,35 @@ export class CustomerdetailsComponent implements OnInit {
     }
   }
 
-  sameAddress(value){
-    if(value){
-      if(this.customerData.details && this.customerData.details.current_address){
+  sameAddress(value) {
+    if (value) {
+      if (this.customerData.details && this.customerData.details.current_address) {
         this.customerData.details.permanent_address = this.customerData.details.current_address;
       }
     }
-    else{
-      this.customerData.details.permanent_address ="";
+    else {
+      this.customerData.details.permanent_address = "";
     }
+  }
+
+  onProfileChange(fileInput: any) {
+    this.profileImage = [];
+    let files = fileInput.srcElement.files;
+    console.log("files", files)
+    for (let i = 0; i < files.length; i++) {
+      var reader = new FileReader();
+      reader.onload = (event: ProgressEvent) => {
+        this.profileImage.push((<FileReader>event.target).result);
+      }
+      reader.readAsDataURL(fileInput.srcElement.files[i]);
+    }
+    this.customerData.details.image = files[0]['name'];
   }
 
   onFileChange(fileInput: any) {
     this.imageName = [];
     let files = fileInput.srcElement.files;
-    console.log("files", files)
+    console.log("in files", files)
     for (let i = 0; i < files.length; i++) {
       var reader = new FileReader();
       reader.onload = (event: ProgressEvent) => {
@@ -138,9 +154,9 @@ export class CustomerdetailsComponent implements OnInit {
       this.imageName = [];
     }, err => console.log(err));
   }
- 
+
   removeIdProof(id, type, custid) {
-    
+
   }
 
 
@@ -178,26 +194,34 @@ export class CustomerdetailsComponent implements OnInit {
     }
   }
 
-  addTransaction(data){
-    data.cust_id=this.activatedRoute.snapshot.params.id;
-    console.log(data,"transaction data");
+  addTransaction(data) {
+    data.cust_id = this.activatedRoute.snapshot.params.id;
+    console.log(data, "transaction data");
     this.userService.createTransaction(data).subscribe((res: any) => {
       alert("Transaction added");
       this.transactionPop = false;
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
       this.transactionFormData = {};
     }, err => console.log(err));
-    
+
   }
 
 
-  getTransactionDetails(id){
-    this.transactionPop=true;
+  getTransactionDetails(id) {
+    this.transactionPop = true;
     this.userService.getTransactionDetails(id).subscribe((res: any) => {
       this.transactionFormData = res.data;
-      console.log("id",this.transactionFormData);
-      
+      console.log("id", this.transactionFormData);
+
     }, err => console.log(err));
   }
 
+
+  downloadImage(url) {
+    console.log("url", url);
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    return fetch(proxyurl + url).then((res) => {
+      return res.blob();
+    });
+  };
 }

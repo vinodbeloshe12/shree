@@ -9,12 +9,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   customers: any = [];
   customerData: any = {};
-
+  userName: String = "";
   constructor(private userService: UserService, private router: Router) { }
-  
+
 
   ngOnInit() {
     // this.getAllCustomers();
+    this.userName = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')).first_name : '';
   }
 
   // getAllCustomers() {

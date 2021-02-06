@@ -3,8 +3,8 @@ import { HttpHeaders } from "@angular/common/http";
 
 // export const apiUrl = "http://shree.streeft.com/ShreeBackend/index.php/API/";
 // export const imgUrl = "http://shree.streeft.com/ShreeBackend/";
-export const apiUrl = "http://localhost/Shree/ShreeBackend/index.php/API/";
-export const imgUrl = "http://localhost/Shree/ShreeBackend/uploads/";
+export const apiUrl = "http://localhost/ShreeBackend/index.php/API/";
+export const imgUrl = "http://localhost/ShreeBackend/uploads/";
 export const idproof = [{
     "name": "Pancard",
     "value": "pancard",
@@ -12,7 +12,7 @@ export const idproof = [{
 },
 {
     "name": "Aadhar card",
-    "value": "adharcard",
+    "value": "aadharcard",
     "pattern": "^\d{4}\s\d{4}\s\d{4}$"
 },
 {

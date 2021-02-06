@@ -11,12 +11,16 @@
                                 <div class="col-md-3">
                                     <div class="row">
                                         <div class="form-group image_uploader col-md-6 d-block p-0 mx-auto">
-                                            <form action="" (ngSubmit)="submitKYC(idprooFormData)">
-                                                <img [src]="url" alt="" class="img-fluid d-block mx-auto">
-                                                <button id="photosaveid" type="Sumbit" class="form-control {{this.photoIdSave == true ? 'd-block': 'd-none' }}">Save</button>
-                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control {{this.photoIdSave == true ? 'd-none': 'd-block' }}">
-                                            </form>
-                                        </div>
+                                            <li *ngFor="let name of profileImage">
+                                                <img [src]="name" alt="">
+                                                <a class="removeImg"><i class="fa fa-times"></i></a>
+                                                <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                            </li>
+                                            <input type="file" [(ngModel)]="customerData.image" class="form-control" required (change)="onProfileChange($event)" name="profileimage">
+                                          
+                                            <!-- <img [src]="url" alt="" class="img-fluid d-block mx-auto">
+                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control"> -->
+                                           </div>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -131,7 +135,8 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Upload copy</label>
-                                            <input type="file" [(ngModel)]="idprooFormData.images" multiple class="form-control" required (change)="onFileChange($event)" name="image">
+                                            <input type="file" [(ngModel)]="idprooFormData.images" class="form-control" required (change)="onFileChange($event)" name="image">
+                                            <!-- <input type="file" [(ngModel)]="idprooFormData.images" multiple class="form-control" required (change)="onFileChange($event)" name="image"> -->
                                         </div>
                                         <div class="form-group text-right col-md-2">
                                             <button [disabled]="!kycForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
@@ -140,16 +145,14 @@
                                     </div>
                                 </form>
                             </div>
-                            <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
+                            <!-- <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
                                 <li *ngFor="let name of imageName">
                                     <img [src]="name" alt="">
-                                    <!-- <strong>Pancard Front</strong> -->
-                                    <!-- <span>CAIP4387SD</span> -->
                                     <a class="removeImg" (click)="deleteIdProofImage(data.id, data.type)"> <i class="fa fa-times"></i>
                                     </a>
-                                    <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                    <a (click)="downloadImage(name)" class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <div class="list-table-parent col-md-12">
 
 
@@ -177,11 +180,11 @@
                   </div> -->
                                     <ul class="documents-Thumbs col-md-12">
                                         <li *ngFor="let data of customerData.idproof">
-                                            <a href="{{imageURL}}{{data.image_name}}" target="_blank"> <img [src]="imageURL+data.image_name" alt=""></a>
-                                            <strong style="text-transform: uppercase;">{{data.id_type=='adharcard'?'Aadhar Card':data.id_type}}</strong>
+                                            <img [src]="imageURL+data.image_name" alt="">
+                                            <strong style="text-transform: uppercase;">{{data.id_type=='aadharcard'?'Aadhar Card':data.id_type}}</strong>
                                             <span>{{data.number}}</span>
-                                            <a class="removeImg" (click)="deleteIdProofImage(data.id, data.type, data.image_name, data.imageid)"><i class="fa fa-times" ></i></a>
-                                            <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                            <a class="removeImg" (click)="deleteIdProofImage(data)"><i class="fa fa-times" ></i></a>
+                                            <a href="{{imageURL}}{{data.image_name}}" download class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -225,7 +228,7 @@
                                     <ul class="documents-Thumbs col-md-12">
                                         <li *ngFor="let data of customerData.idproof">
                                             <a href="{{imageURL}}{{data.image_name}}" target="_blank"> <img [src]="imageURL+data.image_name" alt=""></a>
-                                            <strong style="text-transform: uppercase;">{{data.id_type=='adharcard'?'Aadhar Card':data.id_type}}</strong>
+                                            <strong style="text-transform: uppercase;">{{data.id_type=='aadharcard'?'Aadhar Card':data.id_type}}</strong>
                                             <span>{{data.number}}</span>
                                             <a class="removeImg"><i class="fa fa-times"></i></a>
                                             <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
