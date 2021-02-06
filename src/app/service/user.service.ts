@@ -48,6 +48,9 @@ export class UserService {
   createStock(data) {
     return this.http.post(apiUrl + "createStock", JSON.stringify(data), httpOptionsPost);
   }
+  deleteIdProofImage(data) {
+    return this.http.post(apiUrl + "deleteIdProofImage", JSON.stringify(data), httpOptionsPost);
+  }
 
   createIdproof(data) {
     let body = new FormData();
@@ -79,6 +82,7 @@ export class UserService {
   updateUser(data) {
     return this.http.post(apiUrl + "updateUser", JSON.stringify(data), httpOptionsPost);
   }
+
 
   getTransactionDetails(id) {
     return this.http.get(apiUrl + "getTransactionDetails?id=" + id, httpOptionsGet);

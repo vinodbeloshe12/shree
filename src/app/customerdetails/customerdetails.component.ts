@@ -15,6 +15,7 @@ export class CustomerdetailsComponent implements OnInit {
   addKYC: boolean = false;
   transactionPop: boolean = false;
   addContacts: boolean = false;
+  photoIdSave: boolean = false;
   emailValidate: boolean;
   id = idproof;
   imageURL = imgUrl;
@@ -29,6 +30,7 @@ export class CustomerdetailsComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
       reader.onload = (event: any)=> {
         this.url = event.target.result
+        this.photoIdSave = true
       }
     }
   }
@@ -85,6 +87,12 @@ export class CustomerdetailsComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  deleteIdProofImage(data) {  
+    this.userService.deleteIdProofImage(data).subscribe((res: any) => {
+      console.log("res", data)
+    }, err => console.log(err));
+}
+
 
 
   selectId(sid) {
@@ -132,6 +140,7 @@ export class CustomerdetailsComponent implements OnInit {
   }
  
   removeIdProof(id, type, custid) {
+    
   }
 
 

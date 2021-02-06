@@ -11,8 +11,11 @@
                                 <div class="col-md-3">
                                     <div class="row">
                                         <div class="form-group image_uploader col-md-6 d-block p-0 mx-auto">
-                                            <img [src]="url" alt="" class="img-fluid d-block mx-auto">
-                                            <input type="file" (change)="selectFile($event)" name="photo" class="form-control">
+                                            <form action="" (ngSubmit)="submitKYC(idprooFormData)">
+                                                <img [src]="url" alt="" class="img-fluid d-block mx-auto">
+                                                <button id="photosaveid" type="Sumbit" class="form-control {{this.photoIdSave == true ? 'd-block': 'd-none' }}">Save</button>
+                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control {{this.photoIdSave == true ? 'd-none': 'd-block' }}">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +124,7 @@
                       </select>
                                         </div>
                                         <div class="form-group col-md-3"><label>Document Number</label>
-                                            <input required name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''" [pattern]="selectedId.pattern" [(ngModel)]="idprooFormData.number" #idno="ngModel" id="" class="form-control" placeholder="Number" class="form-control">
+                                            <input required name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''" [(ngModel)]="idprooFormData.number" #idno="ngModel" id="" class="form-control" placeholder="Number" class="form-control">
                                             <div class="error" *ngIf="idno.errors?.pattern">
                                                 {{selectedId.name}} number is not valid.
                                             </div>
@@ -142,7 +145,8 @@
                                     <img [src]="name" alt="">
                                     <!-- <strong>Pancard Front</strong> -->
                                     <!-- <span>CAIP4387SD</span> -->
-                                    <a class="removeImg"><i class="fa fa-times"></i></a>
+                                    <a class="removeImg" (click)="deleteIdProofImage(data.id, data.type)"> <i class="fa fa-times"></i>
+                                    </a>
                                     <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                                 </li>
                             </ul>
@@ -176,7 +180,7 @@
                                             <a href="{{imageURL}}{{data.image_name}}" target="_blank"> <img [src]="imageURL+data.image_name" alt=""></a>
                                             <strong style="text-transform: uppercase;">{{data.id_type=='adharcard'?'Aadhar Card':data.id_type}}</strong>
                                             <span>{{data.number}}</span>
-                                            <a class="removeImg"><i class="fa fa-times"></i></a>
+                                            <a class="removeImg" (click)="deleteIdProofImage(data.id, data.type, data.image_name, data.imageid)"><i class="fa fa-times" ></i></a>
                                             <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                                         </li>
                                     </ul>

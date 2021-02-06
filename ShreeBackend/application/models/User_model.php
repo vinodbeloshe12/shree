@@ -360,7 +360,7 @@ public function getAllSales(){
   }
 }
 public function getAllUserData(){
-  $query = $this->db->query("SELECT * FROM `user`")->result_array();
+  $query = $this->db->query("SELECT u.id, u.name, u.mobile, u.email, i.number, (select number from idproof where id_type='pancard' and u.id=idproof.cust_id LIMIT 1) as 'pancard' ,(select number from idproof where id_type='adharcard' and u.id=idproof.cust_id LIMIT 1) as 'adharcard' FROM `user` u LEFT JOIN idproof i ON u.id=i.user")->result_array();
   if($query){
     $obj->value = true;
     $obj->data =$query ;
@@ -462,7 +462,7 @@ public function createContact($data){
 }
 
 public function createTransaction($data){
-    $insertData=array("cust_id" => $data['cust_id'],"brand" =>  $data['brand'],"model" =>  $data['model'],"color" =>  $data['color'],"user" =>  $this->session->userData->data['id'],"imei1" =>  $data['imei1'],"imei2" =>  $data['imei2'],"price" =>  $data['price'],"purchase_date" =>  $data['purchase_date'],"payment_mode" =>  $data['payment_mode'],"finance_name" =>  $data['finance_name'],"intrest" =>  $data['intrest'],"loan_amount" =>  $data['loan_amount'],"down_payment" =>  $data['down_payment'],"emi_amount" =>  $data['emi_amount'],"ntenure" =>  $data['ntenure'],"gtenure" =>  $data['gtenure'],"emi_due_date" =>  $data['emi_due_date'],"loan_number" =>  $data['loan_number'],"emi_start_date" =>  $data['emi_start_date'],"emi_end_date" =>  $data['emi_end_date'],"comment" =>  $data['comment'],"feedback" =>  $data['feedback']);
+   $insertData=array("cust_id" => $data['cust_id'],"brand" =>  $data['brand'],"model" =>  $data['model'],"color" =>  $data['color'],"user" =>  $this->session->userData->data['id'],"imei1" =>  $data['imei1'],"imei2" =>  $data['imei2'],"price" =>  $data['price'],"purchase_date" =>  $data['purchase_date'],"payment_mode" =>  $data['payment_mode'],"finance_name" =>  $data['finance_name'],"intrest" =>  $data['intrest'],"loan_amount" =>  $data['loan_amount'],"down_payment" =>  $data['down_payment'],"emi_amount" =>  $data['emi_amount'],"ntenure" =>  $data['ntenure'],"gtenure" =>  $data['gtenure'],"emi_due_date" =>  $data['emi_due_date'],"loan_number" =>  $data['loan_number'],"emi_start_date" =>  $data['emi_start_date'],"emi_end_date" =>  $data['emi_end_date'],"comment" =>  $data['comment'],"feedback" =>  $data['feedback']);
    $this->db->insert('sale',$insertData);
    $obj = new stdClass();
    if ($this->db->affected_rows() != 1){
@@ -478,6 +478,57 @@ public function createTransaction($data){
      return $obj ;
    }
  }
+
+//  public function deleteIdProofImage($id,$type,$imageid,$image_name){
+//   $q="select * from idproof_images where cust_id=$id and type='$type'";
+//   $iddata= $this->db->query($q)->result_array();
+//   $file = 'backend/uploads/'.$image_name;
+//   if(sizeof($iddata)==1){
+//     $queryid= $this->db->query("delete from idproof where id=$id");
+//     $query= $this->db->query("delete from idproof_images where id=$imageid");
+//     $obj = new stdClass();
+//     console.log($this->db);
+//      if ($this->db->affected_rows() == 1){
+//        $obj->value = false;
+//       $obj->message ="Deletion failed" ;
+//        return $obj ;
+//      }else{
+//       if(is_file($file)){
+//         unlink($file); // delete file
+//       }
+//        $obj->value = true;
+//        $obj->message =" Records deleted,1 row affected" ;
+//        return $obj ;
+//      }
+//   }else{
+//     $query= $this->db->query("delete from idproof_images where id=$imageid");
+//     $obj = new stdClass();
+//      if ($this->db->affected_rows() != 1){
+//        $obj->value = false;
+//       $obj->message ="Deletion failed" ;
+//        return $obj ;
+   
+//      }else{
+//       if(is_file($file)){
+//         unlink($file); // delete file
+//       }
+//        $obj->value = true;
+//        $obj->message =" Records deleted,1 row affected" ;
+//        return $obj ;
+//      }
+//   }
+ 
+//  }
+
+
+public function deleteIdProofImage($id,$type,$image_name,$imageid){
+  if(file_exists($id,$type,$image_name,$imageid))
+  {
+  unlink($id,$type,$image_name,$imageid);
+  }
+
+}
+
 
 
 public function getDashboardDetails(){
@@ -573,7 +624,7 @@ public function getEMIDetails($days){
   }
 }
 
-public function deleteContact($id){
+public function deleteContact($id,$type){
   $query= $this->db->query("delete from contacts where id=$id");
   $obj = new stdClass();
    if ($this->db->affected_rows() != 1){
@@ -589,46 +640,6 @@ public function deleteContact($id){
 }
 
 
-public function deleteIdProofImage($id,$type,$imageid,$image_name){
-  $q="select * from idproof_images where cust_id=$id and type='$type'";
-  $iddata= $this->db->query($q)->result_array();
-  $file = 'uploads/'.$image_name;
-  if(sizeof($iddata)==1){
-    $queryid= $this->db->query("delete from idproof where id=$id");
-    $query= $this->db->query("delete from idproof_images where id=$imageid");
-    $obj = new stdClass();
-     if ($this->db->affected_rows() != 1){
-       $obj->value = false;
-      $obj->message ="Deletion failed" ;
-       return $obj ;
-   
-     }else{
-      if(is_file($file)){
-        unlink($file); // delete file
-      }
-       $obj->value = true;
-       $obj->message =" Records deleted,1 row affected" ;
-       return $obj ;
-     }
-  }else{
-    $query= $this->db->query("delete from idproof_images where id=$imageid");
-    $obj = new stdClass();
-     if ($this->db->affected_rows() != 1){
-       $obj->value = false;
-      $obj->message ="Deletion failed" ;
-       return $obj ;
-   
-     }else{
-      if(is_file($file)){
-        unlink($file); // delete file
-      }
-       $obj->value = true;
-       $obj->message =" Records deleted,1 row affected" ;
-       return $obj ;
-     }
-  }
- 
- }
 
  public function updateContact($data, $id){
   $this->db->where('id', $id);  

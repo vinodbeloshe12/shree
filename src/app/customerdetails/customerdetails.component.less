@@ -125,6 +125,7 @@ label.custom-checkbox {
 
 input[type="file"] {
   font-size: 12px;
+  overflow: hidden;
 }
 
 
@@ -241,11 +242,11 @@ ul.documents-Thumbs li {
 .image_uploader{
   cursor: pointer;
   &:hover{
-    &:after {
+    &:after, button#photosaveid {
       background: #333333;
    }
   }
- &:after {
+ &:after, button#photosaveid {
       content: "Upload Profile";
     border: none !important;
     outline: none !important;
@@ -272,7 +273,6 @@ a.downloadImg {
   bottom: -1px;
   background: #f7e613;
   line-height: 24px;
-  /* width: 30px; */
   padding: 0 6px 0 9px;
   font-size: 10px;
   border-radius: 6px 0 0 0;
@@ -283,7 +283,13 @@ a.downloadImg {
   pointer-events: none;
 }
 
-
+.image_uploader.hidebtn::after{
+  display: none;
+}
+button#photosaveid{
+  position: absolute;
+  z-index: 1;
+}
 ul.documents-Thumbs li:hover .downloadImg {
   opacity: 1;
   pointer-events: all;
