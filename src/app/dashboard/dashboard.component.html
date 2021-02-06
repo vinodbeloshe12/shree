@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-6 col-xxl-7">
+            <div class="col-xl-6 col-xxl-7 d-none d-md-block">
                 <div class="card flex-fill w-100">
                     <div class="card-header">
                         <div class="card-actions float-right">
@@ -156,8 +156,8 @@
         "ng-reflect-ng-for-of": "[object Object],[object Object"
       }-->
 
-            <div *ngFor="let data of emiList" class="col-12 customerContentList">
-                <div class="row" >
+            <div *ngFor="let data of emiList | paginate: {id: 'pagination2', itemsPerPage: 5, currentPage: p }" class="col-12 customerContentList">
+                <div class="row">
                     <div class="col-2">{{data.name}}</div>
                     <div class="col-2">{{data.mobile}}</div>
                     <div class="col-2">{{data.finance_name}}</div>
@@ -167,6 +167,7 @@
                 </div>
             </div>
         </div><br>
+        <pagination-controls id="pagination2" (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
     </section>
     <section class="customer-data">
         <div class="customerContainerHead">
@@ -186,7 +187,7 @@
                     <div class="col-2">IMEI 2</div>
                 </div>
             </div>
-            <div class="col-12 customerContentList" *ngFor="let data of salesList | paginate: { itemsPerPage: 5, currentPage: p }">
+            <div class="col-12 customerContentList" *ngFor="let data of salesList | paginate: {id: 'versionPagination', itemsPerPage: 5, currentPage: r }">
                 <div class="row">
                     <div class="col-2">{{data.name}}</div>
                     <div class="col-1">{{data.brand}}</div>
@@ -199,7 +200,7 @@
                 </div>
             </div>
         </div>
-        <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
+        <pagination-controls id="versionPagination" (pageChange)="r = $event" class="ngx-pagination"></pagination-controls>
     </section>
 
 </div>

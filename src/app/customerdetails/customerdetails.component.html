@@ -11,16 +11,19 @@
                                 <div class="col-md-3">
                                     <div class="row">
                                         <div class="form-group image_uploader col-md-6 d-block p-0 mx-auto">
-                                            <li *ngFor="let name of profileImage">
-                                                <img [src]="name" alt="">
-                                                <a class="removeImg"><i class="fa fa-times"></i></a>
-                                                <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
-                                            </li>
+                                            <div class="imagePlaceholder {{profileImage ==  '' ? 'd-block' : 'd-none'}}">
+                                                <img [src]="url" alt="" class="img-fluid d-block mx-auto">
+                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control">
+                                            </div>
+                                            <span *ngFor="let name of profileImage">
+                                                    <img [src]="name" alt="">
+                                                    <a class="removeImg"><i class="fa fa-times"></i></a>
+                                                </span>
                                             <input type="file" [(ngModel)]="customerData.image" class="form-control" required (change)="onProfileChange($event)" name="profileimage">
-                                          
+
                                             <!-- <img [src]="url" alt="" class="img-fluid d-block mx-auto">
                                                 <input type="file" (change)="selectFile($event)" name="photo" class="form-control"> -->
-                                           </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -202,15 +205,15 @@
                             </h3>
                             <div class="new-entry col-md-12">
                                 <ul class="documents-Thumbs p-0">
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
-                                    <li class="col-1"><img alt="" class="img-fluid" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
                                 </ul>
                             </div>
                             <!-- <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
@@ -621,5 +624,16 @@
             </div>
 
         </form>
+    </div>
+
+</div>
+
+<div class="overlay {{this.imgPop ? 'is-on' : ''}}" title="Show modal popup ">
+    <!-- <div class="overlay "> -->
+    <div class="content">
+        <img [src]="url" alt="">
+        <a _ngcontent-isp-c3="" class="downloadImgpop"> <i _ngcontent-isp-c3="" class="fa fa-arrow-down"></i></a>
+        <div id="close"><i class="fa fa-times" (click)="closeImgModal()" aria-hidden="true"></i> </div>
+        <div class="imageCaption"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, voluptatum sapiente? Debitis.</div>
     </div>
 </div>

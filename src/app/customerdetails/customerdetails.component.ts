@@ -23,6 +23,7 @@ export class CustomerdetailsComponent implements OnInit {
   selectedId: any = {};
   imageName: any = [];
   profileImage: any = [];
+  imgPop: boolean = false;
   buttonLabel: string = "Update";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
   selectFile(event) {
@@ -155,8 +156,12 @@ export class CustomerdetailsComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  removeIdProof(id, type, custid) {
+  openImgModal() {
+    this.imgPop = true;
+  }
 
+  closeImgModal() {
+    this.imgPop = false;
   }
 
 

@@ -1,24 +1,25 @@
 <div class="navigation-header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="logo-box"><img src="assets/images/logo.png"></div>
-      </div>
-      <div class="col-md-9">
-        <div class="navigationMenu">
-          <ul>
-            <li> <a routerLink="/dashboard" routerLinkActive="active" href="">Dashboard</a></li>
-            <li><a routerLink="/customers" routerLinkActive="active">Customers</a></li>
-            <li><a routerLink="/brandstock" routerLinkActive="active" >Stock</a></li>
-            <li class="login-customer">
-              <span> Welcome, {{userName}}</span>
-              <a href="javascript:;" routerLink="/login">logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="logo-box"><span class=" d-lg-none d-md-block hamburgerMenu" (click)="Opensidebar()"> <i class="fa fa-bars"></i> </span><img src="assets/images/logo.png"></div>
+            </div>
+            <div class="col-md-9">
+                <div class="navigationMenu {{this.sidebarnav ? 'openSlidbar':''}}">
+                    <ul>
+                        <li class="login-customer d-lg-none d-md-block"><span>  Welcome, {{userName}}</span><a class="closeNav" (click)="Closesidebar()"><i class="fa fa-times"></i></a></li>
+                        <li> <a routerLink="/dashboard" routerLinkActive="active" href="">Dashboard</a></li>
+                        <li><a routerLink="/customers" routerLinkActive="active">Customers</a></li>
+                        <li><a routerLink="/brandstock" routerLinkActive="active">Stock</a></li>
+                        <li class="login-customer last-li">
+                            <span class="d-none  d-lg-inline-block"> Welcome, {{userName}}</span>
+                            <a href="javascript:;" routerLink="/login">logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
 
-            </li>
-          </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
