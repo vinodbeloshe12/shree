@@ -26,16 +26,7 @@ export class CustomerdetailsComponent implements OnInit {
   imgPop: boolean = false;
   buttonLabel: string = "Update";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
-  selectFile(event) {
-    if (event.target.files) {
-      var reader = new FileReader()
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.url = event.target.result
-        this.photoIdSave = true
-      }
-    }
-  }
+
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
@@ -74,6 +65,7 @@ export class CustomerdetailsComponent implements OnInit {
     }, err => console.log(err));
   }
   updateUser(data) {
+    console.log("data", data);
     this.userService.updateUser(data).subscribe((res: any) => {
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
       alert("user data updated");
@@ -128,7 +120,20 @@ export class CustomerdetailsComponent implements OnInit {
       }
       reader.readAsDataURL(fileInput.srcElement.files[i]);
     }
+    this.updateUserProfile(files[0]);
     this.customerData.details.image = files[0]['name'];
+  }
+
+  updateUserProfile(file) {
+    let data = {
+      id: this.activatedRoute.snapshot.params.id,
+      image: file
+    }
+    this.userService.updateUserProfile(data).subscribe((res: any) => {
+      if (res.value) {
+        console.log("profile image updated")
+      }
+    });
   }
 
   onFileChange(fileInput: any) {

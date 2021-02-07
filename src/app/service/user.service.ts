@@ -11,12 +11,12 @@ export class UserService {
   // getAllCustomers() {
   //   return this.http.get(apiUrl + "getAllUsers", httpOptionsGet);
   // }
-  
+
   getAllBrands() {
     return this.http.get(apiUrl + "getAllBrands", httpOptionsGet);
   }
   getAllModels(brand) {
-    return this.http.get(apiUrl + "getAllModels?brand="+brand, httpOptionsGet);
+    return this.http.get(apiUrl + "getAllModels?brand=" + brand, httpOptionsGet);
   }
   getAllStock() {
     return this.http.get(apiUrl + "getAllStock", httpOptionsGet);
@@ -50,6 +50,13 @@ export class UserService {
   }
   deleteIdProofImage(data) {
     return this.http.post(apiUrl + "deleteIdProofImage", JSON.stringify(data), httpOptionsPost);
+  }
+
+  updateUserProfile(data) {
+    let body = new FormData();
+    body.append('id', data.id);
+    body.append("image", data.image, data.image['name']);
+    return this.http.post(apiUrl + "updateUserProfile", body, httpOptionsAdmin);
   }
 
   createIdproof(data) {
