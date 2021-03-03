@@ -12,14 +12,15 @@
                                     <div class="row">
                                         <div class="form-group image_uploader col-md-6 d-block p-0 mx-auto">
                                             <div class="imagePlaceholder {{profileImage ==  '' ? 'd-block' : 'd-none'}}">
-                                                <img [src]="url" alt="" class="img-fluid d-block mx-auto">
-                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control">
+                                                <img [src]="customerData.details.image?imageURL+customerData.details.image:url" alt="" class="img-fluid d-block mx-auto">
+                                              
                                             </div>
+
                                             <span *ngFor="let name of profileImage">
                                                     <img [src]="name" alt="">
                                                     <a class="removeImg"><i class="fa fa-times"></i></a>
                                                 </span>
-                                            <input type="file" [(ngModel)]="customerData.image" class="form-control" required (change)="onProfileChange($event)" name="profileimage">
+                                            <input type="file" [(ngModel)]="customerData.details.image" class="form-control" required (change)="onProfileChange($event)" name="image">
 
                                             <!-- <img [src]="url" alt="" class="img-fluid d-block mx-auto">
                                                 <input type="file" (change)="selectFile($event)" name="photo" class="form-control"> -->
@@ -613,8 +614,8 @@
                         <label>Feedback</label>
                         <textarea rows="5" required [(ngModel)]="transactionFormData.feedback" name="feedback" id="" class="form-control noresize">Customer like offers and services</textarea>
                     </div>
-                    <div *ngIf="!transactionFormData.id" class="btnBlock-customerDetails col-md-12 text-right">
-                        <button type="reset" class="btn btn-cancel">Reset</button>
+                    <div  class="btnBlock-customerDetails col-md-12 text-right">
+                        <button *ngIf="!transactionFormData.id" type="reset" class="btn btn-cancel">Reset</button>
                         <button [disabled]="!transactionForm.form.valid" class="btn btn-primary" type="Sumbit">Submit</button>
                     </div>
                 </div>
