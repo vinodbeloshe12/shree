@@ -1,149 +1,167 @@
 <div class="container-customerDetails">
-  <div *ngIf="customerData && customerData.details" class="body-customerDetails">
-    <div class="customer-details-section">
-      <div class="customer-details-data">
-        <div class="row">
+    <div *ngIf="customerData && customerData.details" class="body-customerDetails">
+        <div class="customer-details-section">
+            <div class="customer-details-data">
+                <div class="row">
 
-          <section class="personal-container">
-            <form #custForm="ngForm" (ngSubmit)="updateUser(customerData.details)">
-              <div class="row">
-                <h3 class="col-md-12">Personal Details</h3>
-                <div class="form-group col-md-3">
-                  <label>First Name</label>
-                  <input type="text" #firstname="ngModel" required minlength="3" minlength="3" name="firstname"
-                    [(ngModel)]="customerData.details.first_name" class="form-control">
-                  <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error">
-                    <div *ngIf="firstname.errors.required">
-                      First Name is required.
-                    </div>
-                    <div *ngIf="firstname.errors.minlength">
-                      First Name must be at least 3 characters long.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Last Name</label>
-                  <input type="text" required #lastname="ngModel" minlength="3"
-                    [(ngModel)]="customerData.details.last_name" name="lastname" class="form-control">
-                  <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error">
-                    <div *ngIf="lastname.errors.required">
-                      Last Name is required.
-                    </div>
-                    <div *ngIf="lastname.errors.minlength">
-                      Last Name must be at least 3 characters long.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Mobile</label>
-                  <input type="tel" [(ngModel)]="customerData.details.mobile" (keypress)="onlyNumbers($event)"
-                    #phone="ngModel" minlength="10" maxlength="10" name="mobile" required class="form-control">
-                  <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
-                    <div *ngIf="phone.errors.required">
-                      Mobile Number is required.
-                    </div>
-                    <div *ngIf="phone.errors.minlength">
-                      Mobile Number must be at least 10 characters long.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Alternate Mobile</label>
-                  <input type="tel" (keypress)="onlyNumbers($event)" #alternatephone="ngModel" minlength="10"
-                    maxlength="10" required [(ngModel)]="customerData.details.alternate_mobile" name="alternate_mobile"
-                    class="form-control">
-                  <div *ngIf="alternatephone.invalid && (alternatephone.dirty || alternatephone.touched)" class="error">
-                    <div *ngIf="alternatephone.errors.required">
-                      Alternate Mobile Number is required.
-                    </div>
-                    <div *ngIf="alternatephone.errors.minlength">
-                      Alternate Mobile Number must be at least 10 characters long.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <label>Email</label>
-                  <input type="email" required #email="ngModel" (keyup)="validateEmail(customerData.email)"
-                    [(ngModel)]="customerData.details.email" name="email" class="form-control">
-                  <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
-                    <h6 *ngIf="email.errors.required">Email Address is required.</h6>
-                  </div>
-                  <h6 class="error" *ngIf="emailValidate && customerData.email.length>0">Email address is not valid</h6>
-                </div>
+                    <section class="personal-container">
+                        <form #custForm="ngForm" (ngSubmit)="buttonLabel=='Save'?createUser(customerData.details):updateUser(customerData.details)">
+                            <div class="row">
+                                <h3 class="col-md-12">Personal Details</h3>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="form-group image_uploader col-md-6 d-block p-0 mx-auto">
+                                            <div class="imagePlaceholder {{profileImage ==  '' ? 'd-block' : 'd-none'}}">
+                                                <img [src]="customerData.details.image?imageURL+customerData.details.image:url" alt="" class="img-fluid d-block mx-auto">
+                                              
+                                            </div>
 
-                <div class="form-group col-md-3">
-                  <label>Date Of Birth</label>
-                  <input type="date" [(ngModel)]="customerData.details.dob" name="dob" class="form-control">
-                </div>
-                <div class="w-100"></div>
-                <div class="form-group col-md-6">
-                  <label>Current Address</label>
-                  <textarea rows="5" name="current_address" [(ngModel)]="customerData.details.current_address"
-                    class="form-control noresize"></textarea>
-                </div>
-                <div class="form-group col-md-6">
-                  <label>Permanent Address</label>
-                  <label class="custom-checkbox" for="sameCaddress">
-                    <input type="checkbox" name="sameCaddress" id="sameCaddress" value="checkedValue">
+                                            <span *ngFor="let name of profileImage">
+                                                    <img [src]="name" alt="">
+                                                    <a class="removeImg"><i class="fa fa-times"></i></a>
+                                                </span>
+                                            <input type="file" [(ngModel)]="customerData.details.image" class="form-control" required (change)="onProfileChange($event)" name="image">
+
+                                            <!-- <img [src]="url" alt="" class="img-fluid d-block mx-auto">
+                                                <input type="file" (change)="selectFile($event)" name="photo" class="form-control"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>First Name</label>
+                                            <input type="text" #firstname="ngModel" required minlength="3" minlength="3" name="firstname" [(ngModel)]="customerData.details.first_name" class="form-control">
+                                            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error">
+                                                <div class="error_msg" *ngIf="firstname.errors.required">
+                                                    First Name is required.
+                                                </div>
+                                                <div *ngIf="firstname.errors.minlength" class="error_msg">
+                                                    First Name must be at least 3 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Last Name</label>
+                                            <input type="text" required #lastname="ngModel" minlength="3" [(ngModel)]="customerData.details.last_name" name="lastname" class="form-control">
+                                            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error">
+                                                <div *ngIf="lastname.errors.required" class="error_msg">
+                                                    Last Name is required.
+                                                </div>
+                                                <div *ngIf="lastname.errors.minlength" class="error_msg">
+                                                    Last Name must be at least 3 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Mobile</label>
+                                            <input type="tel" [(ngModel)]="customerData.details.mobile" (keypress)="onlyNumbers($event)" #phone="ngModel" minlength="10" maxlength="10" name="mobile" required class="form-control">
+                                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                                                <div *ngIf="phone.errors.required" class="error_msg">
+                                                    Mobile Number is required.
+                                                </div>
+                                                <div *ngIf="phone.errors.minlength" class="error_msg">
+                                                    Mobile Number must be at least 10 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Alternate Mobile</label>
+                                            <input type="tel" (keypress)="onlyNumbers($event)" #alternatephone="ngModel" minlength="10" maxlength="10" [(ngModel)]="customerData.details.alternate_mobile" name="alternate_mobile" class="form-control">
+                                            <div *ngIf="alternatephone.invalid && (alternatephone.dirty || alternatephone.touched)" class="error">
+                                                <div *ngIf="alternatephone.errors.required" class="error_msg">
+                                                    Alternate Mobile Number is required.
+                                                </div>
+                                                <div *ngIf="alternatephone.errors.minlength" class="error_msg">
+                                                    Alternate Mobile Number must be at least 10 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Email</label>
+                                            <input type="email" #email="ngModel" (keyup)="validateEmail(customerData.email)" [(ngModel)]="customerData.details.email" name="email" class="form-control">
+                                            <div class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                                <h6 *ngIf="email.errors.required" class="error_msg">
+                                                    Email Address is required.
+                                                </h6>
+                                            </div>
+                                            <h6 class="error error_msg" *ngIf="emailValidate && customerData.email.length>0">
+                                                Email address is not valid
+                                            </h6>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>Date Of Birth</label>
+                                            <input type="date" [(ngModel)]="customerData.details.dob" name="dob" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="form-group col-md-6">
+                                    <label>Current Address</label>
+                                    <textarea rows="5" name="current_address" [(ngModel)]="customerData.details.current_address" class="form-control noresize"></textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Permanent Address</label>
+                                    <label class="custom-checkbox ng-star-inserted" for="sameCaddress"><input id="sameCaddress" name="sameCaddress" type="checkbox" value="checkedValue" class="ng-untouched ng-pristine ng-valid"><span class="custom-control-indicator">Same as Current</span></label>
+                                    <label *ngIf="buttonLabel=='Save'" class="custom-checkbox" for="sameCaddress">
+                    <input (change)="sameAddress(address)" [(ngModel)]="address" type="checkbox" name="sameCaddress" id="sameCaddress" value="checkedValue">
                     <span class="custom-control-indicator">Same as Current</span>
                   </label>
-                  <textarea rows="5" [(ngModel)]="customerData.details.permanent_address" name="permanent_address"
-                    class="form-control noresize"></textarea>
-                </div>
-                <div class="action-button text-right col-md-12">
-                  <button [disabled]="!custForm.form.valid" type="Sumbit" class="btn btn-primary update-btn"><i
-                      class="fa fa-save"></i> Update</button>
-                </div>
-              </div>
-            </form>
-          </section>
+                                    <textarea rows="5" [(ngModel)]="customerData.details.permanent_address" name="permanent_address" class="form-control noresize"></textarea>
+                                </div>
+                                <div class="action-button text-right col-md-12">
+                                    <button [disabled]="!custForm.form.valid" type="Sumbit" class="btn btn-primary update-btn"><i
+                      class="fa fa-save"></i> {{buttonLabel}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
 
-          <section class="kyc-container">
-            <div class="row">
-              <h3 class="col-md-12">KYC Documents
-                <!-- <button class="btn btn-add"><i class="fa fa-plus"></i>Add</button> -->
-              </h3>
-              <div class="new-entry col-md-12">
-                <form #kycForm="ngForm" (ngSubmit)="submitKYC(idprooFormData)">
-                  <div class="row">
-                    <div class="form-group col-md-3"><label>Document Name</label>
-                      <select placeholder="Select Document" required (ngModelChange)="selectId($event)" name="idname"
-                        [(ngModel)]="idprooFormData.name" id="">
+                    <section class="kyc-container" *ngIf="activatedRoute.snapshot.params.id!='add'">
+                        <div class="row">
+                            <h3 class="col-md-12">KYC Documents
+                                <!-- <button class="btn btn-add"><i class="fa fa-plus"></i>Add</button> -->
+                            </h3>
+                            <div class="new-entry col-md-12">
+                                <form #kycForm="ngForm" (ngSubmit)="submitKYC(idprooFormData)">
+                                    <div class="row">
+                                        <div class="form-group col-md-3"><label>Document Name</label>
+                                            <select placeholder="Select Document" class="form-control" required (ngModelChange)="selectId($event)" name="idname" [(ngModel)]="idprooFormData.name" id="">
                         <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
                       </select>
-                    </div>
-                    <div class="form-group col-md-3"><label>Document Number</label>
-                      <input required name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''"
-                        [pattern]="selectedId.pattern" [(ngModel)]="idprooFormData.number" #idno="ngModel" id=""
-                        class="form-control" placeholder="Number" class="form-control">
-                      <div class="error" *ngIf="idno.errors?.pattern">
-                        {{selectedId.name}} number is not valid.
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label>Upload copy</label>
-                      <input type="file" [(ngModel)]="idprooFormData.images" multiple class="form-control" required
-                        (change)="onFileChange($event)" name="image">
-                    </div>
-                    <div class="form-group text-right col-md-2">
-                      <button [disabled]="!kycForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
+                                        </div>
+                                        <div class="form-group col-md-3"><label>Document Number</label>
+                                            <input required name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''" [(ngModel)]="idprooFormData.number" #idno="ngModel" id="" class="form-control" placeholder="Number" class="form-control">
+                                            <div class="error" *ngIf="idno.errors?.pattern">
+                                                {{selectedId.name}} number is not valid.
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Upload copy</label>
+                                            <input type="file" [(ngModel)]="idprooFormData.images" class="form-control" required (change)="onFileChange($event)" name="image">
+                                            <!-- <input type="file" [(ngModel)]="idprooFormData.images" multiple class="form-control" required (change)="onFileChange($event)" name="image"> -->
+                                        </div>
+                                        <div class="form-group text-right col-md-2">
+                                            <button [disabled]="!kycForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
                           class="fa fa-save"></i> Save</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
-                <li *ngFor="let name of imageName">
-                  <img [src]="name" alt="">
-                  <strong>Pancard Front</strong>
-                  <!-- <span>CAIP4387SD</span> -->
-                  <a class="removeImg"><i class="fa fa-times"></i></a>
-                </li>
-              </ul>
-              <div class="list-table-parent col-md-12">
-                <div *ngIf="customerData && customerData.idproof && customerData.idproof.length>0"
-                  class="container-fluid customerTable list-table-parent">
-                  <div class="row">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
+                                <li *ngFor="let name of imageName">
+                                    <img [src]="name" alt="">
+                                    <a class="removeImg" (click)="deleteIdProofImage(data.id, data.type)"> <i class="fa fa-times"></i>
+                                    </a>
+                                    <a (click)="downloadImage(name)" class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                </li>
+                            </ul> -->
+                            <div class="list-table-parent col-md-12">
+
+
+                                <div *ngIf="customerData && customerData.idproof && customerData.idproof.length>0" class="container-fluid customerTable list-table-parent">
+                                    <!-- <div class="row">
                     <div class="col-12 customerHeaderList">
                       <div class="row">
                         <div class="col-1">SR No.</div>
@@ -163,27 +181,82 @@
                             class="fa fa-times" aria-hidden="true"></i></div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div *ngIf="customerData && customerData.idproof && customerData.idproof.length==0"
-                  class="container-fluid customerTable list-table-parent">
-                  <p style=" text-align:center">KYC Documents not found</p>
-                </div>
-              </div>
-            </div>
-          </section>
+                  </div> -->
+                                    <ul class="documents-Thumbs col-md-12">
+                                        <li *ngFor="let data of customerData.idproof">
+                                            <img [src]="imageURL+data.image_name" alt="">
+                                            <strong style="text-transform: uppercase;">{{data.id_type=='aadharcard'?'Aadhar Card':data.id_type}}</strong>
+                                            <span>{{data.number}}</span>
+                                            <a class="removeImg" (click)="deleteIdProofImage(data)"><i class="fa fa-times" ></i></a>
+                                            <a href="{{imageURL}}{{data.image_name}}" download class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div *ngIf="customerData && customerData.idproof && customerData.idproof.length==0" class="container-fluid customerTable list-table-parent">
+                                    <p style=" text-align:center">KYC Documents not found</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-          <section class="friend-container">
-            <div class="row">
-              <h3 class="col-md-12">Family & Friends Contact Details
-                <!-- <button class="btn btn-add"> <i class="fa fa-plus"></i>Add</button> -->
-              </h3>
-              <div class="new-entry col-md-12">
-                <form #contactForm="ngForm" (ngSubmit)="submitContact(contactFormData)">
-                  <div class="row">
-                    <div class="form-group col-md-2">
-                      <label>Relation</label>
-                      <select class="form-control" required [(ngModel)]="contactFormData.relation" name="relation">
+                    <section class="Gallery-container" *ngIf="activatedRoute.snapshot.params.id!='add'">
+                        <div class="row">
+                            <h3 class="col-md-12">Photo Gallery
+                                <!-- <button class="btn btn-add"><i class="fa fa-plus"></i>Add</button> -->
+                            </h3>
+                            <div class="new-entry col-md-12">
+                                <ul class="documents-Thumbs p-0">
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                    <li class="col-1"><img alt="" class="img-fluid" (click)="openImgModal()" [src]="url"><a class="removeImg"><i class="fa fa-times"></i></a><a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a></li>
+                                </ul>
+                            </div>
+                            <!-- <ul *ngIf="imageName" class="documents-Thumbs col-md-12">
+                                <li *ngFor="let name of imageName">
+                                    <img [src]="name" alt="">
+                                    <a class="removeImg"><i class="fa fa-times"></i></a>
+                                    <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                </li>
+                            </ul> -->
+                            <!-- <div class="list-table-parent col-md-12"> -->
+
+
+                            <!-- <div *ngIf="customerData && customerData.idproof && customerData.idproof.length>0" class="container-fluid customerTable list-table-parent">
+
+                                    <ul class="documents-Thumbs col-md-12">
+                                        <li *ngFor="let data of customerData.idproof">
+                                            <a href="{{imageURL}}{{data.image_name}}" target="_blank"> <img [src]="imageURL+data.image_name" alt=""></a>
+                                            <strong style="text-transform: uppercase;">{{data.id_type=='aadharcard'?'Aadhar Card':data.id_type}}</strong>
+                                            <span>{{data.number}}</span>
+                                            <a class="removeImg"><i class="fa fa-times"></i></a>
+                                            <a class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                            <!-- <div *ngIf="customerData && customerData.idproof && customerData.idproof.length==0" class="container-fluid customerTable list-table-parent">
+                                    <p style=" text-align:center">Gallery found empty</p>
+                                </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </section>
+
+                    <section class="friend-container" *ngIf="activatedRoute.snapshot.params.id!='add'">
+                        <div class="row">
+                            <h3 class="col-md-12">Family & Friends Contact Details
+                                <!-- <button class="btn btn-add"> <i class="fa fa-plus"></i>Add</button> -->
+                            </h3>
+                            <div class="new-entry col-md-12">
+                                <form #contactForm="ngForm" (ngSubmit)="submitContact(contactFormData)">
+                                    <div class="row">
+                                        <div class="form-group col-md-2">
+                                            <label>Relation</label>
+                                            <select class="form-control" required [(ngModel)]="contactFormData.relation" name="relation">
                         <option value="father">Father</option>
                         <option value="mother">Mother</option>
                         <option value="brother">Brother</option>
@@ -191,87 +264,84 @@
                         <option value="friend">Friend</option>
                         <option value="other">Other</option>
                       </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label>First Name</label>
-                      <input type="text" #firstname="ngModel" required minlength="3" minlength="3" name="firstname"
-                        [(ngModel)]="contactFormData.fname" id="" class="form-control">
-                      <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error">
-                        <div *ngIf="firstname.errors.required">
-                          First Name is required.
-                        </div>
-                        <div *ngIf="firstname.errors.minlength">
-                          First Name must be at least 3 characters long.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Last Name</label>
-                      <input type="text" [(ngModel)]="contactFormData.lname" required #lastname="ngModel" minlength="3"
-                        name="lname" id="" class="form-control">
-                      <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error">
-                        <div *ngIf="lastname.errors.required">
-                          Last Name is required.
-                        </div>
-                        <div *ngIf="lastname.errors.minlength">
-                          Last Name must be at least 3 characters long.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Mobile Number</label>
-                      <input type="text" [(ngModel)]="contactFormData.mobile" (keypress)="onlyNumbers($event)"
-                        #phone="ngModel" minlength="10" maxlength="10" name="mobile" required class="form-control">
-                      <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
-                        <div *ngIf="phone.errors.required">
-                          Mobile Number is required.
-                        </div>
-                        <div *ngIf="phone.errors.minlength">
-                          Mobile Number must be at least 10 characters long.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group text-right col-md-2">
-                      <button [disabled]="!contactForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>First Name</label>
+                                            <input type="text" #firstname="ngModel" required minlength="3" minlength="3" name="firstname" [(ngModel)]="contactFormData.fname" id="" class="form-control">
+                                            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="error">
+                                                <div *ngIf="firstname.errors.required" class="error_msg">
+                                                    First Name is required.
+                                                </div>
+                                                <div *ngIf="firstname.errors.minlength" class="error_msg">
+                                                    First Name must be at least 3 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label>Last Name</label>
+                                            <input type="text" [(ngModel)]="contactFormData.lname" required #lastname="ngModel" minlength="3" name="lname" id="" class="form-control">
+                                            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="error">
+                                                <div *ngIf="lastname.errors.required" class="error_msg">
+                                                    Last Name is required.
+                                                </div>
+                                                <div *ngIf="lastname.errors.minlength" class="error_msg">
+                                                    Last Name must be at least 3 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label>Mobile Number</label>
+                                            <input type="text" [(ngModel)]="contactFormData.mobile" (keypress)="onlyNumbers($event)" #phone="ngModel" minlength="10" maxlength="10" name="mobile" required class="form-control">
+                                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error">
+                                                <div *ngIf="phone.errors.required" class="error_msg">
+                                                    Mobile Number is required.
+                                                </div>
+                                                <div *ngIf="phone.errors.minlength" class="error_msg">
+                                                    Mobile Number must be at least 10 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-right col-md-2">
+                                            <button [disabled]="!contactForm.form.valid" type="Sumbit" class="btn btn-primary save-btn"><i
                           class="fa fa-save"></i> Save</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="list-table-parent col-md-12">
-                <div *ngIf="customerData && customerData.contacts && customerData.contacts.length>0"
-                  class="container-fluid customerTable list-table-parent">
-                  <div class="row">
-                    <div class="col-12 customerHeaderList">
-                      <div class="row">
-                        <div class="col-1">SR No.</div>
-                        <div class="col-2">Relation</div>
-                        <div class="col-3">First Name</div>
-                        <div class="col-3">Last Name</div>
-                        <div class="col-3">Contact No.</div>
-                      </div>
-                    </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="list-table-parent col-md-12">
+                                <div *ngIf="customerData && customerData.contacts && customerData.contacts.length>0" class="container-fluid customerTable list-table-parent">
+                                    <div class="row">
+                                        <div class="col-12 customerHeaderList">
+                                            <div class="row">
+                                                <div class="col-1">SR No.</div>
+                                                <div class="col-2">Relation</div>
+                                                <div class="col-3">First Name</div>
+                                                <div class="col-3">Last Name</div>
+                                                <div class="col-2">Contact No.</div>
+                                                <div class="col-1">Action</div>
+                                            </div>
+                                        </div>
 
-                    <div *ngFor="let data of customerData.contacts" class="col-12 customerContentList">
-                      <div class="row">
-                        <div class="col-1">{{data.id}}</div>
-                        <div class="col-2">{{data.relation}}</div>
-                        <div class="col-3">{{data.first_name}}</div>
-                        <div class="col-3">{{data.last_name}}</div>
-                        <div class="col-3">{{data.contact}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                                        <div *ngFor="let data of customerData.contacts" class="col-12 customerContentList">
+                                            <div class="row">
+                                                <div class="col-1">{{data.id}}</div>
+                                                <div class="col-2">{{data.relation}}</div>
+                                                <div class="col-3">{{data.first_name}}</div>
+                                                <div class="col-3">{{data.last_name}}</div>
+                                                <div class="col-2">{{data.contact}}</div>
+                                                <div class="col-1"><i class="fa fa-pencil"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div *ngIf="customerData && customerData.contacts && customerData.contacts.length==0"
-                  class="container-fluid customerTable list-table-parent">
-                  <p style=" text-align:center">Contacts not found</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          <!-- <section class="finance-container">
+                                <div *ngIf="customerData && customerData.contacts && customerData.contacts.length==0" class="container-fluid customerTable list-table-parent">
+                                    <p style=" text-align:center">Contacts not found</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- <section class="finance-container">
             <div class="row">
               <h3 class="col-md-12">Finance Details</h3>
               <div class="form-group col-md-4">
@@ -288,167 +358,283 @@
               </div>
             </div>
           </section> -->
-          <section class="transaction-container">
-            <div class="row">
-              <h3 class="col-md-12">Transaction Details <button (click)="newTransaction()"
-                  class="btn btn-add new-transaction"><i class="fa fa-plus"></i>Add</button>
-              </h3>
-              <div class="detailstable-list">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div *ngIf="customerData && customerData.transaction && customerData.transaction.length>0"
-                      class="container-fluid customerTable">
-                      <div class="row">
-                        <div class="col-12 customerHeaderList">
-                          <div class="row">
-                            <div class="col-1">SR No.</div>
-                            <div class="col-1">Date</div>
-                            <div class="col-2">Brand Name</div>
-                            <div class="col-2">Model No</div>
-                            <div class="col-2">IMEI</div>
-                            <div class="col-1">Mode</div>
-                            <div class="col-1">Finance</div>
-                            <div class="col-1">Tenuar</div>
-                            <div class="col-1">Amount</div>
-                          </div>
-                        </div>
-                        <div *ngFor="let data of customerData.transaction" class="col-12 customerContentList">
-                          <div class="row">
-                            <div class="col-1">{{data.id}}</div>
-                            <div class="col-1">{{data.purchase_date}}</div>
-                            <div class="col-2">{{data.brand}}</div>
-                            <div class="col-2">{{data.model}}</div>
-                            <div class="col-2">65489651898754</div>
-                            <div class="col-1">{{data.payment_mode}}</div>
-                            <div class="col-1">Bajaj</div>
-                            <div class="col-1">18</div>
-                            <div class="col-1">38000</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <section class="transaction-container" *ngIf="activatedRoute.snapshot.params.id!='add'">
+                        <div class="row">
+                            <h3 class="col-md-12">Transaction Details <button (click)="newTransaction()" class="btn btn-add new-transaction"><i class="fa fa-plus"></i>Add</button>
+                            </h3>
+                            <div class="detailstable-list">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div *ngIf="customerData && customerData.transaction && customerData.transaction.length>0" class="container-fluid customerTable">
+                                            <div class="row">
+                                                <div class="col-12 customerHeaderList">
+                                                    <div class="row">
+                                                        <div class="col-1">SR No.</div>
+                                                        <div class="col-1">Date</div>
+                                                        <div class="col-2">Brand Name</div>
+                                                        <div class="col-2">Model No</div>
+                                                        <div class="col-2">IMEI</div>
+                                                        <div class="col-1">Mode</div>
+                                                        <div class="col-1">Finance</div>
+                                                        <div class="col-1">Tenuar</div>
+                                                        <div class="col-1">Amount</div>
+                                                    </div>
+                                                </div>
+                                                <div (click)="getTransactionDetails(data.id)" *ngFor="let data of customerData.transaction" class="col-12 customerContentList">
+                                                    <div class="row">
+                                                        <div class="col-1">{{data.id}}</div>
+                                                        <div class="col-1">{{data.purchase_date}}</div>
+                                                        <div class="col-2">{{data.brand}}</div>
+                                                        <div class="col-2">{{data.model}}</div>
+                                                        <div class="col-2">{{data.imei1}}</div>
+                                                        <div class="col-1">{{data.payment_mode}}</div>
+                                                        <div class="col-1">{{data.finance}}</div>
+                                                        <div class="col-1">{{data.tenure}}</div>
+                                                        <div class="col-1">{{data.price}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div *ngIf="customerData && customerData.transaction && customerData.transaction.length==0"
-                      class="container-fluid customerTable">
-                      <p style="text-align:center">Purchase history not found</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <!-- <div class="btnBlock-customerDetails col-md-12 text-right">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div *ngIf="customerData && customerData.transaction && customerData.transaction.length==0" class="container-fluid customerTable">
+                                <small class="text-center w-100 d-block">Purchase history not found</small>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- <div class="btnBlock-customerDetails col-md-12 text-right">
             <button class="btn btn-cancel">Cancle</button>
             <button class="btn btn-primary" type="Sumbit">Save</button></div> -->
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <div class="modalpopup-overlay TransactionPopup" *ngIf="transactionPop">
-  <span class="modalpopup-times" (click)="newTransaction()"><i class="fa fa-times"></i></span>
-  <div class="modalpopup-content">
-    <div class="modalpopup-heading">
-      <h4>Add New Transaction</h4>
-    </div>
-
-    <div class="col-12">
-      <div class="row">
-        <div class="form-group col-md-4">
-          <label>Brand</label>
-          <input type="text" value="Vivo" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label>Model</label>
-          <input type="text" value="V15 pro" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label>Color</label>
-          <input type="text" value="Black" name="" id="" class="form-control">
-        </div>
-        <div class="w-100"></div>
-        <div class="form-group col-md-4">
-          <label>IMEI</label>
-          <input type="text" value="12565254859548" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label>Confirm IMEI</label>
-          <input type="text" value="12565254859548" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label>Price</label>
-          <input type="text" value="20000" name="" id="" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label>Date of Purchase</label>
-          <input type="date" value="" name="" id="" class="form-control">
+    <span class="modalpopup-times" (click)="newTransaction()"><i class="fa fa-times"></i></span>
+    <div class="modalpopup-content">
+        <div class="modalpopup-heading">
+            <h4>{{transactionFormData.id?'Transaction Details':'Add New Transaction'}}</h4>
         </div>
 
-        <div class="form-group col-md-4">
-          <label>Payment Type</label>
-          <div class="radio-btn-grp">
-            <div class="radio-btn">
-              <input type="radio" value="" name="radio-btn" id="radio-btn-two" checked>
-              <label for="radio-btn-two">Loan</label>
-            </div>
-            <div class="radio-btn">
-              <input type="radio" value="" name="radio-btn" id="radio-btn-one">
-              <label for="radio-btn-one">Cash</label>
-            </div>
-          </div>
-        </div>
-        <div class="w-100"></div>
-        <div class="loan-data-container col-12">
-          <div class="row">
-            <div class="form-group col-md-4">
+        <form #transactionForm="ngForm" (ngSubmit)="addTransaction(transactionFormData)">
+            <div class="col-12">
+                <div class="row">
+                    <!-- <zxing-scanner [enable]="scannerEnabled" (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled">
+        </zxing-scanner>
+        
+        <input type="button" (click)='scan()' value="Scan">
+        {{qrResultString}} -->
+                    <!--NOTE: dont use button if we used button then this code will breakk -->
+                    <!-- <input type="button" (click)="getMobileDetailsByImei(transactionFormData.imei1?transactionFormData.imei1:transactionFormData.imei2)" value="Scan"> -->
+                    <!-- <input type="button" (click)="getMobileDetailsByImei(transactionFormData.imei1?transactionFormData.imei1:transactionFormData.imei2)" value="Search"> -->
+
+                    <div class="w-100"></div>
+                    <div class="form-group col-md-4 barcodeScan">
+                        <input *ngIf="!transactionFormData.id" class="button" type="button" (click)="getMobileDetailsByImei(transactionFormData.imei1?transactionFormData.imei1:transactionFormData.imei2)" value="Search">
+                        <label>IMEI 1</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.imei1" name="imei1" id="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4 barcodeScan">
+                        <input *ngIf="!transactionFormData.id" class="button" type="button" (click)="getMobileDetailsByImei(transactionFormData.imei1?transactionFormData.imei1:transactionFormData.imei2)" value="Search">
+
+                        <label>IMEI 2</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.imei2" name="imei2" id="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Price</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.price" name="price" id="" class="form-control">
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="form-group col-md-4">
+                        <label>Brand</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.brand" name="brand" id="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Model</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.model" name="model" id="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Color</label>
+                        <input type="text" required [(ngModel)]="transactionFormData.color" name="color" id="" class="form-control">
+                    </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label>Date of Purchase</label>
+                        <input type="date" required class="form-control" id="myDate" [ngModel]="transactionFormData.purchase_date | date:'y-MM-dd'" (ngModelChange)="myDate = $event" name="date">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Mode of Payment</label>
+                        <div class="radio-btn-grp">
+                            <div class="radio-btn">
+                                <input type="radio" value="Loan" required [(ngModel)]="transactionFormData.payment_mode" name="radio-btn" id="radio-btn-two" checked>
+                                <label for="radio-btn-two">Loan</label>
+                            </div>
+                            <div class="radio-btn">
+                                <input type="radio" value="Cash" required [(ngModel)]="transactionFormData.payment_mode" name="radio-btn" id="radio-btn-one">
+                                <label for="radio-btn-one">Cash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="loan-data-container col-12" *ngIf="transactionFormData.payment_mode=='Loan'">
+                        <div class="row">
+                            <!-- <div class="form-group col-md-4">
               <label>Mode of Payment</label>
               <input type="text" value="Cash" name="" id="" class="form-control">
+            </div> -->
+                            <div class="form-group col-md-4">
+                                <label>Loan Number</label>
+                                <input type="text" required [(ngModel)]="transactionFormData.loan_number" name="loan_number" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Finance Name</label>
+                                <input type="text" required [(ngModel)]="transactionFormData.finance_name" name="finance_name" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Down Payment</label>
+                                <input type="text" required [(ngModel)]="transactionFormData.down_payment" name="down_payment" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Gross Tenure</label>
+                                <select name="gtenure" required [(ngModel)]="transactionFormData.gtenure" class="form-control">
+                <option value="1">1 Month</option>
+                <option value="2">2 Months</option>
+                <option value="3">3 Months</option>
+                <option value="4">4 Months</option>
+                <option value="5">5 Months</option>
+                <option value="6">6 Months</option>
+                <option value="7">7 Months</option>
+                <option value="8">8 Months</option>
+                <option value="9">9 Months</option>
+                <option value="10">10 Months</option>
+                <option value="11">11 Months</option>
+                <option value="12">12 Months</option>
+                <option value="13">13 Months</option>
+                <option value="14">14 Months</option>
+                <option value="15">15 Months</option>
+                <option value="16">16 Months</option>
+                <option value="17">17 Months</option>
+                <option value="18">18 Months</option>
+                <option value="19">19 Months</option>
+                <option value="20">20 Months</option>
+                <option value="21">21 Months</option>
+                <option value="22">22 Months</option>
+                <option value="23">23 Months</option>
+                <option value="24">24 Months</option>
+                <option value="25">25 Months</option>
+                <option value="26">26 Months</option>
+                <option value="27">27 Months</option>
+                <option value="28">28 Months</option>
+                <option value="29">29 Months</option>
+                <option value="30">30 Months</option>
+                <option value="31">31 Months</option>
+                <option value="32">32 Months</option>
+                <option value="33">33 Months</option>
+                <option value="34">34 Months</option>
+                <option value="35">35 Months</option>
+                <option value="36">36 Months</option>
+              </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Net Tenure</label>
+                                <select name="ntenure" required [(ngModel)]="transactionFormData.ntenure" class="form-control">
+                <option value="1">1 Month</option>
+                <option value="2">2 Months</option>
+                <option value="3">3 Months</option>
+                <option value="4">4 Months</option>
+                <option value="5">5 Months</option>
+                <option value="6">6 Months</option>
+                <option value="7">7 Months</option>
+                <option value="8">8 Months</option>
+                <option value="9">9 Months</option>
+                <option value="10">10 Months</option>
+                <option value="11">11 Months</option>
+                <option value="12">12 Months</option>
+                <option value="13">13 Months</option>
+                <option value="14">14 Months</option>
+                <option value="15">15 Months</option>
+                <option value="16">16 Months</option>
+                <option value="17">17 Months</option>
+                <option value="18">18 Months</option>
+                <option value="19">19 Months</option>
+                <option value="20">20 Months</option>
+                <option value="21">21 Months</option>
+                <option value="22">22 Months</option>
+                <option value="23">23 Months</option>
+                <option value="24">24 Months</option>
+                <option value="25">25 Months</option>
+                <option value="26">26 Months</option>
+                <option value="27">27 Months</option>
+                <option value="28">28 Months</option>
+                <option value="29">29 Months</option>
+                <option value="30">30 Months</option>
+                <option value="31">31 Months</option>
+                <option value="32">32 Months</option>
+                <option value="33">33 Months</option>
+                <option value="34">34 Months</option>
+                <option value="35">35 Months</option>
+                <option value="36">36 Months</option>
+              </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Loan Amount</label>
+                                <input type="text" required [(ngModel)]="transactionFormData.loan_amount" name="loan_amount" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>EMI Amount</label>
+                                <input type="text" required [(ngModel)]="transactionFormData.emi_amount" name="emi_amount" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>EMI Reminder Date</label>
+                                <input type="date" required [(ngModel)]="transactionFormData.emi_due_date" name="emi_due_date" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>EMI Start Date</label>
+                                <input type="date" required [(ngModel)]="transactionFormData.emi_start_date" name="emi_start_date" id="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>EMI End Date</label>
+                                <input type="date" required [(ngModel)]="transactionFormData.emi_end_date" name="emi_end_date" id="" class="form-control">
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="form-group col-md-6">
+                        <label>Comment</label>
+                        <textarea rows="5" required [(ngModel)]="transactionFormData.comment" name="comment" id="" class="form-control noresize">Won bluethoot speaker on scratch card</textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Feedback</label>
+                        <textarea rows="5" required [(ngModel)]="transactionFormData.feedback" name="feedback" id="" class="form-control noresize">Customer like offers and services</textarea>
+                    </div>
+                    <div  class="btnBlock-customerDetails col-md-12 text-right">
+                        <button *ngIf="!transactionFormData.id" type="reset" class="btn btn-cancel">Reset</button>
+                        <button [disabled]="!transactionForm.form.valid" class="btn btn-primary" type="Sumbit">Submit</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-4">
-              <label>Loan Number</label>
-              <input type="text" value="123456789" name="" id="" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Finance Name</label>
-              <input type="text" value="Bajaj" name="" id="" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-              <label>EMI Start Date</label>
-              <input type="date" value="2019-05-22" name="" id="" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-              <label>EMI End Date</label>
-              <input type="date" value="2019-05-22" name="" id="" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Tenuar</label>
-              <select class="form-control"></select>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Loan Amount</label>
-              <input type="text" value="22000" name="" id="" class="form-control">
-            </div>
-            <div class="form-group col-md-4">
-              <label>Down Payment</label>
-              <input type="text" value="2000" name="" id="" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="w-100"></div>
-        <div class="form-group col-md-6">
-          <label>Comment</label>
-          <textarea rows="5" name="" id=""
-            class="form-control noresize">Won bluethoot speaker on scratch card</textarea>
-        </div>
-        <div class="form-group col-md-6">
-          <label>Feedback</label>
-          <textarea rows="5" name="" id="" class="form-control noresize">Customer like offers and services</textarea>
-        </div>
-        <div class="btnBlock-customerDetails col-md-12 text-right">
-          <button class="btn btn-cancel">Cancle</button>
-          <button class="btn btn-primary" type="Sumbit">Submit</button>
-        </div>
-      </div>
+
+        </form>
     </div>
-  </div>
+
+</div>
+
+<div class="overlay {{this.imgPop ? 'is-on' : ''}}" title="Show modal popup ">
+    <!-- <div class="overlay "> -->
+    <div class="content">
+        <img [src]="url" alt="">
+        <a _ngcontent-isp-c3="" class="downloadImgpop"> <i _ngcontent-isp-c3="" class="fa fa-arrow-down"></i></a>
+        <div id="close"><i class="fa fa-times" (click)="closeImgModal()" aria-hidden="true"></i> </div>
+        <div class="imageCaption"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, voluptatum sapiente? Debitis.</div>
+    </div>
 </div>

@@ -9,6 +9,11 @@ section.customer-data {
   box-shadow: 8px 8px 0px #00000017;
 }
 
+.form-group.col-md-3.ModelDis tag-input-form, .form-group.col-md-3.ModelDis input,.form-group.col-md-3.ModelDis tag-input {
+  opacity: .4;
+  pointer-events: none;
+}
+
 button.btn.btn-primary.save-btn {
   position: absolute;
   right: 15px;
@@ -17,6 +22,12 @@ button.btn.btn-primary.save-btn {
   border-radius: 45px;
   font-size: 13px;
   font-weight: 100 !important;
+  transition: all 0.3s;
+
+  &:hover {
+    background: #333333;
+    color: #ffffff;
+  }
 }
 
 .dashboardHeading {
@@ -51,3 +62,244 @@ button.btn.btn-add {
 input[type="file"] {
   font-size: 12px;
 }
+
+.barcodeScan {
+  button {
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    bottom: 6px;
+    height: 27px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background: #0c9aa9;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #333333;
+      color: #ffffff;
+    }
+  }
+
+  input {
+    padding-right: 70px;
+  }
+}
+
+.brands-tab-content,
+.stock-tab-content {
+  display: none;
+}
+
+.brands-tab-content.active,
+.stock-tab-content.active {
+  display: block;
+}
+
+
+.changes-date {
+  position: absolute;
+  right: 0;
+  top: -50px;
+}
+
+li.stock-tab,
+li.brands-tab {
+  display: inline-block;
+  padding: 10px 15px;
+  border: thin solid #ddd;
+  border-radius: 5px 6px 0px 0px;
+  border-bottom: none;
+  margin-right: 8px;
+  transition: all 0.5s;
+  top: 1px;
+  opacity: 0.5;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+}
+
+li.stock-tab.active,
+li.brands-tab.active {
+  position: relative;
+  top: 0px;
+  background: #0c9aa9;
+  color: #fff;
+  opacity: 1;
+}
+
+.tabs-content {
+  position: relative;
+  background: #fff;
+  padding: 15px 15px 0px 15px;
+  border: thin solid #ddd;
+}
+
+ul.tabsstock {
+  padding: 0 0;
+  margin: 0;
+}
+
+.brandstocklist .new-entry {
+  margin-bottom: 40px;
+}
+
+li.stock-tab:hover,
+li.brands-tab:hover {
+  opacity: 1;
+}
+
+table.stocktable.table tr td,
+table.stocktable.table tr th {
+  border-left: thin solid #ddd;
+  font-size: 14px;
+}
+
+table.stocktable.table tr:last-child td {
+  border-bottom: thin solid #ddd;
+
+}
+
+table.stocktable.table tr td:last-child,
+table.stocktable.table tr th:last-child {
+  border-right: thin solid #ddd;
+}
+
+table.stocktable.table tr th {
+  background: #0c9aa9;
+  color: #fff;
+  font-weight: normal;
+}
+
+input[type=date] {
+  text-transform: uppercase !important;
+  font-size: 14px;
+}
+
+
+.ngx-pagination {
+  margin-left: 0;
+  margin-bottom: 1rem; }
+  .ngx-pagination::before, .ngx-pagination::after {
+    content: ' ';
+    display: table; }
+  .ngx-pagination::after {
+    clear: both; }
+  .ngx-pagination li {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    margin-right: 0.0625rem;
+    border-radius: 0; }
+  .ngx-pagination li {
+    display: inline-block; }
+  .ngx-pagination a,
+  .ngx-pagination button {
+    color: #0a0a0a; 
+    display: block;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 0; }
+    .ngx-pagination a:hover,
+    .ngx-pagination button:hover {
+      background: #e6e6e6; }
+  .ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: #2199e8;
+    color: #fefefe;
+    cursor: default; }
+  .ngx-pagination .disabled {
+    padding: 0.1875rem 0.625rem;
+    color: #cacaca;
+    cursor: default; } 
+    .ngx-pagination .disabled:hover {
+      background: transparent; }
+  .ngx-pagination a, .ngx-pagination button {
+    cursor: pointer; }
+
+.ngx-pagination .pagination-previous a::before,
+.ngx-pagination .pagination-previous.disabled::before { 
+  content: '«';
+  display: inline-block;
+  margin-right: 0.5rem; }
+
+.ngx-pagination .pagination-next a::after,
+.ngx-pagination .pagination-next.disabled::after {
+  content: '»';
+  display: inline-block;
+  margin-left: 0.5rem; }
+
+.ngx-pagination .show-for-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0); }
+.ngx-pagination .small-screen {
+  display: none; }
+@media screen and (max-width: 601px) {
+  .ngx-pagination.responsive .small-screen {
+    display: inline-block; } 
+  .ngx-pagination.responsive li:not(.small-screen):not(.pagination-previous):not(.pagination-next) {
+    display: none; }
+}
+  
+
+
+
+@media only screen and (max-width: 600px) {
+
+  .customerContainerData{
+    overflow: auto;
+  }
+.customerContainerHead a.float-right {
+  display: block !important;
+  margin: 0 auto 10px auto !important;
+  float: none !important;
+  text-align: center;
+}
+li.brandStock {
+  width: 90% !important;
+  display: block !important;
+  margin: 7px auto !important;
+  font-size: 16px !important;
+}
+
+// .customer-data .row {
+// overflow: auto;
+// }
+
+// .customerHeaderList .row, .customerContentList .row,.customerHeaderList, .customerContentList {
+// width: 1000px;
+// max-width: none;
+// }
+
+// .searchContainer.float-right {
+// float: none !important;
+// width: 100% !important;
+// text-align: center !important;
+// }
+
+.searchContainer.float-right input {
+width: 100% !important;
+border-radius: 0 !important;
+text-align: center;
+}
+
+.customerContainerHead h3 {float: none !important;text-align: center;}
+.dashboardHeading{
+  padding: 0px 0px 10px 0;
+}
+
+button.btn.btn-primary.save-btn {
+  position: relative !important;
+  right: auto;
+}
+.save-btn-grp {
+  float: none !important;
+  text-align: center !important;
+}
+}
+

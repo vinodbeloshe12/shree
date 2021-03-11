@@ -1,18 +1,18 @@
 import { HttpHeaders } from "@angular/common/http";
 
 
-// export const apiUrl = "https://malvantarkarlitourplanner.com/vinod/ShreeBackend/index.php/API/";
-// export const imgUrl = "https://malvantarkarlitourplanner.com/vinod/ShreeBackend/";
+// export const apiUrl = "http://shree.streeft.com/ShreeBackend/index.php/API/";
+// export const imgUrl = "http://shree.streeft.com/ShreeBackend/";
 export const apiUrl = "http://localhost/ShreeBackend/index.php/API/";
-export const imgUrl = "http://localhost/ShreeBackend/";
+export const imgUrl = "http://localhost/ShreeBackend/uploads/";
 export const idproof = [{
     "name": "Pancard",
     "value": "pancard",
     "pattern": "^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
 },
 {
-    "name": "Adhar card",
-    "value": "adharcard",
+    "name": "Aadhar card",
+    "value": "aadharcard",
     "pattern": "^\d{4}\s\d{4}\s\d{4}$"
 },
 {

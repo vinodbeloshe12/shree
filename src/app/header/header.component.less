@@ -285,7 +285,7 @@ li.login-customer span {
   border-left: 1px solid #cecece;
 }
 
-li.login-customer a {
+li.login-customer.last-li a {
   color: #fff !important;
   background: #b30000;
   margin-left: 17px;
@@ -318,11 +318,119 @@ li.login-customer {
 }
 
 .navigationMenu ul>li>a:hover:before,
-.navigationMenu ul>li.current>a:before {
+.navigationMenu ul>li>a.active:before {
   width: 100%;
 }
 
 li.login-customer a:before {
   opacity: 0;
   display: none;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+  .navigation-header {
+    padding: 13px 0 25px 0;
+}
+.navigationMenu.openSlidbar {
+left:0;
+
+}
+
+
+li.login-customer.last-li a {
+  color: #b30000 !important;
+  background: #f2f2f2;
+  margin-left: 17px;
+  padding: 10px 17px !important;
+}
+
+
+.navigationMenu {
+  position: fixed;
+  transition: all 0.2s;
+  left: -100%;
+  padding: 0 0 0 0;
+  width: 100%;
+  top: 0;
+  background: #e9fdff;
+  height: 100%;
+  z-index: 1;
+}
+
+li.login-customer a {
+  background: none !important;
+  color: #c42525 !important;
+}
+
+.navigationMenu li {
+  width: 100% !important;
+  text-align: left;
+  margin: 0 !important;
+}
+
+.navigationMenu li a {
+  width: 100%;
+  text-align: left;
+  font-size: 18px !important;
+  padding: 10px 19px 10px 20px!important;
+  margin: 0px 0 0px 0 !important;
+  border-bottom: thin solid #acced1;
+}
+
+.navigationMenu li a.active:before {display: none;}
+
+.navigationMenu li.login-customer img {
+  width: 50px;
+}
+
+.navigationMenu li.login-customer span {
+  margin: 0px 0 0 0 !important;
+  font-size: 18px !important;
+  padding: 20px 0px 21px 20px !important;
+  border: none !important;
+  position: relative;
+  display: inline-block;
+  background: #0c9aa9;
+  font-weight: 600 !important;
+  width: 100%;
+  color: #fff !important;
+}
+
+.hamburgerMenu {
+  font-size: 30px;
+  line-height: 0;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  color: #5b5b5b;
+}
+
+.logo-box img {
+  width: 140px !important;
+  margin: 1px auto 0 auto !important;
+  display: block  !important;
+}
+
+.navigationMenu li.login-customer {
+  position: relative;
+  float: none !important;
+  border: none !important;
+}
+.navigationMenu li a.closeNav {
+  position: absolute !important;
+  right: 10px !important;
+  left: auto !important;
+  width: auto !important;
+  background: none !important;
+  border: none !important;
+  top: 10px;
+}
+
+.navigationMenu li a.closeNav i {
+  font-size: 23px;
+  color: #fff;
+}
 }
