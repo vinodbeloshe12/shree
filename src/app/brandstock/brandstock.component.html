@@ -73,36 +73,43 @@
         <div class="tabsStockNBrands">
             <div class="w-100 customerContainerHead">
                 <h3 class="dashboardHeading float-left">Stock Details</h3>
+                <select name="soldStatus" (ngModelChange)="modelChanged($event)" [(ngModel)]="soldStatus" id="">
+                    <option value="0">In Stock</option>
+                    <option value="1">Sold</option>
+                </select>
+                Total Records: {{stockList.length}} 
                 <!-- <button class="btn btn-add float-right"><i class="fa fa-plus"></i> Add</button> -->
             </div>
             <div class="customerContainerData">
                 <table class="stocktable table">
                     <tr>
+                        <th *ngIf="soldStatus==1">Customer Name</th>
                         <th>Brand</th>
                         <th>Model</th>
                         <th>Color</th>
                         <th title="Purchase Price">P/Price</th>
                         <th>Purchase Date</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>IMEI 1</th>
                         <th>IMEI 2</th>
                     </tr>
                     <tr *ngFor="let data of stockList | paginate: { itemsPerPage: 5, currentPage: p }">
+                        <td *ngIf="soldStatus==1" (click)="navigateToCustomer(data.cust_id)">{{data.first_name}} {{data.last_name}}</td>
                         <td>{{data.brand}}</td>
                         <td>{{data.model}}</td>
                         <td>{{data.color}}</td>
                         <td>{{data.price}}</td>
-                        <td>{{data.purchase_date == "0000-00-00 00:00:00" ? 'Null' : data.purchase_date | date:'mediumDate'}}</td>
-                        <td>
+                        <td>{{data.purchase_date == "0000-00-00 00:00:00" ? 'Not Available' : data.purchase_date | date:'mediumDate'}}</td>
+                        <!-- <td>
                             <span *ngIf="data.soldstatus=='0'" class="badge badge-success">In Stock</span>
                             <span *ngIf="data.soldstatus=='1'" class="badge badge-danger">Sold</span>
-                        </td>
+                        </td> -->
                         <td>{{data.imei1}}</td>
                         <td>{{data.imei2}}</td>
                     </tr>
                 </table>
             </div>
-            <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
+         <pagination-controls (pageChange)="p = $event" class="ngx-pagination"></pagination-controls>
 
 
         </div>

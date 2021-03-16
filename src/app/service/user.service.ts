@@ -18,8 +18,8 @@ export class UserService {
   getAllModels(brand) {
     return this.http.get(apiUrl + "getAllModels?brand=" + brand, httpOptionsGet);
   }
-  getAllStock() {
-    return this.http.get(apiUrl + "getAllStock", httpOptionsGet);
+  getAllStock(soldStatus) {
+    return this.http.get(apiUrl + "getAllStock?status=" + soldStatus, httpOptionsGet);
   }
   getAllSales() {
     return this.http.get(apiUrl + "getAllSales", httpOptionsGet);
