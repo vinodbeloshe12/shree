@@ -18,7 +18,6 @@
 
                                             <span *ngFor="let name of profileImage">
                                                     <img [src]="name" alt="">
-                                                    <a class="removeImg"><i class="fa fa-times"></i></a>
                                                 </span>
                                             <input type="file" [(ngModel)]="customerData.details.image" class="form-control" required (change)="onProfileChange($event)" name="image">
 
