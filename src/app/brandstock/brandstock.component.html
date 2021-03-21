@@ -73,11 +73,15 @@
         <div class="tabsStockNBrands">
             <div class="w-100 customerContainerHead">
                 <h3 class="dashboardHeading float-left">Stock Details</h3>
-                <select name="soldStatus" (ngModelChange)="modelChanged($event)" [(ngModel)]="soldStatus" id="">
-                    <option value="0">In Stock</option>
-                    <option value="1">Sold</option>
-                </select>
-                Total Records: {{stockList.length}} 
+                <div class="form-group col-md-3 float-right text-right m-0 p-0">
+                    <select name="soldStatus" class="form-control" (ngModelChange)="modelChanged($event)" [(ngModel)]="soldStatus" id="">
+                        <option value="0">In Stock</option>
+                        <option value="1">Sold</option>
+                    </select>
+                    <small><em> Total Records: <strong>{{stockList.length}}</strong> record(s) </em> </small>
+                </div>
+                
+               
                 <!-- <button class="btn btn-add float-right"><i class="fa fa-plus"></i> Add</button> -->
             </div>
             <div class="customerContainerData">
