@@ -188,7 +188,8 @@
                                             <strong style="text-transform: uppercase;">{{data.id_type=='aadharcard'?'Aadhar Card':data.id_type}}</strong>
                                             <span>{{data.number}}</span>
                                             <a class="removeImg" (click)="deleteIdProofImage(data)"><i class="fa fa-times" ></i></a>
-                                            <a href="{{imageURL}}{{data.image_name}}" download class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
+                                            <!-- <a (click)="downloadImage('http://shree.streeft.com/assets/images/logo.png',data.image_name)" class="downloadImg">Download <i class="fa fa-arrow-down"></i></a> -->
+                                            <a (click)="downloadImage(imageURL+data.image_name,data.image_name)" class="downloadImg">Download <i class="fa fa-arrow-down"></i></a>
                                         </li>
                                     </ul>
                                 </div>

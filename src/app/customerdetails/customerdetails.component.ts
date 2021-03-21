@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { idproof, imgUrl } from '../app.constants';
+import { FileSaverService } from 'ngx-filesaver';
+import { FileSaverOptions } from 'file-saver';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-customerdetails',
   templateUrl: './customerdetails.component.html',
@@ -26,8 +29,13 @@ export class CustomerdetailsComponent implements OnInit {
   imgPop: boolean = false;
   buttonLabel: string = "Update";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
+  options: FileSaverOptions = {
+    autoBom: false,
+  };
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService,
+    private httpClient: HttpClient,
+    private fileSaverService: FileSaverService,) { }
 
   ngOnInit() {
 
@@ -227,11 +235,12 @@ export class CustomerdetailsComponent implements OnInit {
   }
 
 
-  downloadImage(url) {
-    console.log("url", url);
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    return fetch(proxyurl + url).then((res) => {
-      return res.blob();
+  downloadImage(url, fileName) {
+    this.httpClient.get('https://cors-anywhere.herokuapp.com/' + url, {
+      observe: 'response',
+      responseType: 'blob'
+    }).subscribe(res => {
+      this.fileSaverService.save(res.body, fileName);
     });
   };
 }

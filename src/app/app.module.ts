@@ -21,7 +21,9 @@ import { CustomerdetailsComponent } from './customerdetails/customerdetails.comp
 import { ChartsModule } from 'ng2-charts';
 import { BrandstockComponent } from './brandstock/brandstock.component';
 import { SearchPipe } from './service/serach.pipe';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -39,11 +41,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ChartsModule,
     BrowserModule,
     HttpClientModule,
-    TagInputModule, 
+    TagInputModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     ZXingScannerModule,
+    FileSaverModule,
     NgxPaginationModule,
     AppRoutingModule
   ],
