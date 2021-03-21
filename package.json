@@ -22,7 +22,7 @@
     "@zxing/ngx-scanner": "^3.0.0",
     "chart.js": "^2.9.3",
     "file-saver": "^2.0.5",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "moment": "^2.27.0",
     "ng2-charts": "^2.3.0",
     "ngx-chips": "^2.1.0",
