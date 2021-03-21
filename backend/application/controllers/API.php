@@ -181,6 +181,7 @@ public function updateUser_post(){
     $this->response($result, 200); 
     }
 
+
     function getUserDetails_get(){
         $obj = new stdClass();
         if($this->session->userData){
@@ -190,6 +191,7 @@ public function updateUser_post(){
          $this->response($result, 200); 
         }else{
         $obj->value=false;
+
         $obj->message="User Not Logged in";
         $this->response($obj, 200); 
         }
@@ -690,6 +692,17 @@ function deleteSubscribe_get(){
 }
  #------------------------------ Brand End -----------------------------------#
 
+  //create ID
+  public function createID_post(){
+    $params = json_decode(file_get_contents('php://input'), TRUE);
+     $data = array(
+        'name'=>$params['name'],
+        'user'=>$this->session->userData->data['id']
+     );
+       $result = $this->content_model->createID($data);
+     $this->response($result, 200);      
+}
+
  #------------------------------ Model Start -----------------------------------#
  function getAllModels_get(){
     $brand=  $this->get('brand');
@@ -713,7 +726,8 @@ public function createModel_post(){
 
  #------------------------------ Stock Start -----------------------------------#
  function getAllStock_get(){
-    $result = $this->content_model->getAllStock();
+    $status=  $this->get('status');
+    $result = $this->content_model->getAllStock($status);
     $this->response($result, 200);  
 }
  function getAllSales_get(){
@@ -861,6 +875,11 @@ $params = json_decode(file_get_contents('php://input'), TRUE);
 function getTransactionDetails_get(){
     $id=  $this->get('id');
     $result = $this->user_model->getTransactionDetails($id);
+    $this->response($result, 200);  
+}
+
+function getIds_get(){
+    $result = $this->user_model->getIds();
     $this->response($result, 200);  
 }
 

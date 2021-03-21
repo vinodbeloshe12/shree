@@ -7,8 +7,8 @@
 
 
 
-      public function getAllStock(){
-        $query = $this->db->query("SELECT s.`id`, b.`name` as `brand`, m.name as `model`, s.`color`, s.`purchase_date`, s.`price`, s.`soldstatus`, s.`date`, s.`user`, s.`imei1`, s.`imei2` FROM `stock` s LEFT OUTER JOIN brand b ON s.brand=b.id  LEFT OUTER JOIN model m ON s.`model`=m.id WHERE 1 ORDER BY s.id DESC");
+      public function getAllStock($status){
+        $query = $this->db->query("SELECT s.`id` as 'stock_id', sa.`id` as 'sale_id',sa.`cust_id`, b.`name` as `brand`, m.name as `model`, s.`color`, s.`purchase_date`, s.`price`, s.`soldstatus`, s.`date`, s.`user`, s.`imei1`, s.`imei2`, u.`first_name`, u.`last_name` FROM `stock` s LEFT OUTER JOIN brand b ON s.brand=b.id  LEFT OUTER JOIN model m ON s.`model`=m.id LEFT OUTER JOIN sale sa ON sa.imei1=s.imei1 LEFT OUTER JOIN user u ON u.id=sa.cust_id WHERE s.soldstatus=$status ORDER BY s.id DESC");
         $obj = new stdClass();
         if (!$query){
           $obj->value = false;
@@ -49,6 +49,33 @@ if($query){
     }
 }
  
+}
+
+
+public function createID($data){
+  $iddname =ucfirst($data["name"]);
+  $query = $this->db->query("SELECT * FROM ids WHERE `name`='$iddname'")->row();
+    $obj = new stdClass();
+if($query){
+$obj->value = false;
+$obj->message ="ID name already exist, please select from dropdown list" ;
+return $obj ;
+
+}else{
+$this->db->insert('ids',$data);
+ if ($this->db->affected_rows() != 1){
+   $obj->value = false;
+  $obj->message ="ID not added, please tray again" ;
+   return $obj ;
+
+ }else{
+   $obj->value = true;
+   $obj->message ="ID Added successfully!" ;
+   $obj->id =$this->db->insert_id();
+   return $obj ;
+ }
+}
+
 }
 
    public function createModel($data){

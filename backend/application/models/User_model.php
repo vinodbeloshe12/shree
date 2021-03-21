@@ -362,6 +362,20 @@ public function getTransactionDetails($id){
     return $obj ;
   }
 }
+
+public function getIds(){
+  $query = $this->db->query("SELECT * FROM `ids`")->result_array();
+  if($query){
+    $obj->value = true;
+    $obj->data =$query ;
+    return $obj ;
+  }else{
+    $obj->value = false;
+    $obj->data = [];
+    $obj->message ="Data not found" ;
+    return $obj ;
+  }
+}
 public function getAllSales(){
   $query = $this->db->query("SELECT s.`id`, s.`cust_id`,u.name, s.`brand`, s.`model`, s.`color`, s.`imei1`, s.`imei2`, s.`purchase_date`, s.`price`, s.`payment_mode`, s.`user` FROM `sale` s LEFT JOIN user u ON s.cust_id=u.id ORDER BY s.purchase_date DESC")->result_array();
   if($query){
