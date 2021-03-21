@@ -20,12 +20,20 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  Opensidebar(){
+  Opensidebar() {
     this.sidebarnav = true;
   }
 
-  Closesidebar(){
+  Closesidebar() {
     this.sidebarnav = false;
+  }
+
+  logout() {
+    this, this.userService.logout().subscribe((res: any) => {
+      if (res.value) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   // getAllCustomers() {

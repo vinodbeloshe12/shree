@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
-import { idproof, imgUrl } from '../app.constants';
+import { imgUrl } from '../app.constants';
 import { FileSaverService } from 'ngx-filesaver';
 import { FileSaverOptions } from 'file-saver';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class CustomerdetailsComponent implements OnInit {
   addContacts: boolean = false;
   photoIdSave: boolean = false;
   emailValidate: boolean;
-  id = idproof;
+  id: any = [];
   imageURL = imgUrl;
   idproofData: any = [];
   selectedId: any = {};
@@ -38,7 +38,7 @@ export class CustomerdetailsComponent implements OnInit {
     private fileSaverService: FileSaverService,) { }
 
   ngOnInit() {
-
+    this.getIds();
     if (this.activatedRoute.snapshot.params.id == 'add') {
       this.customerData = {};
       this.customerData.details = {};
@@ -46,6 +46,14 @@ export class CustomerdetailsComponent implements OnInit {
     } else {
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
     }
+  }
+
+  getIds() {
+    this.userService.getIds().subscribe((res: any) => {
+      if (res.value) {
+        this.id = res.data;
+      }
+    }, err => console.log(err));
   }
 
   getUserDetails(id) {
@@ -157,6 +165,23 @@ export class CustomerdetailsComponent implements OnInit {
     }
     this.idprooFormData.images = files;
   }
+
+  onIdAdd(data) {
+    console.log("data", data)
+    if (data.id) {
+      this.idprooFormData.name = data.name;
+    } else {
+      let sdata = { name: data.value };
+      this.userService.createID(sdata).subscribe((res: any) => {
+        console.log("ID added", res);
+        this.idprooFormData.name = data.value;
+        this.getIds();
+      });
+    }
+
+  }
+
+
 
 
   submitKYC(data) {

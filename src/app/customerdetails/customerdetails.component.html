@@ -126,9 +126,16 @@
                                 <form #kycForm="ngForm" (ngSubmit)="submitKYC(idprooFormData)">
                                     <div class="row">
                                         <div class="form-group col-md-3"><label>Document Name</label>
-                                            <select placeholder="Select Document" class="form-control" required (ngModelChange)="selectId($event)" name="idname" [(ngModel)]="idprooFormData.name" id="">
-                        <option *ngFor="let sid of id" [value]="sid.value">{{sid.name}}</option>
-                      </select>
+                                            <!-- <select placeholder="Select Document" class="form-control" required (ngModelChange)="selectId($event)" name="idname" [(ngModel)]="idprooFormData.name" id="">
+                        <option *ngFor="let sid of id" [value]="sid.id">{{sid.name}}</option>
+                      </select> -->
+                      <tag-input required [secondaryPlaceholder]="'Select Document'" class="form-control p-0" name="brand" (onAdd)="onIdAdd($event)" (onRemove)="onIdRemoved($event)" (onSelect)="selectId($event)" [maxItems]='1' [ngModel]="idprooFormData.name">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="id">
+                            <ng-template let-item="item" let-index="index">
+                                {{ item.name }}
+                            </ng-template>
+                        </tag-input-dropdown>
+                    </tag-input>
                                         </div>
                                         <div class="form-group col-md-3"><label>Document Number</label>
                                             <input required name="idno" [ngClass]="selectedId.value=='pancard'?'uppercase':''" [(ngModel)]="idprooFormData.number" #idno="ngModel" id="" class="form-control" placeholder="Number" class="form-control">

@@ -42,6 +42,9 @@ export class UserService {
   createBrand(data) {
     return this.http.post(apiUrl + "createBrand", JSON.stringify(data), httpOptionsPost);
   }
+  createID(data) {
+    return this.http.post(apiUrl + "createID", JSON.stringify(data), httpOptionsPost);
+  }
   createModel(data) {
     return this.http.post(apiUrl + "createModel", JSON.stringify(data), httpOptionsPost);
   }
@@ -93,6 +96,15 @@ export class UserService {
 
   getTransactionDetails(id) {
     return this.http.get(apiUrl + "getTransactionDetails?id=" + id, httpOptionsGet);
+  }
+  getIds() {
+    return this.http.get(apiUrl + "getIds", httpOptionsGet);
+  }
+  logout() {
+    return this.http.get(apiUrl + "logout", httpOptionsGet);
+  }
+  getUserDetails() {
+    return this.http.get(apiUrl + "getUserDetails", httpOptionsGet);
   }
   getMobileDetailsByImei(id) {
     return this.http.get(apiUrl + "getMobileDetailsByImei?id=" + id, httpOptionsGet);
