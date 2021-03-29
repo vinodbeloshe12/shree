@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
-import { idproof, imgUrl } from '../app.constants';
+import { imgUrl } from '../app.constants';
+import { FileSaverService } from 'ngx-filesaver';
+import { FileSaverOptions } from 'file-saver';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-customerdetails',
   templateUrl: './customerdetails.component.html',
@@ -17,7 +20,7 @@ export class CustomerdetailsComponent implements OnInit {
   addContacts: boolean = false;
   photoIdSave: boolean = false;
   emailValidate: boolean;
-  id = idproof;
+  id: any = [];
   imageURL = imgUrl;
   idproofData: any = [];
   selectedId: any = {};
@@ -25,12 +28,18 @@ export class CustomerdetailsComponent implements OnInit {
   profileImage: any = [];
   imgPop: boolean = false;
   buttonLabel: string = "Update";
+  address = "";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
+  options: FileSaverOptions = {
+    autoBom: false,
+  };
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService,
+    private httpClient: HttpClient,
+    private fileSaverService: FileSaverService,) { }
 
   ngOnInit() {
-
+    this.getIds();
     if (this.activatedRoute.snapshot.params.id == 'add') {
       this.customerData = {};
       this.customerData.details = {};
@@ -38,6 +47,14 @@ export class CustomerdetailsComponent implements OnInit {
     } else {
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
     }
+  }
+
+  getIds() {
+    this.userService.getIds().subscribe((res: any) => {
+      if (res.value) {
+        this.id = res.data;
+      }
+    }, err => console.log(err));
   }
 
   getUserDetails(id) {
@@ -106,6 +123,7 @@ export class CustomerdetailsComponent implements OnInit {
     }
     else {
       this.customerData.details.permanent_address = "";
+      this.address = "";
     }
   }
 
@@ -149,6 +167,23 @@ export class CustomerdetailsComponent implements OnInit {
     }
     this.idprooFormData.images = files;
   }
+
+  onIdAdd(data) {
+    console.log("data", data)
+    if (data.id) {
+      this.idprooFormData.name = data.name;
+    } else {
+      let sdata = { name: data.value };
+      this.userService.createID(sdata).subscribe((res: any) => {
+        console.log("ID added", res);
+        this.idprooFormData.name = data.value;
+        this.getIds();
+      });
+    }
+
+  }
+
+
 
 
   submitKYC(data) {
@@ -227,11 +262,12 @@ export class CustomerdetailsComponent implements OnInit {
   }
 
 
-  downloadImage(url) {
-    console.log("url", url);
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    return fetch(proxyurl + url).then((res) => {
-      return res.blob();
+  downloadImage(url, fileName) {
+    this.httpClient.get('https://cors-anywhere.herokuapp.com/' + url, {
+      observe: 'response',
+      responseType: 'blob'
+    }).subscribe(res => {
+      this.fileSaverService.save(res.body, fileName);
     });
   };
 }

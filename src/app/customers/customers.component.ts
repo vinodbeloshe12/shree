@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from "@angular/animations";
 import { UserService } from '../service/user.service';
-import { idproof } from '../app.constants';
+// import { idproof } from '../app.constants';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 @Component({
@@ -31,7 +31,6 @@ export class CustomersComponent implements OnInit {
   isDisabled = false;
   addKYC = false;
   emailValidate: boolean;
-  id = idproof;
   idproof = {};
   idproofData: any = [];
   selectedId = {};
@@ -50,9 +49,9 @@ export class CustomersComponent implements OnInit {
     this.isEditShow = !this.isEditShow;
   }
 
-  getAllUserData(){
-    this.userService.getAllUserData().subscribe((res:any)=>{
-      this.customers=res.data;
+  getAllUserData() {
+    this.userService.getAllUserData().subscribe((res: any) => {
+      this.customers = res.data;
     })
   }
 
