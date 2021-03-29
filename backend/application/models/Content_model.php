@@ -104,6 +104,8 @@ if($query){
 }
 }
    public function createStock($data){
+    if($this->content_model->checkIMEI($data['imei1'])->value){
+      echo "in save";
     $this->db->insert('stock',$data);
  $obj = new stdClass();
  if ($this->db->affected_rows() != 1){
@@ -112,11 +114,31 @@ if($query){
    return $obj ;
 
  }else{
+   
    $obj->value = true;
    $obj->message ="Stock Added successfully!" ;
    return $obj ;
  }
+}else{
+  $obj->value = false;
+   $obj->message ="IMEI number already exists. Please enter correct IMEI number." ;
+   return $obj ;
 }
+}
+
+public function checkIMEI($imei){
+  $query = $this->db->query("select * from stock where imei1='$imei' OR imei2='$imei2'");
+  $obj = new stdClass();
+  if($query->num_rows() > 0){
+    $obj->value = false;
+    $obj->message ="IMEI number already exists. Please enter correct IMEI number." ;
+    return $obj ;
+  }else{
+    $obj->value = true;
+    return $obj ;
+ }
+}
+
 public function updateContentPage($data, $id){
  $this->db->where('id', $id);  
  $this->db->update('content', $data);  
