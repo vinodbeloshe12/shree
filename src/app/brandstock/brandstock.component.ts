@@ -122,16 +122,20 @@ export class BrandstockComponent implements OnInit {
     stockData.purchase_date = this.myDate;
     console.log("stockdata", stockData);
     this.userService.createStock(stockData).subscribe((res: any) => {
-      console.log("stock added")
-      this.stock = {};
-      this.brand = [];
-      this.model = [];
-      this.color = [];
-      this.stock.purchase_date = new Date();
-      this.price = [];
-      this.imei1 = [];
-      this.imei2 = [];
-      this.getAllStock(this.soldStatus);
+      if (res.value) {
+        console.log("stock added")
+        this.stock = {};
+        this.brand = [];
+        this.model = [];
+        this.color = [];
+        this.stock.purchase_date = new Date();
+        this.price = [];
+        this.imei1 = [];
+        this.imei2 = [];
+        this.getAllStock(this.soldStatus);
+      } else {
+        alert(res.message);
+      }
     })
   }
 

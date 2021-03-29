@@ -102,9 +102,9 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Permanent Address</label>
-                                    <label class="custom-checkbox ng-star-inserted" for="sameCaddress"><input id="sameCaddress" name="sameCaddress" type="checkbox" value="checkedValue" class="ng-untouched ng-pristine ng-valid"><span class="custom-control-indicator">Same as Current</span></label>
-                                    <label *ngIf="buttonLabel=='Save'" class="custom-checkbox" for="sameCaddress">
-                    <input (change)="sameAddress(address)" [(ngModel)]="address" type="checkbox" name="sameCaddress" id="sameCaddress" value="checkedValue">
+                                    <!-- <label class="custom-checkbox ng-star-inserted" for="sameCaddress"><input id="sameCaddress" name="sameCaddress" type="checkbox" value="checkedValue" class="ng-untouched ng-pristine ng-valid"><span class="custom-control-indicator">Same as Current</span></label> -->
+                                    <label  class="custom-checkbox" for="sameCaddress">
+                    <input (change)="sameAddress($event)" [(ngModel)]="address" type="checkbox" name="sameCaddress" id="sameCaddress">
                     <span class="custom-control-indicator">Same as Current</span>
                   </label>
                                     <textarea rows="5" [(ngModel)]="customerData.details.permanent_address" name="permanent_address" class="form-control noresize"></textarea>

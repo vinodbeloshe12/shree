@@ -28,6 +28,7 @@ export class CustomerdetailsComponent implements OnInit {
   profileImage: any = [];
   imgPop: boolean = false;
   buttonLabel: string = "Update";
+  address = "";
   url = "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png";
   options: FileSaverOptions = {
     autoBom: false,
@@ -122,6 +123,7 @@ export class CustomerdetailsComponent implements OnInit {
     }
     else {
       this.customerData.details.permanent_address = "";
+      this.address = "";
     }
   }
 
