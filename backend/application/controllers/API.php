@@ -850,7 +850,11 @@ $params = json_decode(file_get_contents('php://input'), TRUE);
   'feedback'=>$params['feedback'],
   'emi_end_date'=>$params['emi_end_date'] 
 );
+if($params['id']){
+    $result = $this->user_model->updateTransaction($data,$params['id']);
+}else{
     $result = $this->user_model->createTransaction($data);
+}
     $this->response($result, 200); 
 }
 

@@ -3,6 +3,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { UserService } from '../service/user.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
     { data: [], label: 'Sales', backgroundColor: '#333333', borderColor: '#fff', hoverBackgroundColor: '#666666', hoverBorderColor: '#333333', barPercentage: 5, barThickness: 10, maxBarThickness: 15, minBarLength: 2, },
 
   ];
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     const today = moment();
     this.barChartLabels = Array(6).fill(today, 0, 6).map(
       () => today.subtract(1, 'd').format('YYYY-MM-DD')
@@ -108,6 +109,10 @@ export class DashboardComponent implements OnInit {
     this.userService.getAllSales().subscribe((res: any) => {
       this.salesList = res.data;
     })
+  }
+
+  navigateToCustomer(id) {
+    this.router.navigate(['customerdetails', id])
   }
 
   // public randomize(): void {

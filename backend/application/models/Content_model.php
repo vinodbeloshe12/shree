@@ -105,7 +105,6 @@ if($query){
 }
    public function createStock($data){
     if($this->content_model->checkIMEI($data['imei1'])->value){
-      echo "in save";
     $this->db->insert('stock',$data);
  $obj = new stdClass();
  if ($this->db->affected_rows() != 1){

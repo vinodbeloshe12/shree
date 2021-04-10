@@ -509,6 +509,23 @@ public function createTransaction($data){
    }
  }
 
+ public function updateTransaction($data,$id){
+  $updateData=array("cust_id" => $data['cust_id'],"brand" =>  $data['brand'],"model" =>  $data['model'],"color" =>  $data['color'],"user" =>  $this->session->userData->data['id'],"imei1" =>  $data['imei1'],"imei2" =>  $data['imei2'],"price" =>  $data['price'],"purchase_date" =>  $data['purchase_date'],"payment_mode" =>  $data['payment_mode'],"finance_name" =>  $data['finance_name'],"intrest" =>  $data['intrest'],"loan_amount" =>  $data['loan_amount'],"down_payment" =>  $data['down_payment'],"emi_amount" =>  $data['emi_amount'],"ntenure" =>  $data['ntenure'],"gtenure" =>  $data['gtenure'],"emi_due_date" =>  $data['emi_due_date'],"loan_number" =>  $data['loan_number'],"emi_start_date" =>  $data['emi_start_date'],"emi_end_date" =>  $data['emi_end_date'],"comment" =>  $data['comment'],"feedback" =>  $data['feedback']);
+  $this->db->where('id', $id);  
+  $this->db->update('sale', $updateData);  
+  $obj = new stdClass();
+ if ($this->db->affected_rows() != 1){
+  $obj->value = false;
+ $obj->message ="Updation failed" ;
+  return $obj ;
+ 
+ }else{
+  $obj->value = true;
+  $obj->message ="Transaction updated successfully!" ;
+  return $obj ;
+ }
+}
+
  public function deleteIdProofImage($id,$type,$imageid,$image_name){
   $q="select * from idproof_images where cust_id=$id and type='$type'";
   $iddata= $this->db->query($q)->result_array();

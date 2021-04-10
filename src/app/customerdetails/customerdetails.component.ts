@@ -243,13 +243,14 @@ export class CustomerdetailsComponent implements OnInit {
     data.cust_id = this.activatedRoute.snapshot.params.id;
     console.log(data, "transaction data");
     this.userService.createTransaction(data).subscribe((res: any) => {
-      alert("Transaction added");
+      alert(res.message);
       this.transactionPop = false;
       this.getUserDetails(this.activatedRoute.snapshot.params.id);
       this.transactionFormData = {};
     }, err => console.log(err));
 
   }
+
 
 
   getTransactionDetails(id) {
