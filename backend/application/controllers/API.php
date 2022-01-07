@@ -1,17 +1,17 @@
 <?php
 
 $http_origin = $_SERVER['HTTP_ORIGIN'];
-header("Access-Control-Allow-Origin:  $http_origin");
 // header("Access-Control-Allow-Origin:  $http_origin");
-// array holding allowed Origin domains
-// if ($http_origin == "http://192.168.0.32" ||
-//     $http_origin == "http://localhost:6500" ||
-//     $http_origin == "http://192.168.0.25" ||
-//     $http_origin == "http://www.server4.com")
-// {
-//     header("Access-Control-Allow-Origin: $http_origin");
-// }
-//  header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin:  $http_origin");
+array holding allowed Origin domains
+if ($http_origin == "http://192.168.0.32" ||
+    $http_origin == "http://localhost:6500" ||
+    $http_origin == "http://192.168.0.25" ||
+    $http_origin == "http://www.server4.com")
+{
+    header("Access-Control-Allow-Origin: $http_origin");
+}
+ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Max-Age: 86400');
